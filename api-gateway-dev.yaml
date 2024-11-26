@@ -11,7 +11,7 @@ spring:
             client-secret: secret
             scope: email, family_name, first_name, verified_email
             authorization-grant-type: authorization_code
-            redirect-uri: "https://localhost:8086/login/oauth2/code/oauth"
+            redirect-uri: "http://localhost:8086/login/oauth2/code/oauth"
             client-name: AuthBridge Service
         provider:
           oauth:
