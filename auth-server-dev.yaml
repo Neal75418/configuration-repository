@@ -11,7 +11,7 @@ spring:
             public-key-location: classpath:keys/public-key.pem
 
 authorization:
-  issuer: http://auth-server:8083
+  issuer: http://localhost:8083
 
 management:
   endpoints:
