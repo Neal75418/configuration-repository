@@ -26,14 +26,16 @@ spring:
           uri: http://localhost:3000 # 指向你的 Next.js 應用
           predicates:
             - Path=/**
-          filters:
-            - PreserveHostHeader
+        - id: static-resources
+          uri: http://localhost:3000
+          predicates:
+            - Path=/static/** # 匹配靜態資源路徑
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/user-service/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=1  # 移除 "/user-service" 前綴
         - id: profile-service
           uri: lb://profile-service
           predicates:
@@ -46,10 +48,6 @@ spring:
             - Path=/auth-server/**
           filters:
             - StripPrefix=1
-      default-filters:
-        - AddRequestHeader=X-Forwarded-For, '{remoteAddress}'
-        - RemoveResponseHeader=Server
-        - name: TokenRelay # 傳遞 Access Token，適用於 OAuth2
 
 management:
   endpoints:
