@@ -12,7 +12,7 @@ spring:
             client-secret: secret
             client-authentication-method: client_secret_basic
             authorization-grant-type: authorization_code
-            redirect-uri: https://member.vikosmos.com/cas//authorize?response_type=code&client_id=oauth&redirect_uri=http://localhost
+            redirect-uri: https://member.vikosmos.com/cas/oauth2.0/authorize?response_type=code&client_id=oauth&redirect_uri=http://localhost
             scope: email, family_name, first_name, verified_email
             client-name: AuthBridge Service
         provider:
