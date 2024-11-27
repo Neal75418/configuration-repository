@@ -13,7 +13,7 @@ spring:
             client-authentication-method: client_secret_basic
             authorization-grant-type: authorization_code
             redirect-uri: http://127.0.0.1:8080/login/oauth2/code/oauth
-            scope: openid,profile
+#            scope: openid,profile
             client-name: AuthBridge Service
         provider:
           spring:
