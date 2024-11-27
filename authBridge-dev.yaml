@@ -10,7 +10,12 @@ spring:
             provider: gss
             client-id: oauth
             client-secret: secret
+            client-authentication-method: client_secret_basic
             authorization-grant-type: authorization_code
+            redirect-uri: https://member.vikosmos.com/cas/oauth2.0/login/oauth2/code/oauth
+            scope:
+              - email
+              - profile
         provider:
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
