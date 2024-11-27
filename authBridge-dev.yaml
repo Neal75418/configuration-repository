@@ -4,14 +4,22 @@ server:
 spring:
   security:
     oauth2:
-      authorization-server:
-        jwt:
-          key:
-            private-key-location: classpath:keys/private-key.pem
-            public-key-location: classpath:keys/public-key.pem
-
-authorization:
-  issuer: http://localhost:8086
+      client:
+        registration:
+          login-client:
+            provider: spring
+            client-id: oauth
+            client-secret: secret
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/login-client
+            scope: openid,profile
+            client-name: Spring
+        provider:
+          spring:
+            authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
+            token-uri: https://member.vikosmos.com/cas/oauth2.0/token
+            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
 
 management:
   endpoints:
