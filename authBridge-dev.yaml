@@ -10,19 +10,11 @@ spring:
             provider: gss
             client-id: oauth
             client-secret: secret
-            client-authentication-method: client_secret_basic
             authorization-grant-type: authorization_code
-            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/oauth
-            scope:
-              - email
-              - profile
-              - openid
-            client-name: AuthBridge Service
         provider:
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
             token-uri: https://member.vikosmos.com/cas/oauth2.0/token
-            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
 
 management:
   endpoints:
