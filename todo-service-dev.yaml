@@ -1,21 +1,5 @@
 server:
   port: 8081
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          oauth:
-            provider: gss
-            client-id: oauth
-            client-secret: secret
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/oauth
-        provider:
-          gss:
-            authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
-            token-uri: https://member.vikosmos.com/cas/oauth2.0/token
-            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
 management:
   endpoints:
     web:
