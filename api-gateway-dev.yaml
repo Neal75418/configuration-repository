@@ -39,7 +39,8 @@ spring:
           predicates:
             - Path=/**
           filters:
-            - StripPrefix=1
+            - RemoveRequestHeader=Authorization
+            - AddRequestHeader=Authorization, Bearer #{token} # 如果需要轉發 Token
         #        - id: static-resources
         #          uri: http://localhost:3000
         #          predicates:
@@ -68,6 +69,8 @@ spring:
             - Path=/report-service/**
           filters:
             - StripPrefix=1
+      default-filters:
+        - TokenRelay
 management:
   endpoints:
     web:
