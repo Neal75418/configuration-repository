@@ -1,24 +1,6 @@
 server:
   port: 8080
-
 spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          oauth:
-            client-id: oauth
-            client-secret: secret
-            scope: email, family_name, first_name, verified_email
-            authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8086/login/oauth2/code/oauth"
-            client-name: AuthBridge Service
-        provider:
-          oauth:
-            authorization-uri: https://member.vikosmos.com/cas/oauth/authorize
-            token-uri: https://member.vikosmos.com/cas/oauth/token
-            user-info-uri: https://member.vikosmos.com/cas/oauth/userinfo
-            user-name-attribute: email
   cloud:
     gateway:
       routes:
@@ -48,7 +30,6 @@ spring:
             - Path=/auth-server/**
           filters:
             - StripPrefix=1
-
 management:
   endpoints:
     web:
