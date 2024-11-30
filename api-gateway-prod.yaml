@@ -4,14 +4,6 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: homepage
-          uri: http://localhost:3000 # 指向你的 Next.js 應用
-          predicates:
-            - Path=/**
-        - id: static-resources
-          uri: http://localhost:3000
-          predicates:
-            - Path=/static/** # 匹配靜態資源路徑
         - id: user-service
           uri: lb://user-service
           predicates:

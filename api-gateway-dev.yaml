@@ -4,32 +4,6 @@ spring:
   cloud:
     gateway:
       routes:
-#        - id: homepage
-#          uri: http://localhost:3000 # 指向你的 Next.js 應用
-#          predicates:
-#            - Path=/**
-#        - id: static-resources
-#          uri: http://localhost:3000
-#          predicates:
-#            - Path=/static/** # 匹配靜態資源路徑
-#        - id: user-service
-#          uri: lb://user-service
-#          predicates:
-#            - Path=/user-service/**
-#          filters:
-#            - StripPrefix=1  # 移除 "/user-service" 前綴
-#        - id: profile-service
-#          uri: lb://profile-service
-#          predicates:
-#            - Path=/profile-service/**
-#          filters:
-#            - StripPrefix=1
-#        - id: auth-server
-#          uri: lb://auth-server
-#          predicates:
-#            - Path=/auth-server/**
-#          filters:
-#            - StripPrefix=1
         - id: todo-service
           uri: http://localhost:8081
           predicates:
