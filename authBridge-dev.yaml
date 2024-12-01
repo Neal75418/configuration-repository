@@ -16,6 +16,17 @@ spring:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
             token-uri: https://member.vikosmos.com/cas/oauth2.0/token
             user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: # 如果需要密碼，填寫這裡
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: 1000ms  # 可選：配置最大等待時間
 management:
   endpoints:
     web:
