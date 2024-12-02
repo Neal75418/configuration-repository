@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   cloud:
     gateway:
@@ -38,8 +39,8 @@ spring:
 app:
   security:
     allowed-redirect-uris:
-      - "http://localhost:8080/login/oauth2/code/oauth"
-      - "http://localhost:8080/callback"
+      - "http://localhost:8086/oauth/callback"
+
 management:
   endpoints:
     web:

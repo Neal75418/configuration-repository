@@ -10,7 +10,7 @@ spring:
             client-id: oauth
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/oauth
+            redirect-uri: http://localhost:8086/login/oauth2/code/oauth
         provider:
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
@@ -27,6 +27,7 @@ spring:
           max-idle: 8
           min-idle: 0
           max-wait: 1000ms  # 可選：配置最大等待時間
+
 management:
   endpoints:
     web:
