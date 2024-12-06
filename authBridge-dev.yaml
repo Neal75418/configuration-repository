@@ -1,5 +1,6 @@
 server:
   port: 8086
+
 spring:
   security:
     oauth2:
@@ -16,6 +17,7 @@ spring:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
             token-uri: https://member.vikosmos.com/cas/oauth2.0/token
             user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
+
   data:
     redis:
       host: localhost
@@ -36,7 +38,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: prometheus
-  endpoint:
-    health:
-      show-details: when_authorized # 更安全的配置
+        include: "*"
+
+feign:
+  client:
+    config:
+      default: # 或者是特定的 Feign Client 名稱
+        connect-timeout: 5000  # 連接超時 5 秒
+        read-timeout: 5000     # 讀取超時 5 秒
