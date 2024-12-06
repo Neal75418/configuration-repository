@@ -36,11 +36,17 @@ spring:
             - Path=/report/**
           filters:
             - StripPrefix=1
+
 app:
   security:
     allowed-redirect-uris:
       - "http://localhost:8086/oauth/callback"
       - "http://localhost:8081/home"
+
+cors:
+  allowed-origins:
+    - "http://localhost:3000"
+    - "http://127.0.0.1:3000"
 
 management:
   endpoints:
