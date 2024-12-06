@@ -37,6 +37,18 @@ spring:
           filters:
             - StripPrefix=1
 
+  data:
+    redis:
+      host: localhost
+      port: 6380
+      password: # 如果需要密碼，填寫這裡
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: 1000ms  # 可選：配置最大等待時間
+
 app:
   security:
     allowed-redirect-uris:
