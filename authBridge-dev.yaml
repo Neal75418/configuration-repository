@@ -28,6 +28,10 @@ spring:
           min-idle: 0
           max-wait: 1000ms  # 可選：配置最大等待時間
 
+auth:
+  redirect:
+    final-uri: "http://localhost:8081/home"
+
 management:
   endpoints:
     web:
