@@ -18,6 +18,16 @@ spring:
             token-uri: https://member.vikosmos.com/cas/oauth2.0/token
             user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
 
+  datasource:
+    url: jdbc:mysql://localhost:3306/vitalbridge?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+
   data:
     redis:
       host: localhost
