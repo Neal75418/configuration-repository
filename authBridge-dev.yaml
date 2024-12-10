@@ -19,14 +19,17 @@ spring:
             user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile
 
   datasource:
-    url: jdbc:mysql://localhost:3306/vitalbridge?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/vitalbridge
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
-      hibernate.show_sql: true
-      hibernate.hbm2ddl.auto: update
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        hbm2ddl:
+          auto: update
 
   data:
     redis:
