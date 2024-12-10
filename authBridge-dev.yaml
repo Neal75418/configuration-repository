@@ -48,6 +48,8 @@ spring:
 auth:
   redirect:
     final-uri: "http://localhost:8081/home"
+  account-center:
+    check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect"
 
 management:
   endpoints:
