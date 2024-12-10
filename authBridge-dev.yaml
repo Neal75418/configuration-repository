@@ -11,7 +11,7 @@ spring:
             client-id: oauth
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8086/login/oauth2/code/oauth
+            redirect-uri: http://localhost:8086/oauth/callback # 開發環境 URI
         provider:
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
@@ -23,25 +23,28 @@ spring:
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:n124729059}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true
-        hbm2ddl:
-          auto: update
+        format_sql: true
+    hibernate:
+      ddl-auto: update # 開發環境使用 update，生產環境改為 none
+    open-in-view: false # 禁用此功能以提高性能
 
   data:
     redis:
       host: localhost
       port: 6379
-      password: # 如果需要密碼，填寫這裡
+      password: # 若 Redis 設置密碼，填寫這裡
       lettuce:
         pool:
           max-active: 8
           max-idle: 8
           min-idle: 0
-          max-wait: 1000ms  # 可選：配置最大等待時間
+          max-wait: 1000ms
 
 auth:
   redirect:
@@ -51,11 +54,22 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*" # 生產環境建議限制只包含必要的端點，例如 health, metrics
 
 feign:
   client:
     config:
-      default: # 或者是特定的 Feign Client 名稱
+      default:
         connect-timeout: 5000  # 連接超時 5 秒
         read-timeout: 5000     # 讀取超時 5 秒
+      specific-client:
+        connect-timeout: 3000
+        read-timeout: 3000
+
+# Logging 配置（選擇性）
+logging:
+  level:
+    org.springframework: INFO
+    com.gss.authbridgeservice: DEBUG
+  file:
+    name: authBridge-service.log
