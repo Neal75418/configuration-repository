@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8080 # 設定 API Gateway 的服務埠號
 
 spring:
   cloud:
@@ -39,32 +39,23 @@ spring:
 
   data:
     redis:
-      host: localhost
-      port: 6380
+      host: localhost # Redis 主機
+      port: 6380      # Redis 埠號
       password: # 如果需要密碼，填寫這裡
       lettuce:
         pool:
-          max-active: 8
-          max-idle: 8
-          min-idle: 0
-          max-wait: 1000ms  # 可選：配置最大等待時間
+          max-active: 50      # 從較小值開始測試
+          max-idle: 15        # 控制空閒連接數
+          min-idle: 5         # 預熱部分連接，保證有可用連接
+          max-wait: 2000ms    # 減少等待時間
 
 app:
   security:
     allowed-redirect-uris:
       - "http://localhost:8086/oauth/callback"
-      - "http://localhost:8081/home"
+      - "http://localhost:8081/home" # 定義允許的重定向 URI
 
 cors:
   allowed-origins:
     - "http://localhost:3000"
     - "http://127.0.0.1:3000"
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info, metrics
-  endpoint:
-    health:
-      show-details: "always"

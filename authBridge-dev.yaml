@@ -49,10 +49,10 @@ spring:
       password: # 若 Redis 設置密碼，填寫這裡
       lettuce:
         pool:
-          max-active: 100  # 最大連接數，同時支持的最大併發數
-          max-idle: 20     # 最大空閒連接數，閒置超過這個值會被釋放
-          min-idle: 10     # 最小空閒連接數，保證預熱可用連接
-          max-wait: 3000ms # 連接池耗盡時最大等待時間，避免無限等待
+          max-active: 50      # 從較小值開始測試
+          max-idle: 15        # 控制空閒連接數
+          min-idle: 5         # 預熱部分連接，保證有可用連接
+          max-wait: 2000ms    # 減少等待時間
 
 crm:
   api-key: your-crm-api-key
@@ -62,9 +62,3 @@ auth:
     final-uri: "http://localhost:8081/home"
   account-center:
     check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect"
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, metrics # 生產環境建議限制只包含必要的端點，例如 health, metrics

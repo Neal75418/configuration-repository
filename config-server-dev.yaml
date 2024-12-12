@@ -2,10 +2,6 @@ server:
   port: 8888 # Config Server 運行的埠號
 
 spring:
-  application:
-    name: config-server # 應用程式名稱
-  profiles:
-    active: dev # 啟用的配置檔
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
@@ -13,22 +9,3 @@ spring:
     user:
       name: admin # 基本認證用戶名稱
       password: Gss12345678 # 基本認證用戶密碼（建議透過環境變數或 Vault 管理）
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: prometheus, health, info # 暴露 prometheus, health 和 info 端點
-      base-path: /actuator # 管理端點的基礎路徑
-  endpoint:
-    health:
-      show-details: always # 健康檢查詳情總是可見
-  metrics:
-    tags:
-      application: config-server # 為所有指標添加標籤
-  prometheus:
-    metrics:
-      export:
-        enabled: true
-
-

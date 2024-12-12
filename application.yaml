@@ -1,0 +1,9 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus # 統一暴露端點
+      base-path: /actuator # 統一基礎路徑
+  endpoint:
+    health:
+      show-details: always # 統一健康檢查詳細顯示
