@@ -67,4 +67,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: "health,metrics" # 生產環境建議限制只包含必要的端點，例如 health, metrics
+        include: health, metrics # 生產環境建議限制只包含必要的端點，例如 health, metrics
