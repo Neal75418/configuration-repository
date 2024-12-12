@@ -49,10 +49,10 @@ spring:
       password: # 若 Redis 設置密碼，填寫這裡
       lettuce:
         pool:
-          max-active: 8
-          max-idle: 8
-          min-idle: 0
-          max-wait: 1000ms
+          max-active: 100  # 最大連接數，同時支持的最大併發數
+          max-idle: 20     # 最大空閒連接數，閒置超過這個值會被釋放
+          min-idle: 10     # 最小空閒連接數，保證預熱可用連接
+          max-wait: 3000ms # 連接池耗盡時最大等待時間，避免無限等待
 
 crm:
   api-key: your-crm-api-key
@@ -67,4 +67,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*" # 生產環境建議限制只包含必要的端點，例如 health, metrics
+        include: "health,metrics" # 生產環境建議限制只包含必要的端點，例如 health, metrics
