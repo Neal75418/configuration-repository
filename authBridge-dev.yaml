@@ -12,6 +12,15 @@ spring:
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8086/oauth/callback # 開發環境 URI
+          token-exchange:
+            provider: gss
+            client-id: oauth
+            client-secret: secret
+            authorization-grant-type: urn:ietf:params:oauth:grant-type:token-exchange
+            client-authentication-method: client_secret_basic
+            scope:
+              - bizform.read
+              - crm.read
         provider:
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
@@ -27,6 +36,8 @@ spring:
   jpa:
     properties:
       hibernate:
+        cache.use_second_level_cache: true
+        cache.region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
         show_sql: true
         format_sql: true
     hibernate:
@@ -44,6 +55,9 @@ spring:
           max-idle: 8
           min-idle: 0
           max-wait: 1000ms
+
+crm:
+  api-key: your-crm-api-key
 
 auth:
   redirect:
