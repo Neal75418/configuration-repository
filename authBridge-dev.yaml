@@ -12,15 +12,6 @@ spring:
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8086/oauth/callback # 開發環境 URI
-          token-exchange:
-            provider: gss
-            client-id: oauth
-            client-secret: secret
-            authorization-grant-type: urn:ietf:params:oauth:grant-type:token-exchange
-            client-authentication-method: client_secret_basic
-            scope:
-              - bizform.read
-              - crm.read
         provider:
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize
@@ -53,9 +44,6 @@ spring:
           max-idle: 15        # 控制空閒連接數
           min-idle: 5         # 預熱部分連接，保證有可用連接
           max-wait: 2000ms    # 減少等待時間
-
-crm:
-  api-key: your-crm-api-key
 
 auth:
   redirect:
