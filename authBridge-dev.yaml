@@ -46,7 +46,26 @@ spring:
           max-wait: 2000ms    # 減少等待時間
 
 auth:
+  registration-id: oauth
   redirect:
     final-uri: "http://localhost:8081/home"
   account-center:
     check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect"
+
+oauth2:
+  authorization:
+    default-expiration-hours: 24
+
+security:
+  allowed-ip-prefixes: 192.168.,127.0.0.1
+
+bizform:
+  api:
+    base-url: https://bizform.vikosmos.com
+    login-endpoint: /staging/api/account/login
+
+token:
+  refresh:
+    max-retries: 3 # 將最大重試次數設置為 3（可根據需要調整）
+  exchange:
+    default-expiration: 3600 # 單位為秒，這是默認的過期時間
