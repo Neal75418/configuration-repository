@@ -2,6 +2,16 @@ server:
   port: 8888 # Config Server 運行的埠號
 
 spring:
+  cloud:
+    consul:
+      host: localhost          # Consul 主機名或 IP
+      port: 8500               # Consul 端口
+      discovery:
+        enabled: true          # 啟用服務發現
+        register: true         # 啟用服務註冊
+        health-check-path: /actuator/health # 健康檢查 URL
+        health-check-interval: 10s          # 健康檢查間隔
+
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置

@@ -3,6 +3,15 @@ server:
 
 spring:
   cloud:
+    consul:
+      host: localhost          # Consul 主機名或 IP
+      port: 8500               # Consul 端口
+      discovery:
+        enabled: true          # 啟用服務發現
+        register: true         # 啟用服務註冊
+        health-check-path: /actuator/health # 健康檢查 URL
+        health-check-interval: 10s          # 健康檢查間隔
+
     gateway:
       routes:
         - id: todo-service
