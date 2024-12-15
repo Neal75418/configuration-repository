@@ -59,3 +59,8 @@ cors:
   allowed-origins:
     - "http://localhost:3000"
     - "http://127.0.0.1:3000"
+
+# 配置 WebClient 的 Base URL
+auth:
+  service:
+    base-url: http://auth-server:8086
