@@ -7,3 +7,7 @@ management:
   endpoint:
     health:
       show-details: always # 統一健康檢查詳細顯示
+
+logging:
+  level:
+    root: info
