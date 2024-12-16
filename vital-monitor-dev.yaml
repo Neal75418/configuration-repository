@@ -1,0 +1,17 @@
+server:
+  port: 8101
+  servlet:
+    context-path: /admin # 將管理介面放置於 /admin 路徑下
+
+spring:
+  cloud:
+    consul: # Consul 配置
+      discovery:
+        service-name: ${spring.application.name} # 服務名稱，動態化配置
+        health-check-path: /actuator/health # 健康檢查端點
+        health-check-interval: 15s # 健康檢查間隔
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+  security:
+    user:
+      name: ${SECURITY_USER_NAME:gss} # 基本認證用戶名
+      password: ${SECURITY_USER_PASSWORD:12345678} # 基本認證密碼

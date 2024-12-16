@@ -54,6 +54,12 @@ spring:
             - Path=/report/**
           filters:
             - StripPrefix=1
+        - id: vital-monitor
+          uri: lb://vital-monitor
+          predicates:
+            - Path=/monitor/**
+          filters:
+            - StripPrefix=1
 
   data:
     redis:
