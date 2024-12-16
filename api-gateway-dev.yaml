@@ -9,7 +9,7 @@ spring:
         health-check-path: /actuator/health # 健康檢查端點
         health-check-interval: 15s # 健康檢查間隔
         health-check-timeout: 5s # 健康檢查超時
-        address: 127.0.0.1 # 確保在多節點環境中有效
+        ip-address: ${HOST_IP:127.0.0.1} # 動態 IP 地址
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
     gateway:
       routes:
