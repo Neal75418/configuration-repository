@@ -6,12 +6,12 @@ spring:
     consul:
       discovery:
         service-name: ${spring.application.name} # 動態服務名稱
-        health-check-path: /actuator/health # 健康檢查端點
+        health-check-url: http://config-server:8888/actuator/health # 健康檢查 URL
         health-check-interval: 30s # 健康檢查間隔
         health-check-timeout: 15s # 健康檢查超時
-        ip-address: ${HOST_IP:localhost} # 動態 IP 地址
-        hostname: localhost
-        instance-id: ${spring.application.name}-${server.port} # 唯一實例 ID
+        ip-address: config-server # 確保 Consul 可解析服務名
+        hostname: config-server
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
