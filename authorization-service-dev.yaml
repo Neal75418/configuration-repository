@@ -1,13 +1,13 @@
 server:
-  port: 8081 # 微服務端口
+  port: 8085 # 微服務端口
 
 spring:
   application:
-    name: ${APP_NAME:todo-service} # 動態應用名稱，支持多環境
+    name: authorization-service # 微服務名稱，用於服務註冊與發現
   cloud:
-    consul: # Consul 配置
+    consul:
       discovery:
         service-name: ${spring.application.name} # 服務名稱，動態化配置
         health-check-path: /actuator/health # 健康檢查端點
-        health-check-interval: 15s # 健康檢查間隔，適當減少對 Consul 的壓力
+        health-check-interval: 15s # 健康檢查間隔
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID

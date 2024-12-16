@@ -1,46 +1,55 @@
 server:
-  port: 8080 # 設定 API Gateway 的服務埠號
+  port: 8080 # 微服務端口
 
 spring:
   cloud:
     consul:
-      host: localhost          # Consul 主機名或 IP
-      port: 8500               # Consul 端口
       discovery:
-        enabled: true          # 啟用服務發現
-        register: true         # 啟用服務註冊
-        health-check-path: /actuator/health # 健康檢查 URL
-        health-check-interval: 10s          # 健康檢查間隔
-
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health # 健康檢查端點
+        health-check-interval: 15s # 健康檢查間隔
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
     gateway:
       routes:
-        - id: todo-service
-          uri: http://localhost:8081
-          predicates:
-            - Path=/todo/**
-          filters:
-            - StripPrefix=1
         - id: authBridge-service
-          uri: http://localhost:8086
+          uri: lb://authBridge-service # 使用負載均衡方式
           predicates:
             - Path=/auth/**
           filters:
             - StripPrefix=1
             - RedirectUriValidationFilter
+        - id: authentication-server
+          uri: lb://authentication-server
+          predicates:
+            - Path=/auth-server/**
+          filters:
+            - StripPrefix=1
+        - id: authorization-service
+          uri: lb://authorization-service
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
+        - id: todo-service
+          uri: lb://todo-service
+          predicates:
+            - Path=/todo/**
+          filters:
+            - StripPrefix=1
         - id: bizform-service
-          uri: http://localhost:8082
+          uri: lb://bizform-service
           predicates:
             - Path=/bizform/**
           filters:
             - StripPrefix=1
         - id: crm-service
-          uri: http://localhost:8083
+          uri: lb://crm-service
           predicates:
             - Path=/crm/**
           filters:
             - StripPrefix=1
         - id: report-service
-          uri: http://localhost:8084
+          uri: lb://report-service
           predicates:
             - Path=/report/**
           filters:
@@ -48,28 +57,27 @@ spring:
 
   data:
     redis:
-      host: localhost # Redis 主機
-      port: 6380      # Redis 埠號
-      password: # 如果需要密碼，填寫這裡
+      host: ${REDIS_HOST:localhost} # 動態化 Redis 主機，支持多環境配置
+      port: ${REDIS_PORT:6380}      # Redis 默認端口
+      password: ${REDIS_PASSWORD:}  # Redis 密碼（如果有）
       lettuce:
         pool:
-          max-active: 50      # 從較小值開始測試
-          max-idle: 15        # 控制空閒連接數
-          min-idle: 5         # 預熱部分連接，保證有可用連接
-          max-wait: 2000ms    # 減少等待時間
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 連接等待時間
+
+auth:
+  service:
+    base-url: ${AUTH_SERVICE_BASE_URL:lb://authBridge-service} # 動態配置 lb://authBridge-service URL
 
 app:
   security:
     allowed-redirect-uris:
-      - "http://localhost:8086/oauth/callback"
-      - "http://localhost:8081/home" # 定義允許的重定向 URI
+      - "http://localhost:8086/oauth/callback" # 允許的 OAuth2 重定向 URI
+      - "http://localhost:8081/home" # 示例路徑
 
 cors:
   allowed-origins:
-    - "http://localhost:3000"
-    - "http://127.0.0.1:3000"
-
-# 配置 WebClient 的 Base URL
-auth:
-  service:
-    base-url: http://auth-server:8086
+    - "http://localhost:3000" # 前端開發使用
+    - "http://127.0.0.1:3000" # 前端本地調試
