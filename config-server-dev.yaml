@@ -10,7 +10,7 @@ spring:
         health-check-interval: 15s # 健康檢查間隔
         health-check-timeout: 5s # 健康檢查超時
         ip-address: ${HOST_IP:127.0.0.1} # 動態 IP 地址
-        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+        instance-id: ${spring.application.name}-${HOST_IP:127.0.0.1}-${server.port} # 唯一實例 ID
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
