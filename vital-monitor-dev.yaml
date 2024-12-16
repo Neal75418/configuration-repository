@@ -7,10 +7,11 @@ spring:
   cloud:
     consul: # Consul 配置
       discovery:
+        hostname: localhost # 或指定靜態 IP，例如 127.0.0.1
         service-name: ${spring.application.name} # 服務名稱，動態化配置
         health-check-path: /actuator/health # 健康檢查端點
         health-check-interval: 15s # 健康檢查間隔
-        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+        instance-id: ${spring.application.name}-${server.port} # 唯一實例 ID
   security:
     user:
       name: ${SECURITY_USER_NAME:gss} # 基本認證用戶名

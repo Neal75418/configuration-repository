@@ -5,10 +5,11 @@ spring:
   cloud:
     consul:
       discovery:
+        hostname: localhost # 或指定靜態 IP，例如 127.0.0.1
         service-name: ${spring.application.name}
         health-check-path: /actuator/health # 健康檢查端點
         health-check-interval: 15s # 健康檢查間隔
-        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+        instance-id: ${spring.application.name}-${server.port} # 唯一實例 ID
     gateway:
       routes:
         - id: authBridge-service
