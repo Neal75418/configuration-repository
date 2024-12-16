@@ -5,11 +5,12 @@ spring:
   cloud:
     consul:
       discovery:
-        hostname: localhost # 或指定靜態 IP，例如 127.0.0.1
-        service-name: ${spring.application.name} # 動態化服務名稱配置
+        service-name: ${spring.application.name} # 動態服務名稱
         health-check-path: /actuator/health # 健康檢查端點
         health-check-interval: 15s # 健康檢查間隔
-        instance-id: ${spring.application.name}-${server.port} # 唯一實例 ID
+        health-check-timeout: 5s # 健康檢查超時
+        address: 127.0.0.1 # 確保在多節點環境中有效
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
