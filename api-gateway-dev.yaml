@@ -5,11 +5,13 @@ spring:
   cloud:
     consul:
       discovery:
+        prefer-ip-address: true
         service-name: ${spring.application.name} # 動態服務名稱
-        health-check-path: /actuator/health # 健康檢查端點
-        health-check-interval: 15s # 健康檢查間隔
-        health-check-timeout: 5s # 健康檢查超時
-        ip-address: ${HOST_IP:127.0.0.1} # 動態 IP 地址
+        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health # 健康檢查 URL
+        health-check-interval: 30s # 健康檢查間隔
+        health-check-timeout: 10s # 健康檢查超時
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 確保 Consul 可解析服務名
+        hostname: ${HOSTNAME:localhost}
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
     gateway:
       routes:
@@ -62,6 +64,9 @@ spring:
             - Path=/monitor/**
           filters:
             - StripPrefix=1
+  cache:
+    caffeine:
+      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
   data:
     redis:
