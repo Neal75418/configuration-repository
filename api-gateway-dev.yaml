@@ -58,12 +58,6 @@ spring:
             - Path=/report/**
           filters:
             - StripPrefix=1
-        - id: vital-monitor
-          uri: lb://vital-monitor
-          predicates:
-            - Path=/monitor/**
-          filters:
-            - StripPrefix=1
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
