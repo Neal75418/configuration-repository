@@ -2,6 +2,6 @@ spring:
   cloud:
     consul:
       discovery:
-        health-check-url: http://localhost:8888/actuator/health # 健康檢查 URL
+        health-check-url: http://localhost:8080/actuator/health # 健康檢查 URL
         ip-address: ${SERVICE_IP:127.0.0.1} # 本地環境下的 IP 地址
         hostname: ${HOSTNAME:localhost} # 本地環境下的主機名
