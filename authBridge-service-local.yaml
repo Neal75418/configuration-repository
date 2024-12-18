@@ -1,0 +1,80 @@
+server:
+  port: 8086 # 微服務端口
+
+spring:
+  cloud:
+    consul: # Consul 服務註冊與發現配置
+      discovery:
+        service-name: ${spring.application.name} # 動態服務名稱
+        health-check-path: /actuator/health # 健康檢查端點
+        health-check-interval: 15s # 健康檢查間隔
+        health-check-timeout: 5s # 健康檢查超時
+        ip-address: ${HOST_IP:127.0.0.1} # 動態 IP 地址
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+  security: # OAuth2 客戶端配置
+    oauth2:
+      client:
+        registration: # 註冊客戶端信息
+          oauth:
+            provider: gss # 自定義 OAuth2 提供者名稱
+            client-id: ${OAUTH_CLIENT_ID:oauth} # 客戶端 ID，通過環境變數配置
+            client-secret: ${OAUTH_CLIENT_SECRET:secret} # 客戶端密鑰，通過環境變數配置
+            authorization-grant-type: authorization_code # 授權類型
+            redirect-uri: http://localhost:8086/oauth/callback # 重定向 URI（開發環境）
+        provider: # OAuth2 提供者相關 URL
+          gss:
+            authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize # 授權 URL
+            token-uri: https://member.vikosmos.com/cas/oauth2.0/token # 令牌發放 URL
+            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile # 用戶信息 URL
+
+  datasource: # 數據源配置
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalbridge # MySQL 地址
+    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
+    password: ${MYSQL_PASSWORD:Gss12345678} # 數據庫密碼，建議通過環境變數配置
+    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
+
+  jpa: # JPA 和 Hibernate 配置
+    properties:
+      hibernate:
+        show_sql: true # 顯示 SQL 語句（開發環境開啟）
+        format_sql: true # 格式化 SQL 語句（開發環境開啟）
+    hibernate:
+      ddl-auto: update # 開發環境使用 update，生產環境建議使用 none
+    open-in-view: false # 禁用 Open Session In View，以提升性能
+
+  data:
+    redis: # Redis 配置
+      host: ${REDIS_HOST:localhost} # Redis 主機地址
+      port: ${REDIS_PORT:6379} # Redis 埠號
+      password: ${REDIS_PASSWORD:} # Redis 密碼（如果有則填寫）
+      lettuce: # Redis 連接池設置
+        pool:
+          max-active: 50 # 最大連接數
+          max-idle: 15 # 最大空閒連接數
+          min-idle: 5 # 最小空閒連接數
+          max-wait: 2000ms # 連接池等待時間
+
+auth: # 自定義認證相關配置
+  registration-id: oauth # OAuth2 註冊 ID
+  redirect:
+    final-uri: "http://localhost:8081/home" # 認證成功後重定向的 URI
+  account-center: # 外部帳號中心相關配置
+    check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect" # 檢查 Token 的 URL
+
+oauth2: # Token 過期時間相關配置
+  authorization:
+    default-expiration-hours: ${OAUTH2_DEFAULT_EXPIRATION_HOURS:24} # Token 默認過期時間（小時）
+
+security: # 安全相關配置
+  allowed-ip-prefixes: ${ALLOWED_IP_PREFIXES:192.168.,127.0.0.1} # 允許訪問服務的 IP 前綴
+
+bizform: # BizForm 外部系統 API 配置
+  api:
+    base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
+    login-endpoint: /staging/api/account/login # 登錄端點
+
+token: # Token 配置
+  refresh:
+    max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數
+  exchange:
+    default-expiration: ${TOKEN_DEFAULT_EXPIRATION:3600} # 默認過期時間（秒）

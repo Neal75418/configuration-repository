@@ -2,8 +2,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, metrics, prometheus # 統一暴露端點
-      base-path: /actuator # 統一基礎路徑
+        include: "*" # 全部暴露，包括健康檢查、監控、Prometheus 等
+      base-path: /actuator # 基礎路徑
   endpoint:
     health:
       show-details: always # 統一健康檢查詳細顯示
@@ -12,3 +12,11 @@ logging:
   level:
     root: info
     org.springframework.security: DEBUG
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: false
+        health-check-interval: 30s # 健康檢查間隔
+        health-check-timeout: 10s # 健康檢查超時

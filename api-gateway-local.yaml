@@ -1,0 +1,90 @@
+server:
+  port: 8080 # 微服務端口
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name} # 動態服務名稱
+        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health # 健康檢查 URL
+        health-check-interval: 30s # 健康檢查間隔
+        health-check-timeout: 10s # 健康檢查超時
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 確保 Consul 可解析服務名
+        hostname: ${HOSTNAME:localhost}
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+    gateway:
+      routes:
+        - id: authBridge-service
+          uri: lb://authBridge-service # 使用負載均衡方式
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+            - RedirectUriValidationFilter
+        - id: authentication-server
+          uri: lb://authentication-server
+          predicates:
+            - Path=/auth-server/**
+          filters:
+            - StripPrefix=1
+        - id: authorization-service
+          uri: lb://authorization-service
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
+        - id: todo-service
+          uri: lb://todo-service
+          predicates:
+            - Path=/todo/**
+          filters:
+            - StripPrefix=1
+        - id: bizform-service
+          uri: lb://bizform-service
+          predicates:
+            - Path=/bizform/**
+          filters:
+            - StripPrefix=1
+        - id: crm-service
+          uri: lb://crm-service
+          predicates:
+            - Path=/crm/**
+          filters:
+            - StripPrefix=1
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/report/**
+          filters:
+            - StripPrefix=1
+  cache:
+    caffeine:
+      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost} # 動態化 Redis 主機，支持多環境配置
+      port: ${REDIS_PORT:6380}      # Redis 默認端口
+      password: ${REDIS_PASSWORD:}  # Redis 密碼（如果有）
+      lettuce:
+        pool:
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 連接等待時間
+
+auth:
+  service:
+    base-url: ${AUTH_SERVICE_BASE_URL:lb://authBridge-service} # 動態配置 lb://authBridge-service URL
+
+app:
+  security:
+    allowed-redirect-uris:
+      - "http://localhost:8086/oauth/callback" # 允許的 OAuth2 重定向 URI
+      - "http://localhost:8081/home" # 示例路徑
+
+cors:
+  allowed-origins:
+    - "http://localhost:3000" # 前端開發使用
+    - "http://127.0.0.1:3000" # 前端本地調試

@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        health-check-url: http://config-server:8888/actuator/health # 健康檢查 URL
+        ip-address: ${SERVICE_IP:192.168.1.100} # 開發環境下的服務 IP 地址
+        hostname: ${HOSTNAME:dev-host} # 開發環境下的主機名
