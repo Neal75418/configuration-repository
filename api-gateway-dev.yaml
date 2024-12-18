@@ -87,4 +87,4 @@ app:
 cors:
   allowed-origins:
     - "http://localhost:3000" # 前端開發使用
-    - "http://127.0.0.1:3000" # 前端本地調試 test
+    - "http://127.0.0.1:3000" # 前端本地調試
