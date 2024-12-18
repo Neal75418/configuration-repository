@@ -2,6 +2,6 @@ spring:
   cloud:
     consul:
       discovery:
-        health-check-url: http://api-gateway:${server.port}/actuator/health # 健康檢查 URL
+        health-check-url: http://${spring.cloud.client.hostname}:${server.port}/actuator/health # 健康檢查 URL
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 開發環境下的服務 IP 地址
         hostname: ${HOSTNAME:dev-host} # 開發環境下的主機名
