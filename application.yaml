@@ -1,3 +1,10 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        health-check-interval: 30s # 健康檢查間隔
+        health-check-timeout: 10s # 健康檢查超時
+
 management:
   endpoints:
     web:
@@ -12,11 +19,3 @@ logging:
   level:
     root: info
     org.springframework.security: DEBUG
-
-spring:
-  cloud:
-    consul:
-      discovery:
-        prefer-ip-address: false
-        health-check-interval: 30s # 健康檢查間隔
-        health-check-timeout: 10s # 健康檢查超時

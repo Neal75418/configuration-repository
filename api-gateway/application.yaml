@@ -1,5 +1,5 @@
 server:
-  port: 8080 # 微服務端口
+  port: 8888 # Config Server 運行的端口
 
 spring:
   cloud:
@@ -7,16 +7,11 @@ spring:
       discovery:
         prefer-ip-address: true
         service-name: ${spring.application.name} # 動態服務名稱
-        health-check-url: http://${spring.cloud.client.ip-address}:${server.port}/actuator/health # 健康檢查 URL
-        health-check-interval: 30s # 健康檢查間隔
-        health-check-timeout: 10s # 健康檢查超時
-        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 確保 Consul 可解析服務名
-        hostname: ${HOSTNAME:localhost}
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
     gateway:
       routes:
         - id: authBridge-service
-          uri: lb://authBridge-service # 使用負載均衡方式
+          uri: lb://authBridge-service
           predicates:
             - Path=/auth/**
           filters:
@@ -61,6 +56,10 @@ spring:
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
+  security:
+    user:
+      name: ${SECURITY_USER_NAME:admin} # 基本認證用戶名稱，支持環境變數
+      password: ${SECURITY_USER_PASSWORD:Gss12345678} # 基本認證用戶密碼
 
   data:
     redis:

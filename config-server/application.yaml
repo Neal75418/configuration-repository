@@ -5,6 +5,7 @@ spring:
   cloud:
     consul:
       discovery:
+        prefer-ip-address: true
         service-name: ${spring.application.name} # 動態服務名稱
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
   cache:
