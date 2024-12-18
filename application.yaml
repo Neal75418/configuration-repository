@@ -2,7 +2,7 @@ spring:
   cloud:
     consul:
       discovery:
-        health-check-interval: 60s # 健康檢查間隔
+        health-check-interval: 30s # 健康檢查間隔
         health-check-timeout: 15s # 健康檢查超時
 
 management:
