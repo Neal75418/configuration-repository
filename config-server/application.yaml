@@ -1,5 +1,5 @@
 server:
-  port: 8888 # Config Server 運行的端口
+  port: 8888
 
 spring:
   cloud:
