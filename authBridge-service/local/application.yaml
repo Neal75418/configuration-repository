@@ -1,16 +1,9 @@
-server:
-  port: 8086 # 微服務端口
-
 spring:
   cloud:
     consul: # Consul 服務註冊與發現配置
       discovery:
-        service-name: ${spring.application.name} # 動態服務名稱
-        health-check-path: /actuator/health # 健康檢查端點
-        health-check-interval: 15s # 健康檢查間隔
-        health-check-timeout: 5s # 健康檢查超時
         ip-address: ${HOST_IP:127.0.0.1} # 動態 IP 地址
-        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port} # 唯一實例 ID
+        hostname: ${HOSTNAME:localhost}
   security: # OAuth2 客戶端配置
     oauth2:
       client:
@@ -61,20 +54,7 @@ auth: # 自定義認證相關配置
   account-center: # 外部帳號中心相關配置
     check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect" # 檢查 Token 的 URL
 
-oauth2: # Token 過期時間相關配置
-  authorization:
-    default-expiration-hours: ${OAUTH2_DEFAULT_EXPIRATION_HOURS:24} # Token 默認過期時間（小時）
-
-security: # 安全相關配置
-  allowed-ip-prefixes: ${ALLOWED_IP_PREFIXES:192.168.,127.0.0.1} # 允許訪問服務的 IP 前綴
-
 bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
     login-endpoint: /staging/api/account/login # 登錄端點
-
-token: # Token 配置
-  refresh:
-    max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數
-  exchange:
-    default-expiration: ${TOKEN_DEFAULT_EXPIRATION:3600} # 默認過期時間（秒）

@@ -1,0 +1,27 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: ${APP_NAME:authBridge-service}
+
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
+
+oauth2: # Token 過期時間相關配置
+  authorization:
+    default-expiration-hours: ${OAUTH2_DEFAULT_EXPIRATION_HOURS:24} # Token 默認過期時間（小時）
+
+security: # 安全相關配置
+  allowed-ip-prefixes: ${ALLOWED_IP_PREFIXES:192.168.,127.0.0.1} # 允許訪問服務的 IP 前綴
+
+token: # Token 配置
+  refresh:
+    max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數
+  exchange:
+    default-expiration: ${TOKEN_DEFAULT_EXPIRATION:3600} # 默認過期時間（秒）

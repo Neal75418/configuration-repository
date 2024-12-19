@@ -2,19 +2,19 @@ spring:
   cloud:
     consul:
       discovery:
-        health-check-interval: 30s # 健康檢查間隔
-        health-check-timeout: 15s # 健康檢查超時
+        health-check-interval: 30s
+        health-check-timeout: 15s
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*" # 全部暴露，包括健康檢查、監控、Prometheus 等
-      base-path: /actuator # 基礎路徑
+        include: "*"
+      base-path: /actuator
   endpoint:
     health:
       enabled: true
-      show-details: always # 統一健康檢查詳細顯示
+      show-details: always
 
 logging:
   level:
