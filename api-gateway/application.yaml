@@ -13,6 +13,16 @@ spring:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
     gateway:
       routes:
+        - id: frontend-homepage
+          uri: http://localhost:3000 # 指向你的前端專案
+          predicates:
+            - Path=/**
+          filters:
+            - RewritePath=/, /
+        - id: static-files
+          uri: file:///path/to/your/static/files
+          predicates:
+            - Path=/**
         - id: authn-service
           uri: lb://authn-service
           predicates:
@@ -77,7 +87,7 @@ auth:
 app:
   security:
     allowed-redirect-uris:
-      - "http://localhost:8086/oauth/callback" # 允許的 OAuth2 重定向 URI
+      - "http://localhost:3000/oauth/callback" # 允許的 OAuth2 重定向 URI
       - "http://localhost:8081/home" # 示例路徑
 
 cors:
