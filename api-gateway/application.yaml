@@ -13,10 +13,10 @@ spring:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
     gateway:
       routes:
-        - id: authBridge-service
-          uri: lb://authBridge-service
+        - id: authn-service
+          uri: lb://authn-service
           predicates:
-            - Path=/auth/**
+            - Path=/authn/**
           filters:
             - StripPrefix=1
             - RedirectUriValidationFilter
@@ -72,7 +72,7 @@ spring:
 
 auth:
   service:
-    base-url: ${AUTH_SERVICE_BASE_URL:lb://authBridge-service} # 動態配置 lb://authBridge-service URL
+    base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置 lb://authn-service URL
 
 app:
   security:
