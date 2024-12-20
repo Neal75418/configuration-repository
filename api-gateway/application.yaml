@@ -19,10 +19,6 @@ spring:
             - Path=/**
           filters:
             - RewritePath=/, /
-        - id: static-files
-          uri: file:///path/to/your/static/files
-          predicates:
-            - Path=/**
         - id: authn-service
           uri: lb://authn-service
           predicates:
