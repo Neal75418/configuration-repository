@@ -30,31 +30,19 @@ spring:
         - id: authz-service
           uri: lb://authz-service
           predicates:
-            - Path=/authz-service/**
+            - Path=/authz/**
+          filters:
+            - StripPrefix=1
+        - id: authp-service
+          uri: lb://authp-service
+          predicates:
+            - Path=/authp/**
           filters:
             - StripPrefix=1
         - id: todo-service
           uri: lb://todo-service
           predicates:
             - Path=/todo/**
-          filters:
-            - StripPrefix=1
-        - id: bizform-service
-          uri: lb://bizform-service
-          predicates:
-            - Path=/bizform/**
-          filters:
-            - StripPrefix=1
-        - id: crm-service
-          uri: lb://crm-service
-          predicates:
-            - Path=/crm/**
-          filters:
-            - StripPrefix=1
-        - id: report-service
-          uri: lb://report-service
-          predicates:
-            - Path=/report/**
           filters:
             - StripPrefix=1
   cache:
