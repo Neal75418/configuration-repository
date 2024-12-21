@@ -49,7 +49,7 @@ spring:
 auth: # 自定義認證相關配置
   registration-id: oauth # OAuth2 註冊 ID
   redirect:
-    final-uri: "http://localhost:8081/home" # 認證成功後重定向的 URI
+    final-uri: "http://localhost:8081/" # 認證成功後重定向的 URI
   account-center: # 外部帳號中心相關配置
     check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect" # 檢查 Token 的 URL
 

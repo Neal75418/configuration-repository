@@ -13,12 +13,13 @@ spring:
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
     gateway:
       routes:
+        # 首頁路由到 Next.js
         - id: frontend-homepage
-          uri: http://localhost:3000 # 指向你的前端專案
+          uri: http://localhost:3000 # Next.js 頁面
           predicates:
-            - Path=/**
+            - Path=/ # 根路徑
           filters:
-            - RewritePath=/?(.*), /$1 # 保留其他路徑功能
+            - RewritePath=/, /
         - id: authn-service
           uri: lb://authn-service
           predicates:
@@ -83,8 +84,7 @@ auth:
 app:
   security:
     allowed-redirect-uris:
-      - "http://localhost:3000/oauth/callback" # 允許的 OAuth2 重定向 URI
-      - "http://localhost:8081/home" # 示例路徑
+      - "http://localhost:8086/oauth/callback" # OAuth2 回調地址
 
 cors:
   allowed-origins:
