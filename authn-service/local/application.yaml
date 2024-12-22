@@ -20,21 +20,6 @@ spring:
             token-uri: https://member.vikosmos.com/cas/oauth2.0/token # 令牌發放 URL
             user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile # 用戶信息 URL
 
-  datasource: # 數據源配置
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalbridge # MySQL 地址
-    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
-    password: ${MYSQL_PASSWORD:Gss12345678} # 數據庫密碼，建議通過環境變數配置
-    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
-
-  jpa: # JPA 和 Hibernate 配置
-    properties:
-      hibernate:
-        show_sql: true # 顯示 SQL 語句（開發環境開啟）
-        format_sql: true # 格式化 SQL 語句（開發環境開啟）
-    hibernate:
-      ddl-auto: update # 開發環境使用 update，生產環境建議使用 none
-    open-in-view: false # 禁用 Open Session In View，以提升性能
-
   data:
     redis: # Redis 配置
       host: ${REDIS_HOST:localhost} # Redis 主機地址

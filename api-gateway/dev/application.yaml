@@ -4,3 +4,9 @@ spring:
       discovery:
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
         hostname: ${HOSTNAME:${spring.cloud.client.hostname}}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://authn-service:8086/ec/publicKey

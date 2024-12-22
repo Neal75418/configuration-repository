@@ -19,6 +19,9 @@ oauth2: # Token 過期時間相關配置
 
 security: # 安全相關配置
   allowed-ip-prefixes: ${ALLOWED_IP_PREFIXES:192.168.,127.0.0.1} # 允許訪問服務的 IP 前綴
+  oauth2:
+    token-exchange:
+      audience: bizform
 
 token: # Token 配置
   refresh:

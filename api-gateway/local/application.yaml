@@ -4,3 +4,9 @@ spring:
       discovery:
         ip-address: ${SERVICE_IP:127.0.0.1}
         hostname: ${HOSTNAME:localhost}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://authn-service:8086/ec/publicKey
