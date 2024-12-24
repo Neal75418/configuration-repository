@@ -74,6 +74,7 @@ app:
     allowed-redirect-uris:
       - "http://localhost:8086/oauth/callback" # 測試環境
       - "http://localhost:8080/authn/oauth/callback"# 本地開發
+      - "http://localhost:8080/oauth/callback"
       - "http://localhost:3000/oauth/callback" # 前端應用的回調地址
 
 cors:
