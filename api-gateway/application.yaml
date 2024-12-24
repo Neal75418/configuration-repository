@@ -79,6 +79,8 @@ app:
 
 cors:
   allowed-origins:
-    - "http://localhost:3000" # 前端開發使用
-    - "http://127.0.0.1:3000" # 前端本地調試
-    - "http://localhost:8080" # 如果需要本地測試時通過網關訪問
+    - "http://localhost:3000" # 允許前端開發時的跨域訪問
+    - "http://127.0.0.1:3000" # 本地調試時的跨域訪問
+    - "http://127.0.0.1:8080"
+    - "http://localhost:8080" # 若有通過本地測試網關訪問需求時開放跨域
+    - "https://member.vikosmos.com"
