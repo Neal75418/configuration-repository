@@ -13,6 +13,10 @@ spring:
         health-check-path: /actuator/health
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
 
+  cache:
+    caffeine:
+      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
+
   data:
     redis: # Redis 配置
       host: ${REDIS_HOST:localhost} # Redis 主機地址
