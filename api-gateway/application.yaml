@@ -74,6 +74,18 @@ app:
     allowed-redirect-uris:
       - "http://localhost:8086/oauth/callback" # OAuth2 回調地址
 
+# 放行的路徑
+security:
+  excluded-paths:
+    - /actuator/health
+    - /actuator/prometheus
+    - /public/**
+    - /static/**
+    - /authn/ec/publicKey
+    - /.well-known/**
+    - /oauth/callback
+    - /login
+
 cors:
   allowed-origins:
     - "http://localhost:3000" # 前端開發使用
