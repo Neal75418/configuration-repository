@@ -26,7 +26,7 @@ spring:
             - Path=/authn/**
           filters:
             - StripPrefix=1
-          #    - RedirectUriValidationFilter
+            - RedirectUriValidationFilter
         - id: authz-service
           uri: lb://authz-service
           predicates:
