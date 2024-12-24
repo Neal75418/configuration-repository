@@ -18,5 +18,7 @@ management:
 
 logging:
   level:
-    root: DEBUG
-    org.springframework.security: DEBUG
+    root: INFO
+    sun.rmi.transport.tcp: WARN
+    javax.management.remote.rmi: WARN
+    org.apache.http.wire: WARN
