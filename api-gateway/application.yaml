@@ -21,7 +21,7 @@ spring:
           filters:
             - RewritePath=/, /
         - id: authn-service
-          uri: http://127.0.0.1:8086
+          uri: lb://authn-service
           predicates:
             - Path=/authn/**
           filters:
