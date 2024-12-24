@@ -72,7 +72,9 @@ auth:
 app:
   security:
     allowed-redirect-uris:
-      - "http://localhost:8086/oauth/callback" # OAuth2 回調地址
+      - "http://localhost:8086/oauth/callback" # 測試環境
+      - "http://localhost:8080/oauth/callback" # 本地開發
+      - "http://localhost:3000/oauth/callback" # 前端應用的回調地址
 
 cors:
   allowed-origins:
