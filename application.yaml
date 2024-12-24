@@ -2,8 +2,8 @@ spring:
   cloud:
     consul:
       discovery:
-        health-check-interval: 30s
-        health-check-timeout: 15s
+        health-check-interval: 120s
+        health-check-timeout: 60s
 
 management:
   endpoints:
