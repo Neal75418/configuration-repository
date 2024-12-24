@@ -18,5 +18,5 @@ management:
 
 logging:
   level:
-    root: info
-    org.springframework.security: info
+    root: DEBUG
+    org.springframework.security: DEBUG
