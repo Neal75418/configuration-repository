@@ -76,15 +76,18 @@ app:
 
 # 放行的路徑
 security:
-  excluded-paths:
-    - /actuator/health
-    - /actuator/prometheus
-    - /public/**
-    - /static/**
-    - /authn/ec/publicKey
-    - /.well-known/**
-    - /oauth/callback
-    - /login
+  public-paths:
+    - "/actuator/health"
+    - "/actuator/prometheus"
+    - "/public/**"
+    - "/static/**"
+    - "/authn/ec/publicKey"
+    - "/.well-known/**"
+    - "/oauth2/authorization/**"
+    - "/login"
+    - "/oauth/callback"
+    - "/authorize"
+    - "/token"
 
 cors:
   allowed-origins:
