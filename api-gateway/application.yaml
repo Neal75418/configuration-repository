@@ -72,10 +72,10 @@ auth:
 app:
   security:
     allowed-redirect-uris:
-      - "http://localhost:8086/oauth/callback" # 測試環境
-      - "http://localhost:8080/authn/oauth/callback"# 本地開發
-      - "http://localhost:8080/oauth/callback"
-      - "http://localhost:3000/oauth/callback" # 前端應用的回調地址
+      - "http://localhost:8086/oauth/callback" # 測試環境的 OAuth 回調地址
+      - "http://localhost:8080/authn/oauth/callback" # 本地開發的回調地址
+      - "http://localhost:8080/oauth/callback" # 預留路徑，支持可能的其他服務
+      - "http://localhost:3000/oauth/callback" # 前端應用的回調地址，適配 Next.js
 
 cors:
   allowed-origins:
