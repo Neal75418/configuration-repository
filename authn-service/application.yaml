@@ -34,7 +34,6 @@ oauth2: # Token 過期時間相關配置
     default-expiration-hours: ${OAUTH2_DEFAULT_EXPIRATION_HOURS:24} # Token 默認過期時間（小時）
 
 security: # 安全相關配置
-  allowed-ip-prefixes: ${ALLOWED_IP_PREFIXES:192.168.,127.0.0.1,172.17.0.} # 允許訪問服務的 IP 前綴
   oauth2:
     token-exchange:
       audience: bizform
