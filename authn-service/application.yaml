@@ -29,10 +29,6 @@ spring:
           min-idle: 5 # 最小空閒連接數
           max-wait: 2000ms # 連接池等待時間
 
-oauth2: # Token 過期時間相關配置
-  authorization:
-    default-expiration-hours: ${OAUTH2_DEFAULT_EXPIRATION_HOURS:24} # Token 默認過期時間（小時）
-
 security: # 安全相關配置
   oauth2:
     token-exchange:
