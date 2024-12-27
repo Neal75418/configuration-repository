@@ -48,10 +48,6 @@ spring:
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
-  security:
-    user:
-      name: ${SECURITY_USER_NAME:admin} # 基本認證用戶名稱，支持環境變數
-      password: ${SECURITY_USER_PASSWORD:Gss12345678} # 基本認證用戶密碼
 
   data:
     redis:
@@ -73,10 +69,10 @@ app:
   security:
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
-      - "http://localhost:8080/oauth/callback" # 後端的回調地址
-      - "http://localhost:8080/authn/jwks/publicKey"
-      - "http://localhost:8080/jwks/publicKey"
-      - "http://localhost:3000/" # 前端的跳轉地址
+      - "http://localhost:8080/oauth/callback"       # 後端的回調地址
+      - "http://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
+      - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
+      - "http://localhost:3000/"                    # 前端的跳轉地址
   public-paths:
     - "/favicon.ico"
     - "/actuator/health"
@@ -99,6 +95,6 @@ cors:
   allowed-origins:
     - "http://localhost:3000" # 允許前端開發時的跨域訪問
     - "http://127.0.0.1:3000" # 本地調試時的跨域訪問
-    - "http://127.0.0.1:8080"
-    - "http://localhost:8080" # 若有通過本地測試網關訪問需求時開放跨域
-    - "https://member.vikosmos.com"
+    - "http://127.0.0.1:8080" # 本地後端的跨域訪問
+    - "http://localhost:8080" # 本地後端的跨域訪問
+    - "https://member.vikosmos.com" # 測試環境的前端域名
