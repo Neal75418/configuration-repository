@@ -48,6 +48,7 @@ app:
       - "/public/**"
       - "/static/**"
       - "/authn/ec/publicKey"
+      - "/ec/publicKey"
       - "/.well-known/**"
       - "/oauth2/authorization/**"
       - "/authn/oauth/login"
