@@ -74,7 +74,24 @@ app:
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
       - "http://localhost:8080/oauth/callback" # 後端的回調地址
+      - "http://localhost:8080/authn/ec/publicKey"
       - "http://localhost:3000/" # 前端的跳轉地址
+  public-paths:
+    - "/favicon.ico"
+    - "/actuator/health"
+    - "/actuator/prometheus"
+    - "/public/**"
+    - "/static/**"
+    - "/authn/ec/publicKey"
+    - "/.well-known/**"
+    - "/oauth2/authorization/**"
+    - "/authn/oauth/login"
+    - "/authn/oauth/callback"
+    - "authn/actuator/health"
+    - "/oauth/login"
+    - "/oauth/callback"
+    - "/authorize"
+    - "/token"
 
 cors:
   allowed-origins:
