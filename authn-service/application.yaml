@@ -35,7 +35,8 @@ security: # 安全相關配置
       audience: bizform
 
 token: # Token 配置
-  refresh:
-    max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數
-  exchange:
-    default-expiration: ${TOKEN_DEFAULT_EXPIRATION:3600} # 默認過期時間（秒）
+  refresh: # 與 Token 刷新相關的配置
+    max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數（建議值：1-5）
+    expiration: ${TOKEN_REFRESH_EXPIRATION:7200} # Refresh Token 的過期時間（建議值：3600 - 86400 秒）
+  exchange: # 與 Token 交換相關的配置
+    default-expiration: ${TOKEN_EXCHANGE_EXPIRATION:3600} # 默認交換 Token 過期時間（建議值：3600 - 86400 秒）
