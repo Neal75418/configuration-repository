@@ -74,8 +74,8 @@ app:
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
       - "http://localhost:8080/oauth/callback" # 後端的回調地址
-      - "http://localhost:8080/authn/ec/publicKey"
-      - "http://localhost:8080/ec/publicKey"
+      - "http://localhost:8080/authn/jwks/publicKey"
+      - "http://localhost:8080/jwks/publicKey"
       - "http://localhost:3000/" # 前端的跳轉地址
   public-paths:
     - "/favicon.ico"
@@ -83,8 +83,8 @@ app:
     - "/actuator/prometheus"
     - "/public/**"
     - "/static/**"
-    - "/authn/ec/publicKey"
-    - "/ec/publicKey"
+    - "/authn/jwks/publicKey"
+    - "/jwks/publicKey"
     - "/.well-known/**"
     - "/oauth2/authorization/**"
     - "/authn/oauth/login"
