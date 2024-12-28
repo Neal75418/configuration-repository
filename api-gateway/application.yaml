@@ -85,7 +85,7 @@ app:
     - "/oauth2/authorization/**"
     - "/authn/oauth/login"
     - "/authn/oauth/callback"
-    - "authn/actuator/health"
+    - "/authn/actuator/health"
     - "/oauth/login"
     - "/oauth/callback"
     - "/authorize"
