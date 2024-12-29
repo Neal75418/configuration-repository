@@ -9,5 +9,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://${spring.cloud.client.ip-address}:${server.port}/authn
-          jwk-set-uri: http://${spring.cloud.client.ip-address}:${server.port}/authn/jwks/publicKey
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080/authn}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
