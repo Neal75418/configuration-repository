@@ -2,8 +2,6 @@ server:
   port: 8080
 
 spring:
-  application:
-    name: ${APP_NAME:api-gateway}
   cloud:
     consul:
       discovery:
@@ -11,6 +9,7 @@ spring:
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
+
     gateway:
       routes:
         # 首頁路由到 Next.js
@@ -19,32 +18,37 @@ spring:
           predicates:
             - Path=/ # 根路徑
           filters:
-            - RewritePath=/, /
+            - RewritePath=/, / # 重寫根路徑以匹配 Next.js 頁面
+        # 授權伺服器路由
         - id: authn-service
-          uri: lb://authn-service
+          uri: lb://authn-service # 通過負載均衡器指向 authn-service
           predicates:
-            - Path=/authn/**
+            - Path=/authn/** # 路徑匹配
           filters:
-            - StripPrefix=1
-            - RedirectUriValidationFilter
+            - StripPrefix=1 # 去掉路徑前綴 /authn
+            - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri`
+        # 授權檢查服務路由
         - id: authz-service
           uri: lb://authz-service
           predicates:
-            - Path=/authz/**
+            - Path=/authz/** # 路徑匹配
           filters:
-            - StripPrefix=1
+            - StripPrefix=1 # 去掉路徑前綴 /authz
+        # 權限處理服務路由
         - id: authp-service
           uri: lb://authp-service
           predicates:
-            - Path=/authp/**
+            - Path=/authp/** # 路徑匹配
           filters:
-            - StripPrefix=1
+            - StripPrefix=1 # 去掉路徑前綴 /authp
+        # 待辦事項服務路由
         - id: todo-service
           uri: lb://todo-service
           predicates:
-            - Path=/todo/**
+            - Path=/todo/** # 路徑匹配
           filters:
-            - StripPrefix=1
+            - StripPrefix=1 # 去掉路徑前綴
+
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
