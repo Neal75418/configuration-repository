@@ -98,3 +98,10 @@ cors:
     - "http://127.0.0.1:8080" # 本地後端的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
+  allowed-methods:
+    - "GET"
+    - "POST"
+    - "OPTIONS"
+  allowed-headers:
+    - "Authorization"
+    - "Content-Type"
