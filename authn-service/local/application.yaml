@@ -28,6 +28,13 @@ auth: # 自定義認證相關配置
     check-token-url: "https://member.vikosmos.com/cas/oauth2.0/introspect" # 檢查 Token 的 URL
   token:
     buffer-time-seconds: 3600 # 緩衝時間（秒），此處為1小時
+    refresh-token-expiration-ms: 604800000 # 7 天
+    access-token-expiration-ms: 3600000   # 1 小時
+
+authp:
+  api:
+    base-url: "http://localhost:8086" # AuthP 的基礎 URL
+    user-details-endpoint: "/users/{userId}/details" # 用戶詳情的端點
 
 bizform: # BizForm 外部系統 API 配置
   api:
