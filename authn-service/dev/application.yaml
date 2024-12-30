@@ -34,7 +34,7 @@ auth: # 自定義認證相關配置
 
 authp:
   api:
-    base-url: ${AUTHP_BASE_URL:http://localhost:8086} # AuthP 的基礎 URL
+    base-url: ${AUTHP_BASE_URL:http://localhost:8084} # AuthP 的基礎 URL
     user-details-endpoint: "/users/{userId}/details" # 用戶詳情的端點
 
 bizform: # BizForm 外部系統 API 配置
