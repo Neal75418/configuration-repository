@@ -23,3 +23,4 @@ logging:
     sun.rmi.transport.tcp: WARN          # 屏蔽不必要的 RMI 日誌
     javax.management.remote.rmi: WARN    # 屏蔽不必要的 RMI 日誌
     org.apache.http.wire: WARN           # 屏蔽過多 HTTP 客戶端的低層詳細信息
+    org.springframework.boot.actuate.endpoint.web: DEBUG
