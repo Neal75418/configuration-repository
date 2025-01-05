@@ -2,6 +2,9 @@ server:
   port: 8081
 
 spring:
+  loadbalancer:
+    cache:
+      enabled: true
   cloud:
     consul:
       discovery:
