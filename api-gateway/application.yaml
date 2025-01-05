@@ -71,6 +71,7 @@ spring:
           max-idle: 15        # 最大空閒連接數
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
+      timeout: 2000ms
 
 auth:
   service:
