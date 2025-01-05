@@ -2,14 +2,39 @@ server:
   port: 8081
 
 spring:
-  loadbalancer:
-    cache:
-      enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/authn # 更換為你的 JWT 簽發者 URL
   cloud:
+    loadbalancer:
+      cache:
+        enabled: true
     consul:
       discovery:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
+
+app:
+  security:
+    public-paths:
+      - "/favicon.ico"
+      - "/actuator/health"
+      - "/actuator/prometheus"
+      - "/public/**"
+      - "/static/**"
+      - "/authn/jwks/publicKey"
+      - "/jwks/publicKey"
+      - "/.well-known/**"
+      - "/oauth2/authorization/**"
+      - "/authn/oauth/login"
+      - "/authn/oauth/callback"
+      - "authn/actuator/health"
+      - "/oauth/login"
+      - "/oauth/callback"
+      - "/authorize"
+      - "/token"
 
