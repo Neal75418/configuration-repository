@@ -48,6 +48,13 @@ spring:
             - Path=/todo/** # 路徑匹配
           filters:
             - StripPrefix=1 # 去掉路徑前綴
+        # 黑名單服務路由
+        - id: blacklist-service
+          uri: lb://blacklist-service
+          predicates:
+            - Path=/blacklist/**
+          filters:
+            - StripPrefix=1
 
   cache:
     caffeine:
