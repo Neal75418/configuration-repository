@@ -19,3 +19,7 @@ spring:
     hibernate:
       ddl-auto: update # 開發環境使用 update，生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
+
+bizform:
+  service:
+    url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
