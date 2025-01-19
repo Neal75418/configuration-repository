@@ -2,6 +2,13 @@ server:
   port: 8087
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 驗證的簽發者 URI
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰 URI，用於驗證 JWT 簽名
+
   cloud:
     loadbalancer:
       cache:
