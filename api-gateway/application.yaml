@@ -99,6 +99,7 @@ app:
     - "/authn/jwks/publicKey"
     - "/jwks/publicKey"
     - "/.well-known/**"
+    - "/authn/.well-known/**"
     - "/oauth2/authorization/**"
     - "/authn/oauth/login"
     - "/authn/oauth/callback"
