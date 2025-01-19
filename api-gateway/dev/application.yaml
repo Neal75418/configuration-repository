@@ -13,6 +13,6 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
 
 jwt:
+  issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn}
   valid:
-    audiences:
-      - "http://localhost:8080"
+    audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080}
