@@ -1,5 +1,8 @@
 spring:
   cloud:
+    loadbalancer:
+      cache:
+        enabled: true # 啟用負載均衡器的緩存功能
     consul:
       discovery:
         health-check-interval: 30s # 健康檢查間隔

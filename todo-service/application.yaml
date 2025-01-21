@@ -10,9 +10,6 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰 URI，用於驗證 JWT 簽名
 
   cloud:
-    loadbalancer:
-      cache:
-        enabled: true
     consul:
       discovery:
         prefer-ip-address: true
