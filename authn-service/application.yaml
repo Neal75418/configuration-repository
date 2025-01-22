@@ -27,11 +27,6 @@ spring:
           max-wait: 2000ms    # 連接等待時間
       timeout: 2000ms
 
-security: # 安全相關配置
-  oauth2:
-    token-exchange:
-      audience: bizform
-
 app:
   security:
     public-paths:
