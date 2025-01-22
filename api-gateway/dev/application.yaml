@@ -13,7 +13,7 @@ spring:
 
 jwt:
   issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn}
-  jwk-set-uri: http://localhost:8080/authn/jwks/publicKey
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
   signature-algorithm: ES256
   time-skew:
     seconds: 60
