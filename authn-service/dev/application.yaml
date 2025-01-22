@@ -35,6 +35,11 @@ auth: # 自定義認證相關配置
 jwt:
   key-id: ec-key-1
 
+key:
+  directory: ${KEY_DIRECTORY:keys/} # 金鑰存放目錄
+  private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
+  public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
+
 bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
