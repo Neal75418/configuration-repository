@@ -35,4 +35,4 @@ auth: # 自定義認證相關配置
 bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
-    login-endpoint: /staging/api/account/login # 登錄端點
+    login-endpoint: /Backend/api/account/login # 登錄端點
