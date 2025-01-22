@@ -33,7 +33,9 @@ auth: # 自定義認證相關配置
     access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:3600000}   # Access Token 的過期時間（1 小時，支持覆蓋）
 
 jwt:
-  key-id: ec-key-1
+  key:
+    id: ec-key-1
+    curve: P-256
 
 key:
   directory: ${KEY_DIRECTORY:keys/} # 金鑰存放目錄
