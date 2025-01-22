@@ -32,6 +32,9 @@ auth: # 自定義認證相關配置
     refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:604800000} # Refresh Token 的過期時間（7 天，支持覆蓋）
     access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:3600000}   # Access Token 的過期時間（1 小時，支持覆蓋）
 
+jwt:
+  key-id: ec-key-1
+
 bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
