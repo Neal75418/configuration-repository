@@ -9,3 +9,10 @@ spring:
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
         instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
+
+app:
+  security:
+    public-paths:
+      - "/blacklist/**"
+      - "/actuator/health"
+      - "/actuator/prometheus"
