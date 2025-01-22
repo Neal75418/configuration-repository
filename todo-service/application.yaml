@@ -13,6 +13,6 @@ spring:
 app:
   security:
     public-paths:
-      - "/blacklist/**"
+      - "/demo"
       - "/actuator/health"
       - "/actuator/prometheus"
