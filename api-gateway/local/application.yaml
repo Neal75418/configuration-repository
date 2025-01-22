@@ -15,5 +15,7 @@ jwt:
   issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn}
   jwk-set-uri: http://localhost:8080/authn/jwks/publicKey
   signature-algorithm: ES256
+  time-skew:
+    seconds: 60
   valid:
     audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080}
