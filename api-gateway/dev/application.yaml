@@ -3,19 +3,20 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 驗證的簽發者 URI
-          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰 URI，用於驗證 JWT 簽名
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 驗證的簽發者 URI，確認 JWT 的來源是否合法
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰 URI，用於驗證 JWT 的簽名
+
   cloud:
     consul:
       discovery:
-        ip-address: ${HOST_IP:${spring.cloud.client.ip-address}}
-        hostname: ${HOSTNAME:${spring.cloud.client.hostname}}
+        ip-address: ${HOST_IP:${spring.cloud.client.ip-address}} # IP 地址，優先使用外部傳入的環境變數
+        hostname: ${HOSTNAME:${spring.cloud.client.hostname}} # 主機名配置，默認為 localhost
 
 jwt:
-  issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn}
-  jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
-  signature-algorithm: ES256
+  issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 簽發者的 URI
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
+  signature-algorithm: ES256 # 使用 EC（橢圓曲線）簽名算法
   time-skew:
-    seconds: 60
+    seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
   valid:
-    audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080}
+    audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證

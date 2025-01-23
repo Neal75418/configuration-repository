@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8080 # 微服務端口，用於本地開發和測試
 
 spring:
   web:
@@ -15,75 +15,80 @@ spring:
 
     gateway:
       routes:
-        # 首頁路由到 Next.js
+        # 前端首頁路由到 Next.js
         - id: frontend-homepage
-          uri: http://localhost:3000 # Next.js 頁面
+          uri: http://localhost:3000 # Next.js 的開發服務器地址
           predicates:
             - Path=/ # 根路徑
           filters:
-            - RewritePath=/, / # 重寫根路徑以匹配 Next.js 頁面
+            - RewritePath=/, / # 重寫根路徑，讓請求轉發到 Next.js 的正確路徑
+
         # 授權伺服器路由
         - id: authn-service
-          uri: lb://authn-service # 通過負載均衡器指向 authn-service
+          uri: lb://authn-service # 通過負載均衡器指向 `authn-service`
           predicates:
-            - Path=/authn/** # 路徑匹配
+            - Path=/authn/** # 匹配以 /authn/ 開頭的請求路徑
           filters:
-            - StripPrefix=1 # 去掉路徑前綴 /authn
-            - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri`
+            - StripPrefix=1 # 移除路徑中的第一層前綴 `/authn`
+            - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
+
         # 授權檢查服務路由
         - id: authz-service
-          uri: lb://authz-service
+          uri: lb://authz-service # 負載均衡到 `authz-service`
           predicates:
-            - Path=/authz/** # 路徑匹配
+            - Path=/authz/** # 匹配 /authz/ 開頭的請求
           filters:
-            - StripPrefix=1 # 去掉路徑前綴 /authz
+            - StripPrefix=1 # 移除 `/authz` 路徑前綴
+
         # 權限處理服務路由
         - id: authp-service
-          uri: lb://authp-service
+          uri: lb://authp-service # 負載均衡到 `authp-service`
           predicates:
-            - Path=/authp/** # 路徑匹配
+            - Path=/authp/** # 匹配 /authp/ 開頭的請求
           filters:
-            - StripPrefix=1 # 去掉路徑前綴 /authp
+            - StripPrefix=1 # 移除 `/authp` 路徑前綴
+
         # 待辦事項服務路由
         - id: todo-service
           uri: lb://todo-service
           predicates:
-            - Path=/todo/** # 路徑匹配
-          filters:
-            - StripPrefix=1 # 去掉路徑前綴
-        # 黑名單服務路由
-        - id: blacklist-service
-          uri: lb://blacklist-service
-          predicates:
-            - Path=/blacklist/**
+            - Path=/todo/**
           filters:
             - StripPrefix=1
 
+        # 黑名單服務路由
+        - id: blacklist-service
+          uri: lb://blacklist-service # 負載均衡到 `blacklist-service`
+          predicates:
+            - Path=/blacklist/** # 匹配 /blacklist/ 開頭的請求
+          filters:
+            - StripPrefix=1 # 移除 `/blacklist` 路徑前綴
+
   cache:
     caffeine:
-      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
+      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # 緩存初始化容量為 100，最大容量為 500，寫入後 10 分鐘過期
 
   data:
     redis:
-      host: ${REDIS_HOST:localhost} # 動態化 Redis 主機，支持多環境配置
+      host: ${REDIS_HOST:localhost} # Redis 主機地址，支持外部環境變數配置
       port: ${REDIS_PORT:6379}      # Redis 默認端口
-      password: ${REDIS_PASSWORD:}  # Redis 密碼（如果有）
+      password: ${REDIS_PASSWORD:}  # Redis 密碼，留空表示無密碼
       lettuce:
         pool:
           max-active: 50      # 最大連接數
           max-idle: 15        # 最大空閒連接數
           min-idle: 5         # 最小空閒連接數
-          max-wait: 2000ms    # 連接等待時間
-      timeout: 2000ms
+          max-wait: 2000ms    # 最大等待時間
+      timeout: 2000ms # Redis 連接超時時間
 
 auth:
   service:
-    base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置 lb://authn-service URL
+    base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置授權服務 URL
 
 app:
   security:
     redirect-validation-paths:
-      - "/authn/oauth"
+      - "/authn/oauth" # OAuth 驗證的跳轉路徑
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
       - "http://localhost:8080/oauth/callback"       # 後端的回調地址
