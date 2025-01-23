@@ -5,15 +5,18 @@ spring:
   web:
     resources:
       add-mappings: false
+
   cloud:
     consul:
       discovery:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
-        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
+        instance-id: ${spring.application.name}-${server.port}
 
     gateway:
+      default-filters:
+        - StripPrefix=1 # 移除路徑中的第一層前綴
       routes:
         # 前端首頁路由到 Next.js
         - id: frontend-homepage
@@ -29,7 +32,6 @@ spring:
           predicates:
             - Path=/authn/** # 匹配以 /authn/ 開頭的請求路徑
           filters:
-            - StripPrefix=1 # 移除路徑中的第一層前綴 `/authn`
             - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
 
         # 授權檢查服務路由
@@ -37,32 +39,24 @@ spring:
           uri: lb://authz-service # 負載均衡到 `authz-service`
           predicates:
             - Path=/authz/** # 匹配 /authz/ 開頭的請求
-          filters:
-            - StripPrefix=1 # 移除 `/authz` 路徑前綴
 
         # 權限處理服務路由
         - id: authp-service
           uri: lb://authp-service # 負載均衡到 `authp-service`
           predicates:
             - Path=/authp/** # 匹配 /authp/ 開頭的請求
-          filters:
-            - StripPrefix=1 # 移除 `/authp` 路徑前綴
 
         # 待辦事項服務路由
         - id: todo-service
           uri: lb://todo-service
           predicates:
             - Path=/todo/**
-          filters:
-            - StripPrefix=1
 
         # 黑名單服務路由
         - id: blacklist-service
           uri: lb://blacklist-service # 負載均衡到 `blacklist-service`
           predicates:
             - Path=/blacklist/** # 匹配 /blacklist/ 開頭的請求
-          filters:
-            - StripPrefix=1 # 移除 `/blacklist` 路徑前綴
 
   cache:
     caffeine:
@@ -79,7 +73,6 @@ spring:
           max-idle: 15        # 最大空閒連接數
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 最大等待時間
-      timeout: 2000ms # Redis 連接超時時間
 
 auth:
   service:
@@ -108,7 +101,6 @@ app:
     - "/oauth2/authorization/**"
     - "/authn/oauth/login"
     - "/authn/oauth/callback"
-    - "/authn/actuator/health"
     - "/oauth/login"
     - "/oauth/callback"
     - "/authorize"
@@ -117,8 +109,6 @@ app:
 cors:
   allowed-origins:
     - "http://localhost:3000" # 允許前端開發時的跨域訪問
-    - "http://127.0.0.1:3000" # 本地調試時的跨域訪問
-    - "http://127.0.0.1:8080" # 本地後端的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
   allowed-methods:
