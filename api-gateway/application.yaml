@@ -46,17 +46,23 @@ spring:
           predicates:
             - Path=/authp/** # 匹配 /authp/ 開頭的請求
 
+        # 黑名單服務路由
+        - id: blacklist-service
+          uri: lb://blacklist-service # 負載均衡到 `blacklist-service`
+          predicates:
+            - Path=/blacklist/** # 匹配 /blacklist/ 開頭的請求
+
         # 待辦事項服務路由
         - id: todo-service
           uri: lb://todo-service
           predicates:
             - Path=/todo/**
 
-        # 黑名單服務路由
-        - id: blacklist-service
-          uri: lb://blacklist-service # 負載均衡到 `blacklist-service`
+        # BizForm 服務路由
+        - id: bizform-service
+          uri: lb://bizform-service # 負載均衡到 `bizform-service`
           predicates:
-            - Path=/blacklist/** # 匹配 /blacklist/ 開頭的請求
+            - Path=/bizform/** # 匹配 /bizform/ 開頭的請求
 
   cache:
     caffeine:

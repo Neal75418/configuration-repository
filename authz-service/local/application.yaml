@@ -3,4 +3,3 @@ spring:
     consul:
       discovery:
         ip-address: ${SERVICE_IP:127.0.0.1}
-        hostname: ${HOSTNAME:localhost}

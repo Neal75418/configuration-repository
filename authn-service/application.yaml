@@ -8,7 +8,7 @@ spring:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
-        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
+        instance-id: ${spring.application.name}-${server.port}
 
   cache:
     caffeine:
@@ -25,7 +25,6 @@ spring:
           max-idle: 15        # 最大空閒連接數
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
-      timeout: 2000ms
 
 app:
   security:
@@ -42,7 +41,6 @@ app:
       - "/oauth2/authorization/**"
       - "/authn/oauth/login"
       - "/authn/oauth/callback"
-      - "authn/actuator/health"
       - "/oauth/login"
       - "/oauth/callback"
       - "/authorize"

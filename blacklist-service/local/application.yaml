@@ -3,7 +3,6 @@ spring:
     consul:
       discovery:
         ip-address: ${SERVICE_IP:127.0.0.1}
-        hostname: ${HOSTNAME:localhost}
 
 jwt:
   jwk-set-uri: http://localhost:8080/authn/jwks/publicKey

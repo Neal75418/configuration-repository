@@ -2,8 +2,7 @@ spring:
   cloud:
     consul: # Consul 服務註冊與發現配置
       discovery:
-        ip-address: ${HOST_IP:127.0.0.1} # 動態 IP 地址
-        hostname: ${HOSTNAME:localhost}
+        ip-address: ${SERVICE_IP:127.0.0.1} # 動態 IP 地址
   security: # OAuth2 客戶端配置
     oauth2:
       client:

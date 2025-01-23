@@ -9,7 +9,7 @@ spring:
   cloud:
     consul:
       discovery:
-        ip-address: ${HOST_IP:${spring.cloud.client.ip-address}} # IP 地址，優先使用外部傳入的環境變數
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # IP 地址，優先使用外部傳入的環境變數
 
 jwt:
   issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 簽發者的 URI

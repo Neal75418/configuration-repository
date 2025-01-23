@@ -3,7 +3,6 @@ spring:
     consul:
       discovery:
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
-        hostname: ${HOSTNAME:${spring.cloud.client.hostname}}
 
   datasource: # 數據源配置
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
