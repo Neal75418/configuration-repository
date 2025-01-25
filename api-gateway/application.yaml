@@ -84,6 +84,20 @@ auth:
   service:
     base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置授權服務 URL
 
+blacklist:
+  service:
+    # 黑名單服務的名稱
+    # 這個名稱應與服務註冊中心（如 Eureka、Consul 或 Kubernetes）中定義的服務名稱一致
+    name: blacklist-service
+
+    # 黑名單檢查的 API 路徑
+    # 該路徑會附加到黑名單服務的基礎 URL，例如：http://blacklist-service/blacklist/check
+    check-path: /blacklist/check
+
+    # 請求黑名單服務的超時時間（以秒為單位）
+    # 當超過該時間沒有響應時，請求將被視為失敗
+    timeout: 5
+
 app:
   security:
     redirect-validation-paths:
