@@ -30,8 +30,8 @@ auth: # 自定義認證相關配置
     max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數（建議值：1-5）
     buffer-time-seconds: 3600 # 緩衝時間（秒），此處為1小時
     cache-duration-days: 7 # 緩存有效期配置（默認為 7 天）
-    refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:604800000} # Refresh Token 的過期時間（7 天，支持覆蓋）
     access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:3600000}   # Access Token 的過期時間（1 小時，支持覆蓋）
+    refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:604800000} # Refresh Token 的過期時間（7 天，支持覆蓋）
 
 jwt:
   key:
