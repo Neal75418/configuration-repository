@@ -25,6 +25,7 @@ auth: # 自定義認證相關配置
     final-uri: ${FINAL_URI:http://localhost:3000/} # 認證成功後重定向的 URI
   account-center: # 外部帳號中心相關配置
     check-token-url: ${CHECK_TOKEN_URL:https://member.vikosmos.com/cas/oauth2.0/introspect} # 檢查 Token 的 URL
+  issuer: ${AUTH_ISSUER:http://localhost:8080/authn}
   token:
     max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數（建議值：1-5）
     buffer-time-seconds: 3600 # 緩衝時間（秒），此處為1小時
