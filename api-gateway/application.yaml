@@ -59,8 +59,8 @@ spring:
             - Path=/todo/**
 
         # BizForm 服務路由
-        - id: bizform-service
-          uri: lb://bizform-service # 負載均衡到 `bizform-service`
+        - id: VitalBizFormService
+          uri: lb://VitalBizFormService # 負載均衡到 `bizform-service`
           predicates:
             - Path=/bizform/** # 匹配 /bizform/ 開頭的請求
 
