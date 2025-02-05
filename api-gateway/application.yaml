@@ -125,6 +125,7 @@ app:
     - "/oauth/callback"
     - "/authorize"
     - "/token"
+    - "/bizform/**"
 
 cors:
   allowed-origins:
