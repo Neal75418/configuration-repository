@@ -40,6 +40,8 @@ app:
       - "/public/**"
       - "/static/**"
       - "/authn/jwks/publicKey"
+      - "/jwks/publicKey"
+      - "/.well-known/**"
       - "/authn/.well-known/**"
       - "/oauth2/authorization/**"
       - "/authn/oauth/login"
