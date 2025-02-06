@@ -104,19 +104,23 @@ app:
       - "/authn/oauth" # OAuth 驗證的跳轉路徑
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
+      - "http://localhost:8080/oauth/callback"       # 後端的回調地址
       - "http://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
+      - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
       - "http://localhost:3000/"                    # 前端的跳轉地址
   public-paths:
     - "/favicon.ico"
-    - "/actuator/**"
+    - "/actuator/health"
+    - "/actuator/prometheus"
     - "/public/**"
     - "/static/**"
     - "/authn/jwks/publicKey"
     - "/authn/.well-known/**"
-    - "/authn/oauth/login"
-    - "/authn/oauth/logout"
-    - "/authn/oauth/callback"
     - "/oauth2/authorization/**"
+    - "/authn/oauth/login"
+    - "/authn/oauth/callback"
+    - "/oauth/login"
+    - "/oauth/callback"
     - "/authorize"
     - "/token"
     - "/bizform/**"
