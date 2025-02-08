@@ -32,7 +32,7 @@ spring:
           predicates:
             - Path=/authn/** # 匹配以 /authn/ 開頭的請求路徑
           filters:
-            - RedirectUriValidationFilter=ignorePaths:/authn/oauth/logout # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
+            - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
 
         # 授權檢查服務路由
         - id: authz-service
