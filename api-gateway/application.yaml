@@ -20,7 +20,7 @@ spring:
       routes:
         # 前端首頁路由到 Next.js
         - id: frontend-homepage
-          uri: http://localhost:3000 # Next.js 的開發服務器地址
+          uri: http://localhost:7000 # Next.js 的開發服務器地址
           predicates:
             - Path=/ # 根路徑
           filters:
@@ -107,7 +107,7 @@ app:
       - "http://localhost:8080/oauth/callback"       # 後端的回調地址
       - "http://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
       - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
-      - "http://localhost:3000/"                     # 前端的跳轉地址
+      - "http://localhost:7000/"                     # 前端的跳轉地址
   public-paths:
     - "/public/**"
     - "/static/**"
@@ -129,7 +129,7 @@ app:
 
 cors:
   allowed-origins:
-    - "http://localhost:3000" # 允許前端開發時的跨域訪問
+    - "http://localhost:7000" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
   allowed-methods:
