@@ -8,7 +8,7 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost} # 動態化 Redis 主機，支持多環境配置
       port: ${REDIS_PORT:6380}      # Redis 默認端口
-      password: ${REDIS_PASSWORD:Gssredis222}  # Redis 密碼（如果有）
+      password: ${REDIS_PASSWORD:GssCacheRedis222}  # Redis 密碼（如果有）
       lettuce:
         pool:
           max-active: 50      # 最大連接數

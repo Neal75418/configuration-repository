@@ -68,18 +68,6 @@ spring:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # 緩存初始化容量為 100，最大容量為 500，寫入後 10 分鐘過期
 
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost} # Redis 主機地址，支持外部環境變數配置
-      port: ${REDIS_PORT:6379}      # Redis 默認端口
-      password: ${REDIS_PASSWORD:Gssredis111}  # Redis 密碼，留空表示無密碼
-      lettuce:
-        pool:
-          max-active: 50      # 最大連接數
-          max-idle: 15        # 最大空閒連接數
-          min-idle: 5         # 最小空閒連接數
-          max-wait: 2000ms    # 最大等待時間
-
 auth:
   service:
     base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置授權服務 URL
