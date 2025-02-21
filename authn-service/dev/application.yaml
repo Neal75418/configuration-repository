@@ -19,6 +19,18 @@ spring:
             token-uri: https://member.vikosmos.com/cas/oauth2.0/token # 令牌發放 URL
             user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile # 用戶信息 URL
 
+  data:
+    redis: # Redis 配置
+      host: ${REDIS_HOST:localhost} # Redis 主機地址
+      port: ${REDIS_PORT:6379} # Redis 埠號
+      password: ${REDIS_PASSWORD:Gssredis111} # Redis 密碼（如果有則填寫）
+      lettuce:
+        pool:
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 連接等待時間
+
 auth: # 自定義認證相關配置
   registration-id: oauth # OAuth2 註冊 ID
   redirect:
