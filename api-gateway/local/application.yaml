@@ -6,7 +6,7 @@ spring:
 
   data:
     redis:
-      host: ${REDIS_HOST:localhost} # Redis 主機地址，支持外部環境變數配置
+      host: ${REDIS_HOST:auth_dev_redis} # Redis 主機地址，支持外部環境變數配置
       port: ${REDIS_PORT:6379}      # Redis 默認端口
       password: ${REDIS_PASSWORD:GssAuthRedis111}  # Redis 密碼，留空表示無密碼
       lettuce:
