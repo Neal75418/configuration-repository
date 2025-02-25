@@ -6,7 +6,7 @@ spring:
 
   data:
     redis:
-      host: ${REDIS_HOST:localhost} # Redis 主機地址，支持外部環境變數配置
+      host: ${REDIS_HOST:auth_dev_redis} # Redis 主機地址，支持外部環境變數配置
       port: ${REDIS_PORT:6379}      # Redis 默認端口
       password: ${REDIS_PASSWORD:GssAuthRedis111}  # Redis 密碼，留空表示無密碼
       lettuce:
@@ -17,10 +17,10 @@ spring:
           max-wait: 2000ms    # 最大等待時間
 
 jwt:
-  issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 簽發者的 URI
-  jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
+  issuer: ${JWT_ISSUER_URI:${spring.cloud.client.ip-address}/authn} # JWT 簽發者的 URI
+  jwk-set-uri: ${JWT_JWK_SET_URI:${spring.cloud.client.ip-address}/authn/jwks/publicKey} # JWK 公鑰的 URI
   signature-algorithm: ES256 # 使用 EC（橢圓曲線）簽名算法
   time-skew:
     seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
   valid:
-    audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
+    audiences: ${JWT_VALID_AUDIENCES:${spring.cloud.client.ip-address}} # JWT 的受眾驗證

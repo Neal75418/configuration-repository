@@ -5,4 +5,4 @@ spring:
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
 
   jwt:
-    jwk-set-uri: http://localhost:8080/authn/jwks/publicKey
+    jwk-set-uri: ${spring.cloud.client.ip-address}:8080/authn/jwks/publicKey
