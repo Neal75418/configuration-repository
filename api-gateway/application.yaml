@@ -69,7 +69,7 @@ spring:
 
 auth:
   service:
-    base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置授權服務 URL
+    base-url: ${AUTH_SERVICE_BASE_URL:http://authn-service:8081} # 動態配置授權服務 URL
 
 blacklist:
   service:
