@@ -8,7 +8,7 @@ spring:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
-        healthCheckUrl: http://${spring.cloud.client.hostname}:${server.port}/actuator/health
+        healthCheckUrl: http://blacklist-service:${server.port}/actuator/health
         instance-id: ${spring.application.name}-${server.port}
 
   cache:
