@@ -2,6 +2,7 @@ spring:
   cloud:
     consul: # Consul 服務註冊與發現配置
       discovery:
+        healthCheckUrl: http://authn-service:${server.port}/actuator/health
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 動態 IP 地址
   security: # OAuth2 客戶端配置
     oauth2:

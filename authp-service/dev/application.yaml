@@ -2,6 +2,7 @@ spring:
   cloud:
     consul:
       discovery:
+        healthCheckUrl: http://authp-service:${server.port}/actuator/health
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
 
   datasource: # 數據源配置

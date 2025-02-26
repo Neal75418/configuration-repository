@@ -2,4 +2,5 @@ spring:
   cloud:
     consul:
       discovery:
+        health-check-path: /actuator/health
         ip-address: ${SERVICE_IP:127.0.0.1}

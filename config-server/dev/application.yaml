@@ -2,4 +2,5 @@ spring:
   cloud:
     consul:
       discovery:
+        healthCheckUrl: http://config-server:${server.port}/actuator/health
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}

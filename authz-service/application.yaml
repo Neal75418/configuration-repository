@@ -7,8 +7,6 @@ spring:
       discovery:
         prefer-ip-address: true
         service-name: ${spring.application.name}
-        health-check-path: /actuator/health
-        healthCheckUrl: http://authz-service:${server.port}/actuator/health
         instance-id: ${spring.application.name}-${server.port}
 
   cache:
