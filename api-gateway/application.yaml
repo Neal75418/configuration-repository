@@ -34,13 +34,6 @@ spring:
           filters:
             - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
 
-        - id: authn-callback
-          uri: lb://authn-service
-          predicates:
-            - Path=/authn/oauth/callback
-          filters:
-            - StripPrefix=0
-
         # 授權檢查服務路由
         - id: authz-service
           uri: lb://authz-service # 負載均衡到 `authz-service`
@@ -99,7 +92,6 @@ app:
       - "/authn/oauth" # OAuth 驗證的跳轉路徑
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
-      - "http://127.0.0.1:8080/authn/oauth/callback"
       - "http://localhost:8080/oauth/callback"       # 後端的回調地址
       - "http://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
       - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
@@ -128,7 +120,6 @@ cors:
     - "http://localhost:7000" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
-    - "http://127.0.0.1:8081"
   allowed-methods:
     - "GET"
     - "POST"
