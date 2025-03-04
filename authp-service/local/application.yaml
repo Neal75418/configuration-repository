@@ -6,7 +6,7 @@ spring:
         ip-address: ${SERVICE_IP:127.0.0.1}
 
   datasource: # 數據源配置
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalcasebridge?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Taipei # MySQL 地址
     username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:Gss12345678} # 數據庫密碼，建議通過環境變數配置
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
