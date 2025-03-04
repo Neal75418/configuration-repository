@@ -17,7 +17,7 @@ spring:
         show_sql: true # 顯示 SQL 語句（開發環境開啟）
         format_sql: true # 格式化 SQL 語句（開發環境開啟）
     hibernate:
-      ddl-auto: validate # 生產環境建議使用 none
+      ddl-auto: update # 生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
 
 bizform:
