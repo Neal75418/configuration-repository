@@ -18,4 +18,4 @@ spring:
           max-wait: 2000ms    # 連接等待時間
 
 jwt:
-  jwk-set-uri: http://${spring.cloud.client.ip-address}:8080/authn/jwks/publicKey
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
