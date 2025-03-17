@@ -22,8 +22,7 @@ management:
 
 logging:
   level:
-    root: INFO                           # 全局日誌級別設置為 INFO，減少非必要的 DEBUG 日誌輸出。
-    com.gss.apigateway: DEBUG
+    root: DEBUG                           # 全局日誌級別設置為 INFO，減少非必要的 DEBUG 日誌輸出。
     sun.rmi.transport.tcp: WARN          # 將 RMI TCP 相關的日誌級別設置為 WARN，避免過多的冗餘日誌。
     javax.management.remote.rmi: WARN    # 將 RMI 遠程管理日誌級別設置為 WARN，減少非必要的日誌。
     org.apache.http.wire: WARN           # 屏蔽 Apache HTTP 客戶端的詳細線路追蹤日誌。
