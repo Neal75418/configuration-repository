@@ -29,12 +29,9 @@ logging:
     org.springframework.boot.actuate.endpoint.web: INFO # 將 Spring Boot Actuator 的 Web 端點日誌設置為 INFO 級別。
     org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN # 避免輸出過多與本地環境配置存儲相關的冗餘日誌。
     org.springframework.security.web: INFO # 設置 Spring Security Web 模塊的日誌級別為 INFO，減少不必要的低級別輸出。
-  file:
-    name: logs/application.log
 
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
   logstash:
     enabled: true
