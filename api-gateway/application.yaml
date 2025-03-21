@@ -119,7 +119,9 @@ app:
 
 cors:
   allowed-origins:
+    - "http://localhost:80" # 允許前端開發時的跨域訪問
     - "http://localhost:7000" # 允許前端開發時的跨域訪問
+    - "https://localhost:7000" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
   allowed-methods:
