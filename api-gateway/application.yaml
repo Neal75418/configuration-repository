@@ -18,14 +18,6 @@ spring:
       default-filters:
         - StripPrefix=1 # 移除路徑中的第一層前綴
       routes:
-        # 前端首頁路由到 Next.js
-        - id: frontend-homepage
-          uri: http://localhost:7000 # Next.js 的開發服務器地址
-          predicates:
-            - Path=/ # 根路徑
-          filters:
-            - RewritePath=/, / # 重寫根路徑，讓請求轉發到 Next.js 的正確路徑
-
         # 授權伺服器路由
         - id: authn-service
           uri: lb://authn-service # 通過負載均衡器指向 `authn-service`
