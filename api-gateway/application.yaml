@@ -97,7 +97,7 @@ app:
       - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
       - "http://localhost:7000/"                     # 前端的跳轉地址
       - "https://localhost:7000/"                    # 前端的跳轉地址
-      - "http://localhost:80/"                       # 前端的跳轉地址
+      - "http://localhost"                          # 前端的跳轉地址
   public-paths:
     - "/public/**"
     - "/static/**"
@@ -119,7 +119,7 @@ app:
 
 cors:
   allowed-origins:
-    - "http://localhost:80" # 允許前端開發時的跨域訪問
+    - "http://localhost" # 允許前端開發時的跨域訪問
     - "http://localhost:7000" # 允許前端開發時的跨域訪問
     - "https://localhost:7000" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
