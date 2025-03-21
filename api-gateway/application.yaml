@@ -95,8 +95,8 @@ app:
       - "http://localhost:8080/oauth/callback"       # 後端的回調地址
       - "http://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
       - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
-      - "http://localhost:7000/"                     # 前端的跳轉地址
-      - "https://localhost:7000/"                    # 前端的跳轉地址
+      - "http://localhost:7000"                      # 前端的跳轉地址
+      - "https://localhost:7000"                     # 前端的跳轉地址
       - "http://localhost"                           # 前端的跳轉地址
       - "https://localhost"                          # 前端的跳轉地址
   public-paths:
