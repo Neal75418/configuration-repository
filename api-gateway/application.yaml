@@ -83,14 +83,18 @@ app:
     redirect-validation-paths:
       - "/authn/oauth" # OAuth 驗證的跳轉路徑
     allowed-redirect-uris:
-      - "http://localhost:8080/authn/oauth/callback" # 後端的回調地址
-      - "http://localhost:8080/oauth/callback"       # 後端的回調地址
-      - "http://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
-      - "http://localhost:8080/jwks/publicKey"       # 公鑰地址
-      - "http://localhost:7000"                      # 前端的跳轉地址
-      - "https://localhost:7000"                     # 前端的跳轉地址
-      - "http://localhost"                           # 前端的跳轉地址
-      - "https://localhost"                          # 前端的跳轉地址
+      - "http://localhost:8080/authn/oauth/callback"  # 後端的回調地址
+      - "http://localhost:8080/oauth/callback"        # 後端的回調地址
+      - "http://localhost:8080/authn/jwks/publicKey"  # JWK 公鑰地址
+      - "http://localhost:8080/jwks/publicKey"        # 公鑰地址
+      - "https://localhost:8080/authn/oauth/callback" # 後端的回調地址
+      - "https://localhost:8080/oauth/callback"       # 後端的回調地址
+      - "https://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
+      - "https://localhost:8080/jwks/publicKey"       # 公鑰地址
+      - "http://localhost:7000"                       # 前端的跳轉地址
+      - "https://localhost:7000"                      # 前端的跳轉地址
+      - "http://localhost"                            # 前端的跳轉地址
+      - "https://localhost"                           # 前端的跳轉地址
   public-paths:
     - "/public/**"
     - "/static/**"
@@ -117,6 +121,7 @@ cors:
     - "http://localhost:7000" # 允許前端開發時的跨域訪問
     - "https://localhost:7000" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
+    - "https://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
   allowed-methods:
     - "GET"
