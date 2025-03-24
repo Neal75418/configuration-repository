@@ -1,5 +1,5 @@
-server:
-  ssl:
+#server:
+#  ssl:
 #    enabled: ${SSL_ENABLED:true}
 #    key-store: ${SSL_KEY_STORE:file:/certs/keystore.p12}
 #    key-store-password: ${SSL_KEY_STORE_PASSWORD:changeit}
