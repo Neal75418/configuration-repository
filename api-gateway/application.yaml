@@ -123,10 +123,17 @@ cors:
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
+    - "http://127.0.0.1:8080/authn/oauth/callback"
   allowed-methods:
     - "GET"
     - "POST"
+    - "PUT"
+    - "DELETE"
     - "OPTIONS"
   allowed-headers:
     - "Authorization"
     - "Content-Type"
+    - "Refresh-Token"
+    - "X-Current-Page"
+    - "X-Page-Size"
+    - "X-Total-Count"
