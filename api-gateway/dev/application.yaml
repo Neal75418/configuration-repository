@@ -12,7 +12,7 @@ spring:
       discovery:
 #        metadata:
 #          secure: true
-        healthCheckUrl: https://api-gateway:${server.port}/actuator/health
+        healthCheckUrl: http://api-gateway:${server.port}/actuator/health
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # IP 地址，優先使用外部傳入的環境變數
 
   data:
