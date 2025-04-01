@@ -16,9 +16,9 @@ spring:
             redirect-uri: ${BASE_URL:http://localhost:8080}/oauth/callback # 重定向 URI（開發環境）
         provider: # OAuth2 提供者相關 URL
           gss:
-            authorization-uri: ${OAUTH2_PROVIDER_BASE_URL:https://member.vikosmos.com}/cas/oauth2.0/authorize # 授權 URL
-            token-uri: ${OAUTH2_PROVIDER_BASE_URL:https://member.vikosmos.com}/cas/oauth2.0/token # 令牌發放 URL
-            user-info-uri: ${OAUTH2_PROVIDER_BASE_URL:https://member.vikosmos.com}/cas/oauth2.0/profile # 用戶信息 URL
+            authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize # 授權 URL
+            token-uri: https://member.vikosmos.com/cas/oauth2.0/token # 令牌發放 URL
+            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile # 用戶信息 URL
 
   data:
     redis: # Redis 配置
@@ -37,7 +37,7 @@ auth: # 自定義認證相關配置
   redirect:
     final-uri: ${FINAL_URI:http://localhost:7001} # 認證成功後重定向的 URI
   account-center: # 外部帳號中心相關配置
-    check-token-url: ${OAUTH2_PROVIDER_BASE_URL:https://member.vikosmos.com}/cas/oauth2.0/introspect # 檢查 Token 的 URL
+    check-token-url: ${CHECK_TOKEN_URL:https://member.vikosmos.com/cas/oauth2.0/introspect} # 檢查 Token 的 URL
   issuer: ${AUTH_ISSUER:http://localhost:8080/authn} # JWT 簽發者的 URI
   aud: ${AUTH_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
   token:
