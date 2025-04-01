@@ -16,9 +16,9 @@ spring:
             redirect-uri: ${BASE_URL:${spring.cloud.client.ip-address}}/oauth/callback # 重定向 URI（開發環境）
         provider: # OAuth2 提供者相關 URL
           gss:
-            authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize # 授權 URL
-            token-uri: https://member.vikosmos.com/cas/oauth2.0/token # 令牌發放 URL
-            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile # 用戶信息 URL
+            authorization-uri: ${OAUTH2_PROVIDER_BASE_URL:https://cloud-member.gss.com.tw/cas/login}/cas/oauth2.0/authorize # 授權 URL
+            token-uri: ${OAUTH2_PROVIDER_BASE_URL:https://cloud-member.gss.com.tw/cas/login}/cas/oauth2.0/token # 令牌發放 URL
+            user-info-uri: ${OAUTH2_PROVIDER_BASE_URL:https://cloud-member.gss.com.tw/cas/login}/cas/oauth2.0/profile # 用戶信息 URL
 
   data:
     redis: # Redis 配置
