@@ -1,17 +1,7 @@
-#server:
-#  ssl:
-#    enabled: ${SSL_ENABLED:false}
-#    key-store: ${SSL_KEY_STORE:file:/certs/keystore.p12}
-#    key-store-password: ${SSL_KEY_STORE_PASSWORD:changeit}
-#    key-store-type: ${SSL_KEY_STORE_TYPE:PKCS12}
-#    key-alias: ${SSL_KEY_ALIAS:api-gateway}
-
 spring:
   cloud:
     consul:
       discovery:
-#        metadata:
-#          secure: true
         health-check-path: /actuator/health
         ip-address: ${SERVICE_IP:127.0.0.1} # IP 地址，優先使用外部傳入的環境變數
 
