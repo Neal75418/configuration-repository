@@ -13,7 +13,7 @@ spring:
             client-id: ${OAUTH_CLIENT_ID:oauth} # 客戶端 ID，通過環境變數配置
             client-secret: ${OAUTH_CLIENT_SECRET:secret} # 客戶端密鑰，通過環境變數配置
             authorization-grant-type: authorization_code # 授權類型
-            redirect-uri: ${BASE_URL:${spring.cloud.client.ip-address}}/oauth/callback # 重定向 URI（開發環境）
+            redirect-uri: ${BASE_URL:${spring.cloud.client.ip-address}}/authn/oauth/callback # 重定向 URI（開發環境）
         provider: # OAuth2 提供者相關 URL
           gss:
             authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize # 授權 URL
