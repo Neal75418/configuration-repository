@@ -38,7 +38,7 @@ auth: # 自定義認證相關配置
   redirect:
     final-uri: ${FINAL_URI:http://localhost:7001} # 認證成功後重定向的 URI
   account-center: # 外部帳號中心相關配置
-    check-token-url: ${OAUTH2_PROVIDER_BASE_URL:https://member.gsscloud.com}/cas/oauth2.0/introspect # 檢查 Token 的 URL
+    check-token-url: ${CHECK_TOKEN_URL:https://cloud-member.gss.com.tw/cas/oauth2.0/introspect} # 檢查 Token 的 URL
   issuer: ${AUTH_ISSUER:http://localhost:8080/authn} # JWT 簽發者的 URI
   aud: ${AUTH_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
   token:
