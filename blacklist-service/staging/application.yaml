@@ -20,3 +20,7 @@ spring:
 
 jwt:
   jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
+
+# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
+logging:
+  config: classpath:log4j2-logstash.xml

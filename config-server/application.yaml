@@ -1,8 +1,15 @@
 server:
   address: 0.0.0.0
-  port: 8888
+  port: 8888 # 微服務端口
 
 spring:
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name} # 動態服務名稱
+        instance-id: ${spring.application.name}-${server.port} # 唯一實例 ID
+
   cache:
     caffeine:
-      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m
+      spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置

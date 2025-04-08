@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        health-check-path: /actuator/health # 健康檢查端點
+        ip-address: ${SERVICE_IP:127.0.0.1} # 動態 IP 地址
