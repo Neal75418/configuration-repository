@@ -95,6 +95,8 @@ app:
       - "https://localhost:7001"                      # 前端的跳轉地址
       - "http://localhost"                            # 前端的跳轉地址
       - "https://localhost"                           # 前端的跳轉地址
+      - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
+      - "https://cb-svc-api.vitalext.com/authn/jwks/publicKey"
   public-paths:
     - "/public/**"
     - "/static/**"
