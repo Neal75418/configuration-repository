@@ -117,12 +117,15 @@ cors:
   allowed-origins:
     - "http://localhost" # 允許前端開發時的跨域訪問
     - "https://localhost" # 允許前端開發時的跨域訪問
-    - "https://cb-svc-web.vitalext.com/" # 允許前端開發時的跨域訪問
+    - "http://localhost:7001" # 允許前端開發時的跨域訪問
+    - "https://localhost:7001" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
     - "http://127.0.0.1:8080/authn/oauth/callback"
     - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
+    - "https://cb-svc-web.vitalext.com/" # 允許前端開發時的跨域訪問
+    - "https://cloud-member.gss.com.tw" # 帳號中心測試網域
   allowed-methods:
     - "GET"
     - "POST"
