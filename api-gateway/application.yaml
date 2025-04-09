@@ -91,10 +91,7 @@ app:
       - "https://localhost:8080/oauth/callback"       # 後端的回調地址
       - "https://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
       - "https://localhost:8080/jwks/publicKey"       # 公鑰地址
-      - "http://localhost:7001"                       # 前端的跳轉地址
-      - "https://localhost:7001"                      # 前端的跳轉地址
-      - "http://localhost"                            # 前端的跳轉地址
-      - "https://localhost"                           # 前端的跳轉地址
+      - "https://cb-svc-web.vitalext.com/"            # 前端的跳轉地址
       - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
       - "https://cb-svc-api.vitalext.com/authn/jwks/publicKey"
   public-paths:
@@ -120,8 +117,7 @@ cors:
   allowed-origins:
     - "http://localhost" # 允許前端開發時的跨域訪問
     - "https://localhost" # 允許前端開發時的跨域訪問
-    - "http://localhost:7001" # 允許前端開發時的跨域訪問
-    - "https://localhost:7001" # 允許前端開發時的跨域訪問
+    - "https://cb-svc-web.vitalext.com/" # 允許前端開發時的跨域訪問
     - "http://localhost:8080" # 本地後端的跨域訪問
     - "https://localhost:8080" # 本地後端的跨域訪問
     - "https://member.vikosmos.com" # 測試環境的前端域名
