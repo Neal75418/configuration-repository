@@ -4,3 +4,7 @@ spring:
       discovery:
         healthCheckUrl: http://config-server:${server.port}/actuator/health
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+
+# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
+logging:
+  config: classpath:log4j2-logstash.xml
