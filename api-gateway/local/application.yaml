@@ -26,3 +26,6 @@ jwt:
     seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
   valid:
     audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
+
+test:
+  depot-id: cspsd_test
