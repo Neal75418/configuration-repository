@@ -126,7 +126,7 @@ cors:
     - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
     - "https://cb-svc-web.vitalext.com/" # 允許前端開發時的跨域訪問
     - "https://cloud-member.gss.com.tw" # 帳號中心測試網域
-    - "https://member.gsscloud.com/" # 帳號中心正式網域
+    - "https://member.gsscloud.com" # 帳號中心正式網域
   allowed-methods:
     - "GET"
     - "POST"
