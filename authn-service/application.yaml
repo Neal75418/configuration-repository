@@ -20,6 +20,8 @@ static:
       period: 3600
 
 app:
+  cookie:
+    domain: .vitalext.com
   security:
     public-paths:
       - "/public/**"
@@ -38,6 +40,3 @@ app:
       - "/oauth2/authorization/**"
       - "/authorize"
       - "/token"
-
-  cookie:
-    domain: .vitalext.com
