@@ -38,3 +38,6 @@ app:
       - "/oauth2/authorization/**"
       - "/authorize"
       - "/token"
+
+  cookie:
+    domain: .vitalext.com
