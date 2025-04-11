@@ -22,7 +22,7 @@ spring:
 
 bizform:
   service:
-    url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
+    url: ${BIZFORM_API_BASE_URL:https://bizform.vitalyun.com}
 
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
