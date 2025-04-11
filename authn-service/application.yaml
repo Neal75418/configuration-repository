@@ -21,7 +21,7 @@ static:
 
 app:
   cookie:
-    domain: .vitalext.com
+    domain: vitalext.com
   security:
     public-paths:
       - "/public/**"
