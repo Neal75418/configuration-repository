@@ -124,8 +124,7 @@ cors:
     - "https://member.vikosmos.com" # 測試環境的前端域名
     - "http://127.0.0.1:8080/authn/oauth/callback"
     - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
-    - "https://*.vitalext.com" # 允許前端開發時的跨域訪問
-    - "https://cb-svc-web.vitalext.com"  # 雖然 *.vitalext.com 包含了它，但保留明確列出以防 wildcard 不生效
+    - "https://cb-svc-web.vitalext.com"  # 允許前端開發時的跨域訪問
     - "https://cloud-member.gss.com.tw" # 帳號中心測試網域
     - "https://member.gsscloud.com" # 帳號中心正式網域
   allowed-methods:
