@@ -83,17 +83,8 @@ app:
     redirect-validation-paths:
       - "/authn/oauth" # OAuth 驗證的跳轉路徑
     allowed-redirect-uris:
-      - "http://localhost:8080/authn/oauth/callback"  # 後端的回調地址
-      - "http://localhost:8080/oauth/callback"        # 後端的回調地址
-      - "http://localhost:8080/authn/jwks/publicKey"  # JWK 公鑰地址
-      - "http://localhost:8080/jwks/publicKey"        # 公鑰地址
-      - "https://localhost:8080/authn/oauth/callback" # 後端的回調地址
-      - "https://localhost:8080/oauth/callback"       # 後端的回調地址
-      - "https://localhost:8080/authn/jwks/publicKey" # JWK 公鑰地址
-      - "https://localhost:8080/jwks/publicKey"       # 公鑰地址
-      - "https://cb-svc-web.vitalext.com"             # 前端的跳轉地址
-      - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
-      - "https://cb-svc-api.vitalext.com/authn/jwks/publicKey"
+      - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
+      - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # STAGING / PROD - 上線環境後端處理 OAuth 授權碼的回調端點
   public-paths:
     - "/public/**"
     - "/static/**"
