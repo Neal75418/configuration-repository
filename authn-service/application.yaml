@@ -35,4 +35,6 @@ app:
       - "/jwks/publicKey"
       - "/authn/oauth/login"
       - "/authn/oauth/callback"
+      - "/oauth/login"
+      - "/oauth/callback"
       - "/oauth2/authorization/**"
