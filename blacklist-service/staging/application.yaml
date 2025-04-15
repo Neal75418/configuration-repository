@@ -9,7 +9,7 @@ spring:
     redis:
       host: ${REDIS_HOST:auth_redis} # 動態化 Redis 主機，支持多環境配置
       port: ${REDIS_PORT:6379}      # Redis 默認端口
-      password: ${REDIS_PASSWORD:GssAuthRedis111}  # Redis 密碼（如果有）
+      password: ${REDIS_PASSWORD:}  # Redis 密碼（如果有）
       timeout: 5s  # 設定連線超時為 5 秒
       lettuce:
         pool:
