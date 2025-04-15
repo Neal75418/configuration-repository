@@ -24,15 +24,19 @@ app:
     domain: vitalext.com
   security:
     public-paths:
-      - "/public/**"                       # STATIC - 靜態前端資源（如圖片、JS、CSS 等）
-      - "/static/**"                       # STATIC - 舊版 Spring Boot 靜態資源預設路徑（向下相容）
-      - "/favicon.ico"                     # STATIC - 瀏覽器請求的網站 icon（建議保留）
-      - "/actuator/health"                 # OPS - 健康檢查端點（供 K8s / LB 使用）
-      - "/actuator/prometheus"             # OPS - Prometheus 指標收集（若有監控請放行）
-      - "/authn/.well-known/**"            # OIDC - OpenID Connect metadata discovery 路徑
+      - "/public/**"
+      - "/static/**"
+      - "/favicon.ico"
+      - "/actuator/health"
+      - "/actuator/prometheus"
+      - "/authn/.well-known/**"
+      - "/authn/jwks/publicKey"
       - "/.well-known/**"
       - "/jwks/publicKey"
-      - "/authn/jwks/publicKey"            # OIDC - JWT 驗證所需的 JWK 公鑰 endpoint
-      - "/authn/oauth/login"               # OIDC - OAuth2 登入入口，跳轉至授權伺服器
-      - "/authn/oauth/callback"            # OIDC - OAuth2 授權回調端點（交換授權碼用）
-      - "/oauth2/authorization/**"         # OIDC - Spring Security 的授權初始化 endpoint（自動產生 redirect）
+      - "/authn/oauth/login"
+      - "/authn/oauth/callback"
+      - "/oauth/login"
+      - "/oauth/callback"
+      - "/oauth2/authorization/**"
+      - "/authorize"
+      - "/token"
