@@ -7,7 +7,6 @@ spring:
       discovery:
         health-check-interval: 30s # 健康檢查間隔
         health-check-timeout: 15s # 健康檢查超時
-        deregister-critical-service-after: 30s # 當服務失敗時，30 秒後從 Consul 中註冊解除
 
 management:
   endpoints:
