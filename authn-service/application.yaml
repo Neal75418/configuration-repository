@@ -30,6 +30,8 @@ app:
       - "/actuator/health"                 # OPS - 健康檢查端點（供 K8s / LB 使用）
       - "/actuator/prometheus"             # OPS - Prometheus 指標收集（若有監控請放行）
       - "/authn/.well-known/**"            # OIDC - OpenID Connect metadata discovery 路徑
+      - "/.well-known/**"
+      - "/jwks/publicKey"
       - "/authn/jwks/publicKey"            # OIDC - JWT 驗證所需的 JWK 公鑰 endpoint
       - "/authn/oauth/login"               # OIDC - OAuth2 登入入口，跳轉至授權伺服器
       - "/authn/oauth/callback"            # OIDC - OAuth2 授權回調端點（交換授權碼用）
