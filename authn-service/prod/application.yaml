@@ -10,8 +10,8 @@ spring:
         registration: # 註冊客戶端信息
           oauth:
             provider: gss # 自定義 OAuth2 提供者名稱
-            client-id: ${OAUTH_CLIENT_ID:oauth} # 客戶端 ID，通過環境變數配置
-            client-secret: ${OAUTH_CLIENT_SECRET:secret} # 客戶端密鑰，通過環境變數配置
+            client-id: ${OAUTH_CLIENT_ID:} # 客戶端 ID，通過環境變數配置
+            client-secret: ${OAUTH_CLIENT_SECRET:} # 客戶端密鑰，通過環境變數配置
             authorization-grant-type: authorization_code # 授權類型
             redirect-uri: ${BASE_URL:https://cb-svc-api.vitalext.com}}/authn/oauth/callback # 重定向 URI（開發環境）
         provider: # OAuth2 提供者相關 URL
@@ -24,7 +24,7 @@ spring:
     redis: # Redis 配置
       host: ${REDIS_HOST:auth_redis} # Redis 主機地址
       port: ${REDIS_PORT:6379} # Redis 埠號
-      password: ${REDIS_PASSWORD:GssAuthRedis111} # Redis 密碼（如果有則填寫）
+      password: ${REDIS_PASSWORD:} # Redis 密碼（如果有則填寫）
       timeout: 5s  # 設定連線超時為 5 秒
       lettuce:
         pool:
