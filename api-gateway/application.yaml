@@ -85,18 +85,18 @@ app:
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
       - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # STAGING / PROD - 上線環境後端處理 OAuth 授權碼的回調端點
-  public-paths:
-    - "/public/**"                       # DEV - 前端靜態資源路徑（如 JS、CSS）
-    - "/static/**"                       # DEV - 傳統靜態資源目錄
-    - "/favicon.ico"                     # ALL - 網站 icon 請求，瀏覽器自動觸發
-    - "/actuator/health"                 # OPS - 健康檢查，用於 LB / K8s readiness
-    - "/actuator/prometheus"             # OPS - Prometheus 指標抓取端點（如有監控請保留）
-    - "/authn/.well-known/**"            # OIDC - OpenID Discovery metadata 公開協定路徑
-    - "/authn/jwks/publicKey"            # OIDC - JWT 驗證所需的 JWK 公鑰（建議公開）
-    - "/authn/oauth/login"               # OIDC - OAuth2 授權流程的登入入口（應放行）
-    - "/authn/oauth/callback"            # OIDC - OAuth2 授權碼回調端點（供授權碼兌換 token）
-    - "/oauth2/authorization/**"         # OIDC - Spring Security 授權端點
-    - "/bizform/**"                      # BIZFORM - 嵌入式表單或 iframe 顯示內容（若非全開放建議自行控權）
+    public-paths:
+      - "/public/**"                       # DEV - 前端靜態資源路徑（如 JS、CSS）
+      - "/static/**"                       # DEV - 傳統靜態資源目錄
+      - "/favicon.ico"                     # ALL - 網站 icon 請求，瀏覽器自動觸發
+      - "/actuator/health"                 # OPS - 健康檢查，用於 LB / K8s readiness
+      - "/actuator/prometheus"             # OPS - Prometheus 指標抓取端點（如有監控請保留）
+      - "/authn/.well-known/**"            # OIDC - OpenID Discovery metadata 公開協定路徑
+      - "/authn/jwks/publicKey"            # OIDC - JWT 驗證所需的 JWK 公鑰（建議公開）
+      - "/authn/oauth/login"               # OIDC - OAuth2 授權流程的登入入口（應放行）
+      - "/authn/oauth/callback"            # OIDC - OAuth2 授權碼回調端點（供授權碼兌換 token）
+      - "/oauth2/authorization/**"         # OIDC - Spring Security 授權端點
+      - "/bizform/**"                      # BIZFORM - 嵌入式表單或 iframe 顯示內容（若非全開放建議自行控權）
 
 cors:
   allowed-origins:
