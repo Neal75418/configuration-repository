@@ -115,18 +115,12 @@ app:
 
 cors:
   allowed-origins:
-    - "http://localhost" # 允許前端開發時的跨域訪問
-    - "https://localhost" # 允許前端開發時的跨域訪問
-    - "http://localhost:7001" # 允許前端開發時的跨域訪問
-    - "https://localhost:7001" # 允許前端開發時的跨域訪問
-    - "http://localhost:8080" # 本地後端的跨域訪問
-    - "https://localhost:8080" # 本地後端的跨域訪問
-    - "https://member.vikosmos.com" # 測試環境的前端域名
-    - "http://127.0.0.1:8080/authn/oauth/callback"
-    - "https://cb-svc-api.vitalext.com/authn/oauth/callback"
-    - "https://cb-svc-web.vitalext.com"  # 允許前端開發時的跨域訪問
-    - "https://cloud-member.gss.com.tw" # 帳號中心測試網域
-    - "https://member.gsscloud.com" # 帳號中心正式網域
+    - "http://localhost:7001"                    # DEV - 前端本地開發環境（通常使用 Vite/React 本地啟動）
+    - "https://cb-svc-web.vitalext.com"          # STAGING - VitalCaseBridge 前端測試環境（staging 測試使用）
+    - "https://member.vikosmos.com"              # DEV - BizForm 測試環境（用於表單服務簽核測試）
+    - "https://bizform.vitalyun.com"             # STAGING - BizForm 正式環境（實際對外簽核服務）
+    - "https://cloud-member.gss.com.tw"          # DEV - 帳號中心測試環境（OAuth 登入與授權測試）
+    - "https://member.gsscloud.com"              # STAGING - 帳號中心正式環境（實際登入與授權來源）
   allowed-methods:
     - "GET"
     - "POST"
