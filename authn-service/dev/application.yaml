@@ -63,7 +63,7 @@ bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
     login-endpoint: /Backend/api/account/login # 登錄端點
-    exchange-endpoint: /backend/api/account/token # 交換指定站台的token
+    exchange-endpoint: /Backend/api/account/token # 交換指定站台的token
 
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
