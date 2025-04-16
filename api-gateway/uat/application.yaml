@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        healthCheckUrl: http://api-gateway:${server.port}/actuator/health
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # IP 地址，優先使用外部傳入的環境變數
+
+  data:
+    redis:
+      host: ${REDIS_HOST:auth_redis} # Redis 主機地址，支持外部環境變數配置
+      port: ${REDIS_PORT:6379}      # Redis 默認端口
+      password: ${REDIS_PASSWORD:}  # Redis 密碼，留空表示無密碼
+      timeout: 5s  # 設定連線超時為 5 秒
+      lettuce:
+        pool:
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 最大等待時間
+
+jwt:
+  issuer: ${JWT_ISSUER_URI:${spring.cloud.client.ip-address}:8080/authn} # JWT 簽發者的 URI
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://${spring.cloud.client.ip-address}:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
+  signature-algorithm: ES256 # 使用 EC（橢圓曲線）簽名算法
+  time-skew:
+    seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
+  valid:
+    audiences: ${JWT_VALID_AUDIENCES:${spring.cloud.client.ip-address}} # JWT 的受眾驗證
+
+# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
+logging:
+  config: classpath:log4j2-logstash.xml
+
+test:
+  depot-id: ee197c49e2e9449c8b48874a45a1611d
