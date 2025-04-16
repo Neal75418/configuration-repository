@@ -37,8 +37,6 @@ auth: # 自定義認證相關配置
   registration-id: oauth # OAuth2 註冊 ID
   redirect:
     final-uri: ${FINAL_URI:http://localhost:7001} # 認證成功後重定向的 URI
-  account-center: # 外部帳號中心相關配置
-    check-token-url: ${CHECK_TOKEN_URL:https://member.vikosmos.com/cas/oauth2.0/introspect} # 檢查 Token 的 URL
   issuer: ${AUTH_ISSUER:http://localhost:8080/authn} # JWT 簽發者的 URI
   aud: ${AUTH_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
   token:
@@ -64,6 +62,10 @@ bizform: # BizForm 外部系統 API 配置
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
     login-endpoint: /Backend/api/account/login # 登錄端點
     exchange-endpoint: /Backend/api/account/token # 交換指定站台的token
+
+crm: # CRM 外部系統 API 配置
+  api:
+    uri: http://crm-api.dev.local/Internal/auth
 
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
