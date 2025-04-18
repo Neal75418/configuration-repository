@@ -10,6 +10,3 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
-
-#jwt:
-#  jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
