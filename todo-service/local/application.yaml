@@ -11,4 +11,4 @@ spring:
         jwt:
           jwk-set-uri: ${JWT_JWK_SET_URI}
 
-JWT_JWK_SET_URI: http://api-gateway:8080/authn/jwks/publicKey
+JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
