@@ -24,6 +24,20 @@ bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
 
+app:
+  security:
+    public-paths:
+      - "/actuator/health"
+      - "/actuator/prometheus"
+      - "/users/**"
+      - "/tenants/**"
+      - "/roles/**"
+      - "/resource-permissions/**"
+      - "/permissions/**"
+      - "/organizations/**"
+      - "/forms/**"
+      - "/audit/**"
+
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml
