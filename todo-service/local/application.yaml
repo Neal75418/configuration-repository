@@ -5,5 +5,10 @@ spring:
         health-check-path: /actuator/health
         ip-address: ${SERVICE_IP:127.0.0.1}
 
-jwt:
-  jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWT_JWK_SET_URI}
+
+JWT_JWK_SET_URI: http://api-gateway:8080/authn/jwks/publicKey
