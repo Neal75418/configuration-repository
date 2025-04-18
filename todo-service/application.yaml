@@ -13,5 +13,6 @@ spring:
 app:
   security:
     public-paths:
+      - "/demo"
       - "/actuator/health"
       - "/actuator/prometheus"
