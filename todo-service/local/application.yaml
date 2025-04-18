@@ -1,3 +1,5 @@
+JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
+
 spring:
   cloud:
     consul:
@@ -9,6 +11,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${JWT_JWK_SET_URI}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
 
-JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
