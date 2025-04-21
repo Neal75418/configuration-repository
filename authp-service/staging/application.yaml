@@ -32,6 +32,12 @@ bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vitalyun.com}
 
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    enabled: false       # 關閉 OpenAPI JSON 文件（/v3/api-docs），防止 API schema 外洩
+
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml
