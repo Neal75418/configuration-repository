@@ -97,6 +97,9 @@ app:
       - "/authn/oauth/callback"            # OIDC - OAuth2 授權碼回調端點（供授權碼兌換 token）
       - "/oauth2/authorization/**"         # OIDC - Spring Security 授權端點
       - "/bizform/**"                      # BIZFORM - 嵌入式表單或 iframe 顯示內容（若非全開放建議自行控權）
+      - "/swagger-ui.html"                 # Swagger UI
+      - "/swagger-ui/**"                   # Swagger 靜態資源
+      - "/v3/api-docs/**"                  # OpenAPI JSON
 
 cors:
   allowed-origins:
