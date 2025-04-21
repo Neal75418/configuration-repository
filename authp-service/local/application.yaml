@@ -37,3 +37,4 @@ app:
     public-paths:
       - "/actuator/health"
       - "/actuator/prometheus"
+      - "/users/*/default-tenant"
