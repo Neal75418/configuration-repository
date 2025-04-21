@@ -64,18 +64,18 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     urls:
-      - name: authn
-        url: /authn/v3/api-docs
-      - name: authz
-        url: /authz/v3/api-docs
+#      - name: authn
+#        url: /authn/v3/api-docs
+#      - name: authz
+#        url: /authz/v3/api-docs
       - name: authp
         url: /authp/v3/api-docs
-      - name: blacklist
-        url: /blacklist/v3/api-docs
-      - name: todo
-        url: /todo/v3/api-docs
-      - name: bizform
-        url: /bizform/v3/api-docs
+#      - name: blacklist
+#        url: /blacklist/v3/api-docs
+#      - name: todo
+#        url: /todo/v3/api-docs
+#      - name: bizform
+#        url: /bizform/v3/api-docs
 
 auth:
   service:

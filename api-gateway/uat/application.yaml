@@ -27,6 +27,12 @@ jwt:
   valid:
     audiences: ${JWT_VALID_AUDIENCES:${spring.cloud.client.ip-address}} # JWT 的受眾驗證
 
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
+
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml
