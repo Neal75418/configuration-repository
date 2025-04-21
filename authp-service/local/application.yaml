@@ -38,3 +38,4 @@ app:
       - "/actuator/health"
       - "/actuator/prometheus"
       - "/users/*/default-tenant"
+      - "/users/*/details"
