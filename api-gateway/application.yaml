@@ -2,6 +2,13 @@ server:
   address: 0.0.0.0
   port: 8080 # 微服務端口，用於本地開發和測試
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html # 自訂路徑
+    urls:
+      - name: default
+        url: /v3/api-docs
+
 spring:
   web:
     resources:
