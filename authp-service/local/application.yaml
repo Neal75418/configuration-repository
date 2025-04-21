@@ -5,6 +5,12 @@ spring:
         health-check-path: /actuator/health
         ip-address: ${SERVICE_IP:127.0.0.1}
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
+
   datasource: # 數據源配置
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
     username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
