@@ -31,18 +31,3 @@ spring:
 bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
-
-app:
-  security:
-    public-paths:
-      # 健康檢查端點，供監控工具（如 Kubernetes、ELB）使用
-      - "/actuator/health"
-
-      # Prometheus 指標收集端點，供監控系統抓取應用程式指標
-      - "/actuator/prometheus"
-
-      # 查詢使用者預設租戶（登入前使用），需允許匿名存取
-      - "/users/*/default-tenant"
-
-      # 查詢使用者詳細資訊，供 authn 建立 JWT 時呼叫，需允許匿名（特例情境）
-      - "/users/*/details"

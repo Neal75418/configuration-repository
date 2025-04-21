@@ -1,9 +1,17 @@
+JWT_JWK_SET_URI: http://api-gateway:8080/authn/jwks/publicKey
+
 spring:
   cloud:
     consul:
       discovery:
         healthCheckUrl: http://authp-service:${server.port}/actuator/health
         ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
 
   datasource: # 數據源配置
     url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
