@@ -68,13 +68,13 @@ springdoc:
 #        url: /authn/v3/api-docs
 #      - name: authz
 #        url: /authz/v3/api-docs
-      - name: authp
+      - name: GSS.Vital.AuthPService
         url: /authp/v3/api-docs
 #      - name: blacklist
 #        url: /blacklist/v3/api-docs
 #      - name: todo
 #        url: /todo/v3/api-docs
-      - name: bizform
+      - name: GSS.Vital.BizFormAPIService
         url: /bizform/swagger/v1/swagger.json
 
 auth:
