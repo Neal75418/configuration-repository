@@ -75,7 +75,7 @@ springdoc:
 #      - name: todo
 #        url: /todo/v3/api-docs
       - name: bizform
-        url: /bizform/v3/api-docs
+        url: /bizform/swagger/v1/swagger.json
 
 auth:
   service:
