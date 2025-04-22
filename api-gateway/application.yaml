@@ -74,8 +74,8 @@ springdoc:
 #        url: /blacklist/v3/api-docs
 #      - name: todo
 #        url: /todo/v3/api-docs
-#      - name: bizform
-#        url: /bizform/v3/api-docs
+      - name: bizform
+        url: /bizform/v3/api-docs
 
 auth:
   service:
