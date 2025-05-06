@@ -73,3 +73,9 @@ logging:
 
 test:
   depot-id: ee197c49e2e9449c8b48874a45a1611d
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    enabled: false       # 關閉 OpenAPI JSON 文件（/v3/api-docs），防止 API schema 外洩

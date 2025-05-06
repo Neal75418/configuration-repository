@@ -73,3 +73,9 @@ logging:
 
 test:
   depot-id: cspsd_test
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    enabled: false       # 關閉 OpenAPI JSON 文件（/v3/api-docs），防止 API schema 外洩

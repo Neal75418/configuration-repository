@@ -64,12 +64,12 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     urls:
-#      - name: authn
-#        url: /authn/v3/api-docs
+      - name: GSS.Vital.AuthNService
+        url: /authn/v3/authn-docs
+      - name: GSS.Vital.AuthPService
+        url: /authp/v3/authp-docs
 #      - name: authz
 #        url: /authz/v3/api-docs
-      - name: GSS.Vital.AuthPService
-        url: /authp/v3/api-docs
 #      - name: blacklist
 #        url: /blacklist/v3/api-docs
 #      - name: todo

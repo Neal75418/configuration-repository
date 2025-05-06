@@ -31,3 +31,9 @@ spring:
 bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    path: /authp/v3/authp-docs  # 根據每個微服務設計自己的前綴
