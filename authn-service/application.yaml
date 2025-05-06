@@ -24,21 +24,28 @@ app:
     domain: vitalext.com
   security:
     public-paths:
-    - "/public/**"                       # STATIC - 靜態前端資源（圖片、JS、CSS 等）
-    - "/static/**"                       # STATIC - 傳統 Spring Boot 靜態資源路徑（向下相容）
-    - "/favicon.ico"                     # STATIC - 網站圖示，瀏覽器預設請求
-    - "/actuator/health"                 # OPS - 健康檢查（K8s readiness / LB probe）
-    - "/actuator/prometheus"             # OPS - Prometheus 指標收集端點（如有監控需求）
-    - "/authn/.well-known/**"            # OIDC - AuthN 模組下的 OIDC Discovery 路徑
-    - "/authn/jwks/publicKey"            # OIDC - JWT 驗證的 JWK 公鑰端點（供其他服務驗簽）
-    - "/.well-known/**"                  # OIDC - 根路徑 OIDC Discovery fallback（某些客戶端要求）
-    - "/jwks/publicKey"                  # OIDC - 根路徑 JWK fallback（某些前端或第三方驗證工具會預設呼叫）
-    - "/authn/oauth/login"               # OIDC - OAuth2 授權流程登入入口（後端觸發 redirect）
-    - "/authn/oauth/callback"            # OIDC - OAuth2 回調處理授權碼（供 AuthN 處理）
-    - "/oauth/login"                     # OIDC - 通用 OAuth 登入 fallback（某些前端工具會自動跳這）
-    - "/oauth/callback"                  # OIDC - 通用 OAuth 回調 fallback（兼容第三方 client）
-    - "/oauth2/authorization/**"         # OIDC - Spring Security 自帶的授權流程起始點（建議保留）
-    - "/swagger-ui.html"                 # Swagger UI
-    - "/swagger-ui/**"                   # Swagger 靜態資源
-    - "/v3/api-docs/**"                  # OpenAPI JSON
-    - "/v3/authn-docs"
+      # ---------- 🌐 靜態資源 ----------
+      - "/public/**"            # 前端靜態檔 (JS / CSS / img)
+      - "/static/**"            # 傳統 static 目錄
+      - "/favicon.ico"          # 網站 icon
+
+      # ---------- 🔍 健康 / 監控 ----------
+      - "/actuator/health"      # 健康檢查
+      - "/actuator/prometheus"  # Prometheus 指標
+
+      # ---------- 🔑 OIDC / JWT 相關 ----------
+      - "/authn/.well-known/**" # OIDC Discovery (AuthN 路徑)
+      - "/authn/jwks/publicKey" # JWK public key (AuthN 路徑)
+      - "/.well-known/**"       # OIDC Discovery root fallback
+      - "/jwks/publicKey"       # JWK root fallback
+      - "/authn/oauth/login"    # OAuth2 login
+      - "/authn/oauth/callback" # OAuth2 callback
+      - "/oauth/login"          # 通用 login fallback
+      - "/oauth/callback"       # 通用 callback fallback
+      - "/oauth2/authorization/**" # Spring Security OIDC 端點
+
+      # ---------- 📄 Swagger / OpenAPI ----------
+      - "/swagger-ui.html"      # Swagger UI
+      - "/swagger-ui/**"        # Swagger 靜態資源
+      - "/v3/api-docs/**"       # OpenAPI JSON
+      - "/v3/authn-docs"        # AuthN 自訂 docs 入口

@@ -17,10 +17,15 @@ spring:
 app:
   security:
     public-paths:
-      - "/actuator/health"           # 健康檢查
-      - "/actuator/prometheus"       # Prometheus 指標
-      - "/users/*/default-tenant"    # 查預設租戶（登入前）
-      - "/users/*/details"           # 查用戶詳情（JWT 建立用）
-      - "/swagger-ui.html"           # Swagger UI
-      - "/swagger-ui/**"             # Swagger 靜態資源
-      - "/v3/api-docs/**"            # OpenAPI JSON
+      # ---------- 🔍 健康 / 監控 ----------
+      - "/actuator/health"        # 健康檢查 (readiness / liveness)
+      - "/actuator/prometheus"    # Prometheus 指標
+
+      # ---------- 👤 用戶前置查詢 ----------
+      - "/users/*/default-tenant" # 取預設租戶（登入前呼叫）
+      - "/users/*/details"        # 取用戶詳情（建立 JWT 時用）
+
+      # ---------- 📄 Swagger / OpenAPI ----------
+      - "/swagger-ui.html"        # Swagger UI
+      - "/swagger-ui/**"          # Swagger 靜態資源
+      - "/v3/api-docs/**"         # OpenAPI JSON
