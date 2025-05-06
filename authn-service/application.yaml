@@ -38,3 +38,6 @@ app:
     - "/oauth/login"                     # OIDC - 通用 OAuth 登入 fallback（某些前端工具會自動跳這）
     - "/oauth/callback"                  # OIDC - 通用 OAuth 回調 fallback（兼容第三方 client）
     - "/oauth2/authorization/**"         # OIDC - Spring Security 自帶的授權流程起始點（建議保留）
+    - "/swagger-ui.html"                 # Swagger UI
+    - "/swagger-ui/**"                   # Swagger 靜態資源
+    - "/v3/api-docs/**"                  # OpenAPI JSON
