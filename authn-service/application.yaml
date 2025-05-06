@@ -42,4 +42,3 @@ app:
     - "/swagger-ui/**"                   # Swagger 靜態資源
     - "/v3/api-docs/**"                  # OpenAPI JSON
     - "/v3/authn-docs"
-    - "/webjars/**"

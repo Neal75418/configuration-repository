@@ -118,6 +118,7 @@ app:
       - "/swagger-ui/**"                   # Swagger 靜態資源
       - "/v3/api-docs/**"                  # OpenAPI JSON
       - "/webjars/**"                      # Swagger UI 所依賴的 JS/CSS 靜態資源（來自 WebJars）
+      - "/authn/v3/authn-docs"
 
 cors:
   allowed-origins:
