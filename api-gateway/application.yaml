@@ -138,15 +138,19 @@ cors:
     - "https://cloud-member.gss.com.tw"          # DEV - 帳號中心測試環境（OAuth 登入與授權測試）
     - "https://member.gsscloud.com"              # STAGING - 帳號中心正式環境（實際登入與授權來源）
   allowed-methods:
-    - "GET"
-    - "POST"
-    - "PUT"
-    - "DELETE"
-    - "OPTIONS"
+    - "GET"       # 查詢資源
+    - "POST"      # 建立資源
+    - "PUT"       # 更新整個資源
+    - "DELETE"    # 刪除資源
+    - "OPTIONS"   # 預檢請求（瀏覽器自動發出，用於 CORS 驗證）
+    - "PATCH"     # 更新部分欄位（部分修改資源，RESTful 常見）
+
   allowed-headers:
-    - "Authorization"
-    - "Content-Type"
-    - "Refresh-Token"
-    - "X-Current-Page"
-    - "X-Page-Size"
-    - "X-Total-Count"
+    - "Authorization"       # JWT 或 OAuth Token 驗證用
+    - "Content-Type"        # 請求格式聲明，例如 application/json
+    - "Refresh-Token"       # Refresh Token，用於換發 access token
+    - "X-Current-Page"      # 分頁：目前頁數（前端自定義 header）
+    - "X-Page-Size"         # 分頁：每頁資料量
+    - "X-Total-Count"       # 分頁：總筆數（多用於 response header，但保留允許請求端帶入）
+    - "X-Requested-With"    # Ajax 請求識別（例如 XMLHttpRequest，某些 UI 框架會自帶）
+    - "Accept"              # 接受的回應格式，例如 application/json、text/html 等
