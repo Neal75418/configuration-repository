@@ -108,58 +108,36 @@ app:
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
       - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # STAGING / PROD - 上線環境後端處理 OAuth 授權碼的回調端點
-    # ------------------------------------------------------------
-    # permit-all : 進入 Gateway 時「免 Spring-Security 認證」，
-    #              但依然會被 InternalTokenFilter 檢查 JWT。
-    #              ➜ 需攜帶正確 JWT 才能通過，否則 401。
-    # ------------------------------------------------------------
-    permit-all:
-      # 👉 給瀏覽器換 BizForm JWT 的後端端點
-      - /authn/oauth/token/exchange
-      # 👉 使用者登出（需清除黑名單，但不驗快取）
-      - /authn/oauth/logout
-      # 👉 角色 / 資源授權管理 API
-      - /authz/**
-      # 👉 權限 CRUD 與租戶設定 API
-      - /authp/**
-      # 👉 JWT 黑名單管理
-      - /blacklist/**
-      # 👉 Todo 服務
-      - /todo/**
-      # 👉 家系圖服務
-      - /genogram/**
 
     # ------------------------------------------------------------
-    # public-paths : 完全匿名，InternalTokenFilter 也不驗 JWT。
-    #                建議只放健康檢查、靜態檔、BizForm iframe 等
-    #                真的必須「無登入」存取的路徑。
+    # public-paths : 完全匿名路徑，Spring Security 與 InternalTokenFilter 均不處理。
+    #                ➜ 無需攜帶 JWT，即可直接存取。
+    #                ➜ 僅適用於「無登入需求」的靜態資源、健康檢查、公共元資料等。
+    #                ⚠️ 若與安全相關，請勿放入此區。
     # ------------------------------------------------------------
     public-paths:
-      # ---------- 🌐 靜態資源 / 瀏覽器預設 ----------
-      - "/public/**"            # DEV - 前端靜態資源（JS / CSS / img）
-      - "/static/**"            # DEV - Spring Boot 傳統 static 目錄
-      - "/favicon.ico"          # ALL - 瀏覽器自動請求的網站 icon
+      # ---------- 🌐 靜態資源（前端預設請求） ----------
+      - "/public/**"              # DEV - 開發時用的前端靜態資源（JS / CSS / img 等）
+      - "/static/**"              # DEV - Spring Boot 傳統 static 目錄（若使用）
+      - "/favicon.ico"            # ALL - 瀏覽器預設請求網站 icon
 
-      # ---------- 🔍 健康 / 監控 ----------
-      - "/actuator/health"      # OPS - 健康檢查 (LB / K8s)
-      - "/actuator/prometheus"  # OPS - Prometheus 指標 (有監控才會抓)
+      # ---------- 🔍 健康檢查與監控 ----------
+      - "/actuator/health"        # OPS - 系統健康狀態（供 LB / K8s 探活用）
+      - "/actuator/prometheus"    # OPS - Prometheus 指標暴露端點（若有啟用監控）
 
-      # ---------- 🔑 OIDC / JWT ----------
-      - "/authn/.well-known/**" # OIDC Discovery metadata
-      - "/authn/jwks/publicKey" # JWT 驗簽用 JWK (public)
-      - "/authn/oauth/login"    # OAuth2 login 起點
-      - "/authn/oauth/callback" # OAuth2 授權碼回調
-      - "/oauth2/authorization/**" # Spring Security 自帶授權端點
+      # ---------- 🔑 JWT / OIDC 公開協定端點 ----------
+      - "/authn/.well-known/**"   # OIDC Discovery metadata
+      - "/authn/jwks/publicKey"   # JWT 驗簽所需的 JWK 公鑰
+      - "/authn/oauth/login"      # OAuth2 授權登入起點（供前端導向）
+      - "/authn/oauth/callback"   # OAuth2 授權碼回調端點
+      - "/oauth2/authorization/**" # Spring Security OAuth2 核心端點（自動註冊）
 
-      # ---------- 📄 Swagger（開發用文件） ----------
-      - "/swagger-ui.html"      # Swagger UI 首頁
-      - "/swagger-ui/**"        # Swagger JS / CSS
-      - "/v3/api-docs/**"       # OpenAPI JSON
-      - "/webjars/**"           # WebJars 靜態資源
-      - "/authn/v3/authn-docs"  # AuthN 服務的聚合文件
-
-      # ---------- 📝 BizForm 內嵌表單 ----------
-      - "/bizform/**"           # (若之後要細控權限，可整組移除)
+      # ---------- 📄 Swagger / OpenAPI 開發用文件 ----------
+      - "/swagger-ui.html"        # Swagger UI 首頁（HTML）
+      - "/swagger-ui/**"          # Swagger UI 前端靜態資源（JS / CSS）
+      - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
+      - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
+      - "/authn/v3/authn-docs"    # AuthN 聚合後的 Swagger 文件（通常是 aggregator 產出）
 
 cors:
   allowed-origins:
@@ -169,6 +147,7 @@ cors:
     - "https://bizform.vitalyun.com"             # STAGING - BizForm 正式環境（實際對外簽核服務）
     - "https://cloud-member.gss.com.tw"          # DEV - 帳號中心測試環境（OAuth 登入與授權測試）
     - "https://member.gsscloud.com"              # STAGING - 帳號中心正式環境（實際登入與授權來源）
+    - "https://demo.genogram.cloud"              # DEV - 家系圖嵌入 iframe 頁面來源（iframe 載入允許跨域）
   allowed-methods:
     - "GET"       # 查詢資源
     - "POST"      # 建立資源
