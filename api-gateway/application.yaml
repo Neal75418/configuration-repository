@@ -109,7 +109,7 @@ app:
       - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
       - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # STAGING / PROD - 上線環境後端處理 OAuth 授權碼的回調端點
 
-      # ------------------------------------------------------------
+    # ------------------------------------------------------------
     # permit-all : 進入 Gateway 時「免 Spring-Security 認證」，
     #              但依然會通過 InternalTokenFilter 驗證 JWT 與基本授權。
     #              ➜ 未攜帶有效 JWT 則返回 401。
