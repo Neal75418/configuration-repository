@@ -109,6 +109,37 @@ app:
       - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
       - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # STAGING / PROD - 上線環境後端處理 OAuth 授權碼的回調端點
 
+      # ------------------------------------------------------------
+    # permit-all : 進入 Gateway 時「免 Spring-Security 認證」，
+    #              但依然會通過 InternalTokenFilter 驗證 JWT 與基本授權。
+    #              ➜ 未攜帶有效 JWT 則返回 401。
+    #              ➜ 適用於登入後可直接存取，但不需再進入 Spring Security 的路徑。
+    # ------------------------------------------------------------
+    permit-all:
+      # 👉 提供使用者以系統 JWT 換取 BizForm 專用 JWT
+      - /authn/oauth/token/exchange
+
+      # 👉 處理使用者登出，清除黑名單、Cookie 與快取資訊
+      - /authn/oauth/logout
+
+      # 👉 權限授權服務，包含角色、資源權限驗證等查詢操作
+      - /authz/**
+
+      # 👉 權限與租戶設定服務（建立、更新、刪除等）
+      - /authp/**
+
+      # 👉 JWT 黑名單管理，支援黑名單查詢與快取同步
+      - /blacklist/**
+
+      # 👉 Todo 管理 API（範例服務）
+      - /todo/**
+
+      # 👉 BizForm 提報、同步等專用 API，需驗系統 JWT 與角色、地區權限
+      - /bizform/**
+
+      # 👉 家系圖服務，包含成員關係管理與查詢
+      - /genogram/**
+
     # ------------------------------------------------------------
     # public-paths : 完全匿名路徑，Spring Security 與 InternalTokenFilter 均不處理。
     #                ➜ 無需攜帶 JWT，即可直接存取。
