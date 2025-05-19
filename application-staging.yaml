@@ -16,8 +16,9 @@ management:
       base-path: /actuator                 # 管理端點的基路徑
   endpoint:
     health:
-      enabled: true                       # 啟用健康檢查端點。
-      show-details: when_authorized       # 僅授權用戶（具備必要權限）可以查看健康檢查的詳細信息。
+      access: read-only                  # 啟用讀取存取（GET）
+      show-details: when-authorized      # 有授權角色才顯示詳細資訊
+      roles: SYSTEM_ADMIN                # ✅ 指定角色（你 DB 裡的 code）
 
 logging:
   level:
