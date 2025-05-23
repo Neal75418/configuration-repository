@@ -186,6 +186,9 @@ app:
       - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
       - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
 
+      # ---------- 🔁 JWT Refresh Token ----------
+      - "/authn/refresh-token"      # 使用 Refresh Token 換取新 Access Token，需允許匿名進入
+
 cors:
   allowed-origins:
     - "http://localhost:7001"                    # DEV - 前端本地開發環境（通常使用 Vite/React 本地啟動）
