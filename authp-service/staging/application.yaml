@@ -24,7 +24,6 @@ spring:
       hibernate:
         show_sql: true # ✅ 顯示執行的 SQL（建議開發環境開啟）
         format_sql: true # ✅ 將 SQL 格式化為易讀格式（僅限開發環境）
-        dialect: org.hibernate.dialect.MySQLDialect # ⚠️ 指定 Hibernate 使用 MySQL Dialect
     hibernate:
       ddl-auto: validate # 生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
