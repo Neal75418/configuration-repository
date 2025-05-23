@@ -15,15 +15,16 @@ spring:
 
   datasource: # 數據源配置
     url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
-    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
+    username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
 
   jpa: # JPA 和 Hibernate 配置
     properties:
       hibernate:
-        show_sql: true # 顯示 SQL 語句（開發環境開啟）
-        format_sql: true # 格式化 SQL 語句（開發環境開啟）
+        show_sql: true # ✅ 顯示執行的 SQL（建議開發環境開啟）
+        format_sql: true # ✅ 將 SQL 格式化為易讀格式（僅限開發環境）
+        dialect: org.hibernate.dialect.MySQLDialect # ⚠️ 指定 Hibernate 使用 MySQL Dialect
     hibernate:
       ddl-auto: validate # 生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
