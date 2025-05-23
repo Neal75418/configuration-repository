@@ -133,6 +133,11 @@ app:
       # 👉 提供使用者以系統 JWT 換取 BizForm 專用 JWT
       - /authn/oauth/token/exchange
 
+      # 👉 使用 Refresh Token 換取新的 Access Token（JWT）
+      #     - ⚠️ 僅允許匿名訪問，因為此時 JWT 可能已過期
+      #     - ✅ 將從 Cookie 或 Header 讀取 refresh-token
+      - /authn/oauth/refresh-token
+
       # 👉 處理使用者登出，清除黑名單、Cookie 與快取資訊
       - /authn/oauth/logout
 
