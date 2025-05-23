@@ -15,7 +15,7 @@ spring:
 
   datasource: # 數據源配置
     url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
-    username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
+    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
 
