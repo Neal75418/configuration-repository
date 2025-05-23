@@ -68,6 +68,12 @@ spring:
           predicates:
             - Path=/genogram/** # 匹配 /genogram/ 開頭的請求
 
+        # mail 服務路由
+        - id: MailService
+          uri: lb://MailService # 負載均衡到 `mail-service`
+          predicates:
+            - Path=/mail/** # 匹配 /mail/ 開頭的請求
+
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # 緩存初始化容量為 100，最大容量為 500，寫入後 10 分鐘過期
@@ -88,6 +94,8 @@ springdoc:
 #        url: /todo/v3/api-docs
       - name: GSS.Vital.BizFormAPIService
         url: /bizform/swagger/v1/swagger.json
+      - name: GSS.Vital.MailService
+        url: /mail/swagger/v1/swagger.json
 
 auth:
   service:
@@ -146,6 +154,9 @@ app:
       # 👉 家系圖服務，包含成員關係管理與查詢
       - /genogram/**
 
+      # 👉 mail服務，發信功能
+      - /mail/**
+
     # ------------------------------------------------------------
     # public-paths : 完全匿名路徑，Spring Security 與 InternalTokenFilter 均不處理。
     #                ➜ 無需攜帶 JWT，即可直接存取。
@@ -174,7 +185,6 @@ app:
       - "/swagger-ui/**"          # Swagger UI 前端靜態資源（JS / CSS）
       - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
       - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
-      - "/authn/v3/authn-docs"    # AuthN 聚合後的 Swagger 文件（通常是 aggregator 產出）
 
 cors:
   allowed-origins:
