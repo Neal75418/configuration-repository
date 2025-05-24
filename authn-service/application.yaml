@@ -20,8 +20,6 @@ static:
       period: 3600
 
 app:
-  cookie:
-    domain: vitalext.com
   security:
     public-paths:
       # ---------- 🌐 靜態資源 ----------

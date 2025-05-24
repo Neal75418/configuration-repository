@@ -67,6 +67,10 @@ crm: # CRM 外部系統 API 配置
   api:
     uri: http://crm-api.dev.local/Internal/auth
 
+app:
+  cookie:
+    domain: vitalext.com
+
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml

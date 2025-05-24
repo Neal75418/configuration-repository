@@ -67,6 +67,10 @@ crm: # CRM 外部系統 API 配置
   api:
     uri: http://crm-api.dev.local/Internal/auth
 
+app:
+  cookie:
+    domain: localhost
+
 test:
   depot-id: cspsd_test
 
