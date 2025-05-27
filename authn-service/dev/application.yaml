@@ -58,7 +58,13 @@ key:
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
 authp:
+  # 🔗 AuthP 微服務的內部服務名稱（給 @LoadBalanced RestTemplate 使用）
+  # 應為 Consul / Eureka 中註冊的服務 ID，例如 "authp-service"
   internal-base-url: http://authp-service
+
+  # 📍 AuthP 中使用者相關 API 的共用前綴
+  # 預設為 "/users"，若未來改為版本化路徑（例如 /v1/users）可直接在此調整
+  user-uri-prefix: /users
 
 bizform: # BizForm 外部系統 API 配置
   api:
