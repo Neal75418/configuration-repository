@@ -14,6 +14,10 @@ spring:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
+internal:
+  token:
+    expected-audience: authp-service # 👈 本微服務名稱，用於 internal token audience 驗證
+
 app:
   security:
     public-paths:
