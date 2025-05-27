@@ -28,6 +28,19 @@ spring:
       ddl-auto: validate # 生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
 
+  data:
+    redis: # Redis 配置
+      host: ${REDIS_HOST:localhost} # Redis 主機地址
+      port: ${REDIS_PORT:6379} # Redis 埠號
+      password: ${REDIS_PASSWORD:GssAuthRedis111} # Redis 密碼（如果有則填寫）
+      timeout: 5s  # 設定連線超時為 5 秒
+      lettuce:
+        pool:
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 連接等待時間
+
 bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}

@@ -57,6 +57,9 @@ key:
   private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
+authp:
+  internal-base-url: http://authp-service
+
 bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
