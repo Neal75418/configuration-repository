@@ -64,5 +64,10 @@ logging:
     reactor.netty.http.server: INFO
     reactor.netty.http.client: INFO
 
+    # 🆕 關掉 JDK/JUL 噪音
+    jdk.event.security: OFF
+    jdk.event: OFF
+    java.security: OFF
+
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
