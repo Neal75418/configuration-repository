@@ -22,10 +22,28 @@ management:
 
 logging:
   level:
-    root: DEBUG  # ✅ 保留全域 DEBUG（如果你就是要看細節）
-    com.gss: DEBUG  # ✅ 自家服務 debug 開著
+    root: DEBUG  # ✅ 全域 DEBUG 開著，方便 trace 問題
+    com.gss: DEBUG  # ✅ 自家業務碼開著
+    org.springframework: INFO  # Spring 大部分元件就給 INFO 就好
 
-    # 🧼 HTTP client 全面降噪
+    # ☁️ Spring Cloud 噪音源
+    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN
+    org.springframework.cloud.consul.discovery.ConsulCatalogWatch: WARN
+
+    # 🔐 Spring Security 降噪
+    org.springframework.security.web: INFO
+    org.springframework.security: INFO
+
+    # 🌐 Web 層降噪
+    org.springframework.web: INFO
+    org.springframework.web.reactive: INFO
+    org.springframework.http.codec: INFO
+
+    # ☎️ RMI 系列降噪
+    sun.rmi.transport.tcp: WARN
+    javax.management.remote.rmi: WARN
+
+    # 🧼 Apache HttpClient 降噪
     org.apache.http: WARN
     org.apache.http.wire: OFF
     org.apache.http.headers: OFF
@@ -37,23 +55,11 @@ logging:
     org.apache.http.impl.nio.client: WARN
     org.apache.http.impl.nio.conn: WARN
 
-    # ☁️ Spring 雜訊抑制
-    org.springframework.boot.actuate.endpoint.web: INFO
-    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN
-    org.springframework.security.web: INFO
-    org.springframework.web: INFO
-    org.springframework.web.reactive: INFO
-    org.springframework.http.codec: INFO
-
-    # ☎️ 避免 Consul 重複刷 catalog
-    org.springframework.cloud.consul.discovery.ConsulCatalogWatch: WARN
-
-    # ☎️ RMI 降噪
-    sun.rmi.transport.tcp: WARN
-    javax.management.remote.rmi: WARN
-
+    # 🔥 Redis Lettuce 降噪
     io.lettuce.core: WARN
-    org.springframework.data.redis: INFO  # Spring Redis 自己也降一下
+    org.springframework.data.redis: INFO
+
+    # 🚦 Reactor Netty 降噪
     reactor.netty: INFO
     reactor.netty.http.server: INFO
     reactor.netty.http.client: INFO
