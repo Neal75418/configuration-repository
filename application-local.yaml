@@ -22,52 +22,13 @@ management:
 
 logging:
   level:
-    root: DEBUG  # ✅ 全域 DEBUG 開著，方便 trace 問題
-    com.gss: DEBUG  # ✅ 自家業務碼開著
-    org.springframework: INFO  # Spring 大部分元件就給 INFO 就好
-
-    # ☁️ Spring Cloud 噪音源
-    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN
-    org.springframework.cloud.consul.discovery.ConsulCatalogWatch: WARN
-
-    # 🔐 Spring Security 降噪
-    org.springframework.security.web: INFO
-    org.springframework.security: INFO
-
-    # 🌐 Web 層降噪
-    org.springframework.web: INFO
-    org.springframework.web.reactive: INFO
-    org.springframework.http.codec: INFO
-
-    # ☎️ RMI 系列降噪
-    sun.rmi.transport.tcp: WARN
-    javax.management.remote.rmi: WARN
-
-    # 🧼 Apache HttpClient 降噪
-    org.apache.http: WARN
-    org.apache.http.wire: OFF
-    org.apache.http.headers: OFF
-    org.apache.http.impl.conn: WARN
-    org.apache.http.impl.execchain: WARN
-    org.apache.http.client: WARN
-    org.apache.http.client.protocol: WARN
-    org.apache.http.impl.client: WARN
-    org.apache.http.impl.nio.client: WARN
-    org.apache.http.impl.nio.conn: WARN
-
-    # 🔥 Redis Lettuce 降噪
-    io.lettuce.core: WARN
-    org.springframework.data.redis: INFO
-
-    # 🚦 Reactor Netty 降噪
-    reactor.netty: INFO
-    reactor.netty.http.server: INFO
-    reactor.netty.http.client: INFO
-
-    # 🆕 關掉 JDK/JUL 噪音
-    jdk.event.security: OFF
-    jdk.event: OFF
-    java.security: OFF
+    root: INFO                           # 全局日誌級別設置為 INFO，減少非必要的 DEBUG 日誌輸出。
+    sun.rmi.transport.tcp: WARN          # 將 RMI TCP 相關的日誌級別設置為 WARN，避免過多的冗餘日誌。
+    javax.management.remote.rmi: WARN    # 將 RMI 遠程管理日誌級別設置為 WARN，減少非必要的日誌。
+    org.apache.http.wire: WARN           # 屏蔽 Apache HTTP 客戶端的詳細線路追蹤日誌。
+    org.springframework.boot.actuate.endpoint.web: INFO # 將 Spring Boot Actuator 的 Web 端點日誌設置為 INFO 級別。
+    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN # 避免輸出過多與本地環境配置存儲相關的冗餘日誌。
+    org.springframework.security.web: INFO # 設置 Spring Security Web 模塊的日誌級別為 INFO，減少不必要的低級別輸出。
 
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
