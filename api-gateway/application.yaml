@@ -63,7 +63,6 @@ spring:
             - Path=/bizform/** # 匹配 /bizform/ 開頭的請求
           filters:
             - CacheRequestBody=String
-            - InternalTokenFilter
 
         # Genogram 服務路由 家系圖
         - id: GenogramService
