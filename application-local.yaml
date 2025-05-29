@@ -52,5 +52,11 @@ logging:
     sun.rmi.transport.tcp: WARN
     javax.management.remote.rmi: WARN
 
+    io.lettuce.core: WARN
+    org.springframework.data.redis: INFO  # Spring Redis 自己也降一下
+    reactor.netty: INFO
+    reactor.netty.http.server: INFO
+    reactor.netty.http.client: INFO
+
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
