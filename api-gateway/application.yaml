@@ -118,6 +118,8 @@ blacklist:
     timeout: 5
 
 app:
+  bizform:
+    query-path: /bizform/api/Documents/Query # BizForm 查詢 API 路徑
   security:
     redirect-validation-paths:
       - "/authn/oauth" # OAuth 驗證的跳轉路徑
