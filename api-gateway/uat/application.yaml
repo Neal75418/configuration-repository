@@ -96,8 +96,35 @@ springdoc:
 
 app:
   security:
+    # ------------------------------------------------------------
+    # public-paths : 完全匿名路徑，Spring Security 與 InternalTokenFilter 均不處理。
+    #                ➜ 無需攜帶 JWT，即可直接存取。
+    #                ➜ 僅適用於「無登入需求」的靜態資源、健康檢查、公共元資料等。
+    #                ⚠️ 若與安全相關，請勿放入此區。
+    # ------------------------------------------------------------
     public-paths:
-      - "/bizform/**"                      # BIZFORM - 嵌入式表單或 iframe 顯示內容（若非全開放建議自行控權）
+      # ---------- 🌐 靜態資源（前端預設請求） ----------
+      - "/public/**"              # DEV - 開發時用的前端靜態資源（JS / CSS / img 等）
+      - "/static/**"              # DEV - Spring Boot 傳統 static 目錄（若使用）
+      - "/favicon.ico"            # ALL - 瀏覽器預設請求網站 icon
+
+      # ---------- 🔍 健康檢查與監控 ----------
+      - "/actuator/health"        # OPS - 系統健康狀態（供 LB / K8s 探活用）
+      - "/actuator/prometheus"    # OPS - Prometheus 指標暴露端點（若有啟用監控）
+
+      # ---------- 🔑 JWT / OIDC 公開協定端點 ----------
+      - "/authn/.well-known/**"   # OIDC Discovery metadata
+      - "/authn/jwks/publicKey"   # JWT 驗簽所需的 JWK 公鑰
+      - "/authn/oauth/login"      # OAuth2 授權登入起點（供前端導向）
+      - "/authn/oauth/callback"   # OAuth2 授權碼回調端點
+      - "/oauth2/authorization/**" # Spring Security OAuth2 核心端點（自動註冊）
+
+      # ---------- 📄 Swagger / OpenAPI 開發用文件 ----------
+      - "/swagger-ui.html"        # Swagger UI 首頁（HTML）
+      - "/swagger-ui/**"          # Swagger UI 前端靜態資源（JS / CSS）
+      - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
+      - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
+      - "/bizform/**"             # BIZFORM - 嵌入式表單或 iframe 顯示內容（若非全開放建議自行控權）
 
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
