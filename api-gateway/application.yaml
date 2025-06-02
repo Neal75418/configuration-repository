@@ -10,64 +10,6 @@ spring:
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}-${server.port}
 
-    gateway:
-      server:
-        webflux:
-          default-filters:
-            - StripPrefix=1 # 移除路徑中的第一層前綴
-          routes:
-            # 授權伺服器路由
-            - id: authn-service
-              uri: lb://authn-service # 通過負載均衡器指向 `authn-service`
-              predicates:
-                - Path=/authn/** # 匹配以 /authn/ 開頭的請求路徑
-              filters:
-                - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
-
-            # 授權檢查服務路由
-            - id: authz-service
-              uri: lb://authz-service # 負載均衡到 `authz-service`
-              predicates:
-                - Path=/authz/** # 匹配 /authz/ 開頭的請求
-
-            # 權限處理服務路由
-            - id: authp-service
-              uri: lb://authp-service # 負載均衡到 `authp-service`
-              predicates:
-                - Path=/authp/** # 匹配 /authp/ 開頭的請求
-
-            # 黑名單服務路由
-            - id: blacklist-service
-              uri: lb://blacklist-service # 負載均衡到 `blacklist-service`
-              predicates:
-                - Path=/blacklist/** # 匹配 /blacklist/ 開頭的請求
-
-            # 待辦事項服務路由
-            - id: todo-service
-              uri: lb://todo-service
-              predicates:
-                - Path=/todo/**
-
-            # BizForm 服務路由
-            - id: VitalBizFormService
-              uri: lb://VitalBizFormService # 負載均衡到 `bizform-service`
-              predicates:
-                - Path=/bizform/** # 匹配 /bizform/ 開頭的請求
-              filters:
-                - CacheRequestBody=String
-
-            # Genogram 服務路由 家系圖
-            - id: GenogramService
-              uri: lb://GenogramService # 負載均衡到 `genogram-service`
-              predicates:
-                - Path=/genogram/** # 匹配 /genogram/ 開頭的請求
-
-            # mail 服務路由
-            - id: MailService
-              uri: lb://MailService # 負載均衡到 `mail-service`
-              predicates:
-                - Path=/mail/** # 匹配 /mail/ 開頭的請求
-
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # 緩存初始化容量為 100，最大容量為 500，寫入後 10 分鐘過期
