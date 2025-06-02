@@ -94,6 +94,11 @@ springdoc:
   api-docs:
     enabled: false       # 關閉 OpenAPI JSON 文件（/v3/api-docs），防止 API schema 外洩
 
+app:
+  security:
+    public-paths:
+      - "/bizform/**"                      # BIZFORM - 嵌入式表單或 iframe 顯示內容（若非全開放建議自行控權）
+
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml
