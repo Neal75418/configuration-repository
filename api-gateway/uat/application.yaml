@@ -1,4 +1,9 @@
 spring:
+  web:
+    resources:
+      # 🚫 關閉預設 /static、/public 等靜態路徑
+      add-mappings: false
+
   cloud:
     consul:
       discovery:

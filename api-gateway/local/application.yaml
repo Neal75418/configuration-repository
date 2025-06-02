@@ -1,4 +1,14 @@
 spring:
+  web:
+    resources:
+      # 🚫 關閉預設 /static、/public 等靜態路徑
+      add-mappings: false
+
+    cors:
+      # 🪄 把 CorsWebFilter / CorsConfiguration 的設定
+      #     自動注入到 Spring Security 4xx/5xx 回應
+      add-to-spring-security: true
+
   cloud:
     consul:
       discovery:
