@@ -1,0 +1,94 @@
+spring:
+  cloud:
+    consul: # Consul 服務註冊與發現配置
+      discovery:
+        healthCheckUrl: http://authn-service:${server.port}/actuator/health
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 動態 IP 地址
+  security: # OAuth2 客戶端配置
+    oauth2:
+      client:
+        registration: # 註冊客戶端信息
+          oauth:
+            provider: gss # 自定義 OAuth2 提供者名稱
+            client-id: ${OAUTH_CLIENT_ID:oauth} # 客戶端 ID，通過環境變數配置
+            client-secret: ${OAUTH_CLIENT_SECRET:} # 客戶端密鑰，通過環境變數配置
+            authorization-grant-type: authorization_code # 授權類型
+            redirect-uri: ${BASE_URL:https://cb-svc-api.vitalcb.com}/authn/oauth/callback # 重定向 URI（開發環境）
+        provider: # OAuth2 提供者相關 URL
+          gss:
+            authorization-uri: https://member.gsscloud.com/cas/oauth2.0/authorize # 授權 URL
+            token-uri: https://member.gsscloud.com/cas/oauth2.0/token # 令牌發放 URL
+            user-info-uri: https://member.gsscloud.com/cas/oauth2.0/profile # 用戶信息 URL
+
+  data:
+    redis: # Redis 配置
+      host: ${REDIS_HOST:auth_redis} # Redis 主機地址
+      port: ${REDIS_PORT:6379} # Redis 埠號
+      password: ${REDIS_PASSWORD:} # Redis 密碼（如果有則填寫）
+      timeout: 5s  # 設定連線超時為 5 秒
+      lettuce:
+        pool:
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 連接等待時間
+
+auth: # 自定義認證相關配置
+  registration-id: oauth # OAuth2 註冊 ID
+  redirect:
+    final-uri: ${FINAL_URI:https://cb-svc-web.vitalcb.com} # 認證成功後重定向的 URI
+  issuer: ${AUTH_ISSUER:http://localhost:8080/authn} # JWT 簽發者的 URI
+  aud: ${AUTH_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
+  token:
+    max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數（建議值：1-5）
+    buffer-time-seconds: 3600 # 緩衝時間（秒），此處為1小時
+    cache-duration-days: 7 # 緩存有效期配置（默認為 7 天）
+    access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:900000}   # Access Token 的過期時間（15 分鐘，支持覆蓋）
+    refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:2592000000} # Refresh Token 的過期時間（30 天，支持覆蓋）
+
+jwt:
+  key:
+    id: ec-key-1       # 金鑰的唯一標識符 (Key ID, kid)，通常用於區分多個金鑰
+    curve: P-256       # 橢圓曲線 (Elliptic Curve, EC) 的類型，這裡使用的是 P-256 曲線（也稱為 secp256r1），
+    # 它是一種常用的橢圓曲線，提供良好的性能和安全性，適合生成和驗證 JWT 簽名
+
+key:
+  directory: ${KEY_DIRECTORY:keys/} # 金鑰存放目錄
+  private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
+  public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
+
+authp:
+  # 🔗 AuthP 微服務的內部服務名稱（給 @LoadBalanced RestTemplate 使用）
+  # 應為 Consul / Eureka 中註冊的服務 ID，例如 "authp-service"
+  internal-base-url: http://authp-service
+
+  # 📍 AuthP 中使用者相關 API 的共用前綴
+  # 預設為 "/users"，若未來改為版本化路徑（例如 /v1/users）可直接在此調整
+  user-uri-prefix: /users
+
+bizform: # BizForm 外部系統 API 配置
+  api:
+    base-url: ${BIZFORM_API_BASE_URL:https://bizform.vitalyun.com} # BizForm API 基礎 URL
+    login-endpoint: /Backend/api/account/login # 登錄端點
+    exchange-endpoint: /Backend/api/account/token # 交換指定站台的token
+
+crm: # CRM 外部系統 API 配置
+  api:
+    uri: http://crm-api.dev.local/Internal/auth
+
+app:
+  cookie:
+    domain: vitalcb.com
+
+# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
+logging:
+  config: classpath:log4j2-logstash.xml
+
+test:
+  depot-id: e4dd3e6e9dff42b58b7233c986ab2a1f
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    enabled: false       # 關閉 OpenAPI JSON 文件（/v3/api-docs），防止 API schema 外洩

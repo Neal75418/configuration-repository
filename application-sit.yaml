@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: true # 啟用負載均衡器的緩存功能
+    consul:
+      discovery:
+        health-check-interval: 30s # 健康檢查間隔
+        health-check-timeout: 15s # 健康檢查超時
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus,info"  # 僅暴露必要的端點
+      base-path: /actuator                 # 管理端點的基路徑
+  endpoint:
+    health:
+      access: read-only                  # 啟用讀取存取（GET）
+      show-details: when-authorized      # 有授權角色才顯示詳細資訊
+      roles: SYSTEM_ADMIN                # ✅ 指定角色（你 DB 裡的 code）
+
+logging:
+  level:
+    root: INFO                           # 全局日誌級別設置為 INFO，減少非必要的 DEBUG 日誌輸出。
+    sun.rmi.transport.tcp: WARN          # 將 RMI TCP 相關的日誌級別設置為 WARN，避免過多的冗餘日誌。
+    javax.management.remote.rmi: WARN    # 將 RMI 遠程管理日誌級別設置為 WARN，減少非必要的日誌。
+    org.apache.http.wire: WARN           # 屏蔽 Apache HTTP 客戶端的詳細線路追蹤日誌。
+    org.springframework.boot.actuate.endpoint.web: INFO # 將 Spring Boot Actuator 的 Web 端點日誌設置為 INFO 級別。
+    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN # 避免輸出過多與本地環境配置存儲相關的冗餘日誌。
+    org.springframework.security.web: INFO # 設置 Spring Security Web 模塊的日誌級別為 INFO，減少不必要的低級別輸出。
