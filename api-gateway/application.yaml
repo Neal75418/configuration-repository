@@ -98,11 +98,12 @@ app:
 cors:
   allowed-origins:
     - "http://localhost:7001"                    # DEV - 前端本地開發環境（通常使用 Vite/React 本地啟動）
-    - "https://cb-svc-web.vitalext.com"          # STAGING - VitalCaseBridge 前端測試環境（staging 測試使用）
+    - "https://cb-svc-web.vitalcb.com"           # SIT - VitalCaseBridge 前端測試環境（SIT 測試使用）
+    - "https://cb-svc-web.vitalext.com"          # UAT - VitalCaseBridge 前端測試環境（UAT 測試使用）
     - "https://member.vikosmos.com"              # DEV - BizForm 測試環境（用於表單服務簽核測試）
-    - "https://bizform.vitalyun.com"             # STAGING - BizForm 正式環境（實際對外簽核服務）
+    - "https://bizform.vitalyun.com"             # UAT - BizForm 正式環境（實際對外簽核服務）
     - "https://cloud-member.gss.com.tw"          # DEV - 帳號中心測試環境（OAuth 登入與授權測試）
-    - "https://member.gsscloud.com"              # STAGING - 帳號中心正式環境（實際登入與授權來源）
+    - "https://member.gsscloud.com"              # UAT - 帳號中心正式環境（實際登入與授權來源）
     - "https://demo.genogram.cloud"              # DEV - 家系圖嵌入 iframe 頁面來源（iframe 載入允許跨域）
   allowed-methods:
     - "GET"       # 查詢資源
