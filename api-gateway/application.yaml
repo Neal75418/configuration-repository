@@ -74,6 +74,14 @@ app:
       # 👉 處理使用者登出，清除黑名單、Cookie 與快取資訊
       - /authn/oauth/logout
 
+      # 👉 提供 iframe 專用的 callback token，供外部畫面回打系統 API 使用
+      #     ⚠️ 須驗證系統 JWT，確認權限與租戶合法性
+      - /authn/callback-token
+
+      # 👉 微服務間通訊使用的 Internal Token 簽發 API
+      #     ⚠️ 僅允許受信任的內部服務呼叫（通常以 JWT 或 API Key 驗證）
+      - /authn/internal-token
+
       # 👉 權限授權服務，包含角色、資源權限驗證等查詢操作
       - /authz/**
 
