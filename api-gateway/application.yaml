@@ -37,6 +37,9 @@ auth:
   service:
     base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置授權服務 URL
 
+authn:
+  internal-base-url: http://authn-service # 📡 Gateway 呼叫 AuthN 微服務的內部 URL（供 callback token 換取 access token 使用）
+
 blacklist:
   service:
     # 黑名單服務的名稱
