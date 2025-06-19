@@ -79,6 +79,7 @@ crm: # CRM 外部系統 API 配置
 app:
   cookie:
     domain: localhost
+  dev-mode: true # ✅ 開發時開啟，正式環境請關閉
 
 test:
   depot-id: cspsd_test

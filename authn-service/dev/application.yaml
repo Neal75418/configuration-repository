@@ -79,6 +79,7 @@ crm: # CRM 外部系統 API 配置
 app:
   cookie:
     domain: vitalext.com
+  dev-mode: true # ✅ 開發時開啟，正式環境請關閉
 
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
