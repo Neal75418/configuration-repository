@@ -1,0 +1,83 @@
+# application.yml（主檔案，含所有 profile 配置）
+
+spring:
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: true # 啟用負載均衡器的緩存功能
+    consul:
+      discovery:
+        health-check-interval: 30s
+        health-check-timeout: 15s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus,info"
+      base-path: /actuator
+  endpoint:
+    health:
+      access: read-only
+      show-details: when-authorized
+      roles: SYSTEM_ADMIN
+
+---
+
+# 🔧 local & dev：給工程師看的漂亮 log
+
+spring:
+  config:
+    activate:
+      on-profile: local,dev
+
+logging:
+  level:
+    root: INFO
+    sun.rmi.transport.tcp: WARN
+    javax.management.remote.rmi: WARN
+    org.apache.http.wire: WARN
+    org.springframework.boot.actuate.endpoint.web: INFO
+    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN
+    org.springframework.security.web: INFO
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+---
+
+# 🧪 sit & uat：保持 info 等級，不用漂亮格式（ELK 通常接收 JSON）
+
+spring:
+  config:
+    activate:
+      on-profile: sit,uat
+
+logging:
+  level:
+    root: INFO
+    sun.rmi.transport.tcp: WARN
+    javax.management.remote.rmi: WARN
+    org.apache.http.wire: WARN
+    org.springframework.boot.actuate.endpoint.web: INFO
+    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN
+    org.springframework.security.web: INFO
+
+---
+
+# 🚀 prod：專注錯誤與警告，最大限度降低 noise
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    root: WARN
+    sun.rmi.transport.tcp: WARN
+    javax.management.remote.rmi: WARN
+    org.apache.http.wire: WARN
+    org.springframework.boot.actuate.endpoint.web: WARN
+    org.springframework.cloud.config.server.environment.NativeEnvironmentRepository: WARN
+    org.springframework.security.web: WARN
