@@ -137,4 +137,4 @@ logging:
   config: classpath:log4j2-logstash.xml
 
 test:
-  depot-id: e4dd3e6e9dff42b58b7233c986ab2a1f
+  depot-id: cspsd_sit

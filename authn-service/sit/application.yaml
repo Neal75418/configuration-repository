@@ -68,7 +68,7 @@ authp:
 
 bizform: # BizForm 外部系統 API 配置
   api:
-    base-url: ${BIZFORM_API_BASE_URL:https://bizform.vitalyun.com} # BizForm API 基礎 URL
+    base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
     login-endpoint: /Backend/api/account/login # 登錄端點
     exchange-endpoint: /Backend/api/account/token # 交換指定站台的token
 
@@ -85,7 +85,7 @@ logging:
   config: classpath:log4j2-logstash.xml
 
 test:
-  depot-id: e4dd3e6e9dff42b58b7233c986ab2a1f
+  depot-id: cspsd_sit
 
 springdoc:
   swagger-ui:
