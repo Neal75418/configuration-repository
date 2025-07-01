@@ -43,7 +43,7 @@ spring:
 
 bizform:
   service:
-    url: ${BIZFORM_API_BASE_URL:https://bizform.vitalyun.com}
+    url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
 
 springdoc:
   swagger-ui:
