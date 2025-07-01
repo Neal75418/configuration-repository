@@ -16,9 +16,9 @@ spring:
             redirect-uri: ${BASE_URL:https://cb-svc-api.vitalcb.com}/authn/oauth/callback # 重定向 URI（開發環境）
         provider: # OAuth2 提供者相關 URL
           gss:
-            authorization-uri: https://member.gsscloud.com/cas/oauth2.0/authorize # 授權 URL
-            token-uri: https://member.gsscloud.com/cas/oauth2.0/token # 令牌發放 URL
-            user-info-uri: https://member.gsscloud.com/cas/oauth2.0/profile # 用戶信息 URL
+            authorization-uri: https://member.vikosmos.com/cas/oauth2.0/authorize # 授權 URL
+            token-uri: https://member.vikosmos.com/cas/oauth2.0/token # 令牌發放 URL
+            user-info-uri: https://member.vikosmos.com/cas/oauth2.0/profile # 用戶信息 URL
 
   data:
     redis: # Redis 配置
