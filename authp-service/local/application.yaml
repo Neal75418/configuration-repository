@@ -45,6 +45,9 @@ bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
 
+test:
+  depot-id: cspsd_test
+
 springdoc:
   swagger-ui:
     enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件

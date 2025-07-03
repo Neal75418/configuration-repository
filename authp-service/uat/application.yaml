@@ -45,6 +45,9 @@ bizform:
   service:
     url: ${BIZFORM_API_BASE_URL:https://bizform.vitalyun.com}
 
+test:
+  depot-id: ee197c49e2e9449c8b48874a45a1611d
+
 springdoc:
   swagger-ui:
     enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件

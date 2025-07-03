@@ -49,6 +49,9 @@ bizform:
 logging:
   config: classpath:log4j2-logstash.xml
 
+test:
+  depot-id: cspsd_test
+
 springdoc:
   swagger-ui:
     enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
