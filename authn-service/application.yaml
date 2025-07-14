@@ -45,7 +45,6 @@ app:
       # ---------- 📄 Swagger / OpenAPI ----------
       - "/swagger-ui.html"      # Swagger UI
       - "/swagger-ui/**"        # Swagger 靜態資源
-      - "/v3/api-docs/**"       # OpenAPI JSON
       - "/v3/authn-docs"        # AuthN 自訂 docs 入口
 
     # AuthN 用：SecurityConfig 中放行的 API

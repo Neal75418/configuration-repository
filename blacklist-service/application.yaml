@@ -20,3 +20,8 @@ app:
       - "/blacklist/**"
       - "/actuator/health"
       - "/actuator/prometheus"
+
+      # ---------- 📄 Swagger / OpenAPI ----------
+      - "/swagger-ui.html"        # Swagger UI
+      - "/swagger-ui/**"          # Swagger 靜態資源
+      - "/v3/blacklist-docs"      # Blacklist 自訂 docs 入口
