@@ -24,8 +24,8 @@ springdoc:
         url: /authp/v3/authp-docs
 #      - name: authz
 #        url: /authz/v3/api-docs
-#      - name: blacklist
-#        url: /blacklist/v3/api-docs
+      - name: blacklist
+        url: /blacklist/v3/blacklist-docs
 #      - name: todo
 #        url: /todo/v3/api-docs
       - name: GSS.Vital.BizFormAPIService

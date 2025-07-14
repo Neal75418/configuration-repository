@@ -20,3 +20,9 @@ spring:
 
 jwt:
   jwk-set-uri: http://localhost:8080/authn/jwks/publicKey
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    path: /v3/blacklist-docs  # 根據每個微服務設計自己的前綴
