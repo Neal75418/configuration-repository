@@ -45,10 +45,6 @@ auth: # 自定義認證相關配置
     cache-duration-days: 7 # 緩存有效期配置（默認為 7 天）
     access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:900000}   # Access Token 的過期時間（15 分鐘，支持覆蓋）
     refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:2592000000} # Refresh Token 的過期時間（30 天，支持覆蓋）
-  keep-alive:
-    token-url: https://member.vikosmos.com/cas/oauth2.0/token
-    client-id: ${OAUTH_CLIENT_ID:oauth}
-    client-secret: ${OAUTH_CLIENT_SECRET:}
 
 jwt:
   key:
