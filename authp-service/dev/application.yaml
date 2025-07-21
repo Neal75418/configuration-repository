@@ -41,10 +41,6 @@ spring:
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
 
-bizform:
-  service:
-    url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com}
-
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml
