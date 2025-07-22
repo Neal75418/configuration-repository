@@ -73,6 +73,12 @@ spring:
               predicates:
                 - Path=/mail/** # 匹配 /mail/ 開頭的請求
 
+            # TerritoryService 服務路由
+            - id: TerritoryService
+              uri: lb://TerritoryService # 負載均衡到 `territory-service`
+              predicates:
+                - Path=/territory/** # 匹配 /territory/ 開頭的請求
+
   data:
     redis:
       host: ${REDIS_HOST:auth_redis} # Redis 主機地址，支持外部環境變數配置

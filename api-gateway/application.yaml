@@ -106,6 +106,9 @@ app:
       # 👉 mail服務，發信功能
       - /mail/**
 
+      # 👉 territory服務，行政區功能
+      - /territory/**
+
 cors:
   allowed-origins:
     - "http://localhost:7001"                    # DEV - 前端本地開發環境（通常使用 Vite/React 本地啟動）
