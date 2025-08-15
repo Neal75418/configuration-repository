@@ -101,6 +101,10 @@ jwt:
   valid:
     audiences: ${JWT_VALID_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
 
+provisioning:
+  pat:
+    master-secret: ${PROVISIONING_PAT_MASTER_SECRET:iEKqBaLCdjzq5jJsdfsdoLGorGFQZSWBcGrY6G3o3m4}   # 放環境變數，隨機 32+ bytes
+
 app:
   security:
     # ------------------------------------------------------------

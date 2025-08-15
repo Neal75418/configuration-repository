@@ -4,11 +4,6 @@ spring:
       # 🚫 關閉預設 /static、/public 等靜態路徑
       add-mappings: false
 
-    cors:
-      # 🪄 把 CorsWebFilter / CorsConfiguration 的設定
-      #     自動注入到 Spring Security 4xx/5xx 回應
-      add-to-spring-security: true
-
   cloud:
     consul:
       discovery:
@@ -100,6 +95,10 @@ jwt:
     seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
   valid:
     audiences: ${JWT_VALID_AUDIENCES:${spring.cloud.client.ip-address}} # JWT 的受眾驗證
+
+provisioning:
+  pat:
+    master-secret: ${PROVISIONING_PAT_MASTER_SECRET}   # 放環境變數，隨機 32+ bytes
 
 springdoc:
   swagger-ui:
