@@ -96,9 +96,32 @@ jwt:
   valid:
     audiences: ${JWT_VALID_AUDIENCES:${spring.cloud.client.ip-address}} # JWT 的受眾驗證
 
+# 🌉 API Gateway – Provisioning 專用設定（InternalTokenFilter）
 provisioning:
+  intake:
+    gateway-bypass:
+      # 當 TRUE：/provisioning/tenants 路徑即使「沒帶/帶錯 PAT」也不回 401，
+      # 直接轉發到下游，並注入授權橋接標頭：
+      #   X-Auth-Scopes: <scope>
+      #   X-Token-Id   : bypass
+      #   X-Intake-Bypass: true
+      # 目的：SIT/UAT 對接期「盡可能回 200 並記錄真實 payload」。
+      # ※ PROD 一律關閉，否則任何人都能打到下游（即使沒 PAT）。
+      enabled: true              # ← 只在 SIT/UAT 開，PROD 關
+
+      # 設定要注入給下游 Bridge 的 scope 值。
+      # Gateway 會把它放在 X-Auth-Scopes；下游（authp）Bridge 會轉成 SCOPE_provisioning.write 權限。
+      scope: provisioning.write  # ← 要注入給下游 Bridge 的 scope
+
   pat:
-    master-secret: ${PROVISIONING_PAT_MASTER_SECRET}   # 放環境變數，隨機 32+ bytes
+    # 用於驗證 PAT（cb_pat.<id>.<sig>）的主密鑰：
+    #   sig = base64url(HMAC_SHA256(id, master-secret))
+    # 若驗證通過，Gateway 會移除外部 Authorization，並注入：
+    #   X-Auth-Scopes: provisioning.write
+    #   X-Token-Id   : <id>
+    # 設定來源：優先讀環境變數 PROVISIONING_PAT_MASTER_SECRET，否則使用冒號後的預設值（只建議本機/測試）。
+    # 安全建議：長度 ≥ 32 bytes、隨機、只放環境變數，不要 commit；輪替會讓舊 PAT 立即失效。
+    master-secret: ${PROVISIONING_PAT_MASTER_SECRET:iEKqBaLCdjzq5jJsdfsdoLGorGFQZSWBcGrY6G3o3m4}   # 放環境變數，隨機 32+ bytes
 
 springdoc:
   swagger-ui:

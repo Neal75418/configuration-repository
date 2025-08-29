@@ -41,6 +41,26 @@ spring:
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
 
+# ⚙️ CaseBridge | Tenant Provisioning 設定
+provisioning:
+  intake:
+    # Controller 的「Intake 寬鬆模式」主開關
+    # - 開啟：空/壞 JSON 也回 200，並回顯/記錄原始請求（僅 SIT/UAT 使用）
+    # - 關閉：照正常嚴格驗證，無效請求回 400
+    # @Value("${provisioning.intake.enabled:false}")
+    enabled: true
+
+    probe:
+      # Ingress 探針（Filter）開關
+      # - 開啟：在 Security 前就攔下請求做審計記錄，連 401/403 也能看到原文
+      # - 關閉：不做前置記錄
+      # @Value("${provisioning.intake.probe.enabled:false}")
+      enabled: true
+
+      # 探針可記錄的 Request Body 最大位元組數（超過即截斷，避免被大包炸死）
+      # @Value("${provisioning.intake.probe.maxBody:8192}")
+      maxBody: 8192  # 8 KiB
+
 test:
   depot-id: cspsd_sit
 
