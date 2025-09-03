@@ -74,6 +74,12 @@ spring:
               predicates:
                 - Path=/territory/** # 匹配 /territory/ 開頭的請求
 
+            # 報表服務路由
+            - id: reporting-service
+              uri: lb://reporting-service # 負載均衡到 `reporting-service`
+              predicates:
+                - Path=/reporting/** # 匹配 /reporting/ 開頭的請求
+
   data:
     redis:
       host: ${REDIS_HOST:auth_redis} # Redis 主機地址，支持外部環境變數配置

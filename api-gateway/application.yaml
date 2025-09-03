@@ -109,6 +109,9 @@ app:
       # 👉 territory服務，行政區功能
       - /territory/**
 
+      # 👉 報表服務，報表生產與管理
+      - /reporting/**
+
 cors:
   allowed-origins:
     - "http://localhost:7001"                    # DEV - 前端本地開發環境（通常使用 Vite/React 本地啟動）
