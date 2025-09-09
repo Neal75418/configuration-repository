@@ -54,6 +54,12 @@ blacklist:
     # 當超過該時間沒有響應時，請求將被視為失敗
     timeout: 5
 
+  # lastUrlByTenant（租戶 → 端點）的本地快取設定
+  last-url-cache:
+    # 最大快取項目數（entries）；超過會自動逐出，避免 JVM 記憶體膨脹
+    # 心法：活躍租戶數 × 2~3 倍；可依環境覆蓋（application-*.yaml）
+    max-size: 60000
+
 app:
   bizform:
     query-path: /bizform/api/Documents/Query # BizForm 查詢 API 路徑
@@ -131,11 +137,14 @@ cors:
     - "PATCH"     # 更新部分欄位（部分修改資源，RESTful 常見）
 
   allowed-headers:
-    - "Authorization"       # JWT 或 OAuth Token 驗證用
-    - "Content-Type"        # 請求格式聲明，例如 application/json
-    - "Refresh-Token"       # Refresh Token，用於換發 access token
-    - "X-Current-Page"      # 分頁：目前頁數（前端自定義 header）
-    - "X-Page-Size"         # 分頁：每頁資料量
-    - "X-Total-Count"       # 分頁：總筆數（多用於 response header，但保留允許請求端帶入）
-    - "X-Requested-With"    # Ajax 請求識別（例如 XMLHttpRequest，某些 UI 框架會自帶）
-    - "Accept"              # 接受的回應格式，例如 application/json、text/html 等
+    - "Authorization"              # JWT 或 OAuth Token 驗證用
+    - "Content-Type"               # 請求格式聲明，例如 application/json
+    - "Refresh-Token"              # Refresh Token，用於換發 access token
+    - "X-Current-Page"             # 分頁：目前頁數（前端自定義 header）
+    - "X-Page-Size"                # 分頁：每頁資料量
+    - "X-Total-Count"              # 分頁：總筆數（多用於 response header，但保留允許請求端帶入）
+    - "X-Requested-With"           # Ajax 請求識別（例如 XMLHttpRequest，某些 UI 框架會自帶）
+    - "Accept"                     # 接受的回應格式，例如 application/json、text/html 等
+    - "X-Instance-ExpirationDate"  # 前端自訂：實例到期日。必須列入 allowed-headers，否則預檢（OPTIONS）
+                                   # 的 Access-Control-Request-Headers 會被 CORS 擋下，POST 打不到後端。
+                                   # 註：程式會轉小寫比對，大小寫不影響。
