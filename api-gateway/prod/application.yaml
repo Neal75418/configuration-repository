@@ -42,6 +42,12 @@ spring:
               predicates:
                 - Path=/blacklist/** # 匹配 /blacklist/ 開頭的請求
 
+            # 租戶服務路由
+            - id: tenant-service
+              uri: lb://tenant-service # 負載均衡到 `tenant-service`
+              predicates:
+                - Path=/tenant/** # 匹配 /tenant/ 開頭的請求
+
             # 待辦事項服務路由
             - id: todo-service
               uri: lb://todo-service
