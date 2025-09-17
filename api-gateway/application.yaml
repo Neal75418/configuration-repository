@@ -26,6 +26,8 @@ springdoc:
 #        url: /authz/v3/api-docs
       - name: GSS.Vital.BlacklistService
         url: /blacklist/v3/blacklist-docs
+      - name: GSS.Vital.TenantService
+        url: /tenant/v3/tenant-docs
 #      - name: todo
 #        url: /todo/v3/api-docs
       - name: GSS.Vital.BizFormAPIService
