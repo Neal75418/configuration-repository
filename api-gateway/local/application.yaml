@@ -91,6 +91,12 @@ spring:
               predicates:
                 - Path=/reporting/** # 匹配 /reporting/ 開頭的請求
 
+            # 零用金服務路由
+            - id: petty-cash-service
+              uri: lb://petty-cash-service # 負載均衡到 `petty-cash-service`
+              predicates:
+                - Path=/petty-cash/** # 匹配 /petty-cash/ 開頭的請求
+
   data:
     redis:
       host: ${REDIS_HOST:localhost} # Redis 主機地址，支持外部環境變數配置

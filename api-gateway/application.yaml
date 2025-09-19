@@ -34,6 +34,8 @@ springdoc:
         url: /bizform/swagger/v1/swagger.json
       - name: GSS.Vital.MailService
         url: /mail/swagger/v1/swagger.json
+      - name: GSS.Vital.PettyCashService
+        url: /petty-cash/swagger/v1/swagger.json
 
 auth:
   service:
@@ -122,6 +124,9 @@ app:
 
       # 👉 報表服務，報表生產與管理
       - /reporting/**
+
+      # 👉 零用金服務，零用金管理
+      - /petty-cash/**
 
 cors:
   allowed-origins:
