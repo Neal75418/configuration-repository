@@ -19,6 +19,15 @@ static:
     cache:
       period: 3600
 
+authn:
+  access-token:
+    audience: tenant-service   # 依環境覆蓋，如：tenant-service、reporting-service 等
+  clients:
+    reporting:
+      secret-hash: ${REPORTING_SECRET_HASH}
+    authp:
+      secret-hash: ${AUTHP_SECRET_HASH}
+
 app:
   security:
     public-paths:
