@@ -3,6 +3,11 @@ server:
   port: 8080 # 微服務端口，用於本地開發和測試
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://authn-service/authn/jwks/publicKey
   cloud:
     consul:
       discovery:
