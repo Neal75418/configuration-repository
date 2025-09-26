@@ -57,14 +57,24 @@ key:
   private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
+# =========================
+# AuthP（授權/權限微服務）— dev
+# =========================
 authp:
-  # 🔗 AuthP 微服務的內部服務名稱（給 @LoadBalanced RestTemplate 使用）
-  # 應為 Consul / Eureka 中註冊的服務 ID，例如 "authp-service"
-  internal-base-url: http://authp-service
+  internal-base-url: http://authp-service   # 內部服務註冊名（供 @LoadBalanced RestTemplate 解析）
+  user-uri-prefix: /users                   # 使用者 API 前綴（若版本化可改成 /v1/users 等）
+  internal-token: ${AUTHP_INTERNAL_TOKEN:dev-internal-token}
+  # ↑ 開發用固定 internal token（白名單放行）；切記勿在 prod 使用
 
-  # 📍 AuthP 中使用者相關 API 的共用前綴
-  # 預設為 "/users"，若未來改為版本化路徑（例如 /v1/users）可直接在此調整
-  user-uri-prefix: /users
+# =========================
+# AuthN（本服務）— dev 用 Client 設定
+# =========================
+authn:
+  client:
+    auth-method: secret                     # dev 環境簡化：使用 fixed secret，無需 JWK/簽章
+    id: dev-m2m-client                      # 開發用 client_id（純站位）
+    secret: dev-secret                      # 開發用 client_secret（純站位、不會實際打）
+  # ⚠️ 提醒：MachineTokenProvider 在 dev 可禁用；真正的 M2M/簽章請在 SIT/UAT/PROD 開啟
 
 bizform: # BizForm 外部系統 API 配置
   api:

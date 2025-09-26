@@ -57,14 +57,41 @@ key:
   private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
+# =========================
+# AuthP（授權/權限微服務）— SIT
+# =========================
 authp:
-  # 🔗 AuthP 微服務的內部服務名稱（給 @LoadBalanced RestTemplate 使用）
-  # 應為 Consul / Eureka 中註冊的服務 ID，例如 "authp-service"
-  internal-base-url: http://authp-service
+  internal-base-url: http://authp-service   # 服務註冊名或內部 DNS（@LoadBalanced 解析）
+  user-uri-prefix: /users                   # 使用者 API 前綴（若版本化可覆寫 /v1/users）
+  internal-token: ${AUTHP_INTERNAL_TOKEN:}  # ⛔ 預設不填；僅在 M2M 暫失效時臨時 fallback
 
-  # 📍 AuthP 中使用者相關 API 的共用前綴
-  # 預設為 "/users"，若未來改為版本化路徑（例如 /v1/users）可直接在此調整
-  user-uri-prefix: /users
+# =========================
+# AuthN（本服務）M2M 設定 — SIT
+# 供 MachineTokenProvider 取得/附掛機器憑證，用於呼叫 AuthP / tenant / reporting 等
+# =========================
+authn:
+  client:
+    auth-method: ${M2M_AUTH_METHOD:secret}  # secret | private_key_jwt
+    id: ${M2M_CLIENT_ID}                    # 必填：在發 token 端註冊的 client_id
+    secret: ${M2M_CLIENT_SECRET:}           # 當 auth-method=secret 時提供
+    private-jwk: ${M2M_PRIVATE_JWK:}        # 當 auth-method=private_key_jwt 時提供（私鑰 JWK JSON）
+    public-jwk: ${M2M_PUBLIC_JWK:}          # 可選：對端註冊/校驗用公鑰 JWK
+
+  # 取得 M2M token 的端點與權限設定（SIT 可經由 Gateway）
+  token:
+    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth/token}
+  audience: ${M2M_AUDIENCE:authp-service}   # ✅ 與對端 TenantFilter 的 expectedAudience 對齊
+  scope: ${M2M_SCOPE:system:tenant:override}# ✅ 以 scope 最小化授權
+
+  # 簽給下游的 Access Token Audience（要打誰就設誰；以 profile 覆寫）
+  access-token:
+    audience: tenant-service                 # 例：tenant-service / reporting-service
+
+  # HTTP 逾時（依 SIT 網路與閘道調整）
+  http:
+    timeout:
+      connect-ms: 5000                       # 連線逾時（毫秒）
+      read-ms: 5000                          # 讀取逾時（毫秒）
 
 bizform: # BizForm 外部系統 API 配置
   api:

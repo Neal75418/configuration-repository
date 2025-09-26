@@ -19,14 +19,38 @@ static:
     cache:
       period: 3600
 
+# =========================
+# AuthP（授權/權限微服務）Client
+# =========================
+authp:
+  internal-base-url: http://authp-service   # 服務註冊名或內部 DNS（建議 @LoadBalanced 解析）
+  user-uri-prefix: /users                   # 使用者 API 前綴（如 /users/{id}/roles）
+
+# =========================
+# AuthN（本服務）取得 M2M Token 的設定
+# 供 MachineTokenProvider 使用，用來呼叫內部微服務（含 AuthP）
+# =========================
 authn:
+  token:
+    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth/token}  # M2M token 發行端點（可經 Gateway）
+  audience: ${M2M_AUDIENCE:authp-service}        # 🔐 M2M Token audience（需與對端 TenantFilter 的 expectedAudience 一致）
+  scope: ${M2M_SCOPE:system:tenant:override}     # 🔐 M2M scope（可用 scope 控制放行）
+
   access-token:
-    audience: tenant-service   # 依環境覆蓋，如：tenant-service、reporting-service 等
+    audience: tenant-service                      # ⛳ 呼叫目標服務時的 audience；視情境覆寫（ex: tenant-service, reporting-service）
+
+  # 發給內部 Client 的憑證（Hash/機密請走 Secret）
   clients:
     reporting:
-      secret-hash: ${REPORTING_SECRET_HASH}
+      secret-hash: ${REPORTING_SECRET_HASH}       # 報表微服務的客戶端密鑰雜湊（環境變數注入）
     authp:
-      secret-hash: ${AUTHP_SECRET_HASH}
+      secret-hash: ${AUTHP_SECRET_HASH}           # AuthP 專用 client 的密鑰雜湊（如需）
+
+  # HTTP 連線參數（M2M 發 Token 或內部呼叫的逾時）
+  http:
+    timeout:
+      connect-ms: 5000                            # 連線逾時（毫秒）
+      read-ms: 5000                               # 讀取逾時（毫秒）
 
 app:
   security:
