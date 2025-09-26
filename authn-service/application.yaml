@@ -32,7 +32,7 @@ authp:
 # =========================
 authn:
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth/token}  # M2M token 發行端點（可經 Gateway）
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth/token}  # M2M token 發行端點（可經 Gateway）
   audience: ${M2M_AUDIENCE:authp-service}        # 🔐 M2M Token audience（需與對端 TenantFilter 的 expectedAudience 一致）
   scope: ${M2M_SCOPE:system:tenant:override}     # 🔐 M2M scope（可用 scope 控制放行）
 
