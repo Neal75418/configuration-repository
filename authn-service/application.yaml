@@ -49,11 +49,11 @@ authn:
     secret: ${AUTHN_CLIENT_SECRET:}                   # dev/staging 才會給
 
   clients: # InMemory RegisteredClient 用（由 OAuthClientConfig 讀）
-    authn:
+    authn-service:
       secret-hash: ${AUTHN_SECRET_HASH}
-    authp:
+    authp-service:
       secret-hash: ${AUTHP_SECRET_HASH}
-    reporting:
+    reporting-service:
       secret-hash: ${REPORTING_SECRET_HASH}
 
   # HTTP 連線參數（M2M 發 Token 或內部呼叫的逾時）

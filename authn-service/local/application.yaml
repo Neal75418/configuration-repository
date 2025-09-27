@@ -80,11 +80,11 @@ authn:
     secret: ${AUTHN_CLIENT_SECRET:}                   # 非 prod 可給
 
   clients:  # InMemory RegisteredClient 用
-    authn:
+    authn-service:
       secret-hash: ${AUTHN_SECRET_HASH}
-    authp:
+    authp-service:
       secret-hash: ${AUTHP_SECRET_HASH}
-    reporting:
+    reporting-service:
       secret-hash: ${REPORTING_SECRET_HASH}
 
   http:
