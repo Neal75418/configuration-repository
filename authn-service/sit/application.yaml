@@ -67,7 +67,7 @@ authn:
     client-auth: ${AUTHN_CLIENT_AUTH_IN:header}
 
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth/token}
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
   audience: ${M2M_AUDIENCE:authp-service}
   scope: ${M2M_SCOPE:authp.read}  # 或你真要的 scope（請與 AuthP 規則一致）

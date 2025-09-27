@@ -63,7 +63,7 @@ key:
 
 authn:
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth/token}
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
   # AuthN 發出去的 Access Token 之預設受眾（可被 profile 覆寫）
   access-token:

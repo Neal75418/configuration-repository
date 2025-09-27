@@ -59,7 +59,7 @@ key:
 
 authn:
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth/token}
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
   client:
     id: authn-service
