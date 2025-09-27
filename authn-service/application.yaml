@@ -99,6 +99,8 @@ app:
 
     # AuthN 用：SecurityConfig 中放行的 API
     permit-all:
+      - "/authn/oauth/token"        # 給經過 Gateway 的呼叫
+      - "/oauth/token"              # 給直打 AuthN 的呼叫（StripPrefix 之後）
       - "/oauth/token/exchange"     # 系統 JWT 換 BizForm 專用 JWT
       - "/oauth/token/exchange-callback"  # 給 API Gateway 換 token 用
       - "/oauth/logout"             # 使用者登出
