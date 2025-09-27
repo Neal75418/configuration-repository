@@ -33,24 +33,41 @@ authp:
 authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth/token}  # M2M token 發行端點（可經 Gateway）
-  audience: ${M2M_AUDIENCE:authp-service}        # 🔐 M2M Token audience（需與對端 TenantFilter 的 expectedAudience 一致）
-  scope: ${M2M_SCOPE:system:tenant:override}     # 🔐 M2M scope（可用 scope 控制放行）
 
+  # AuthN 發出的 token，若請求沒帶 audience，就用這個預設
   access-token:
     audience: tenant-service                      # ⛳ 呼叫目標服務時的 audience；視情境覆寫（ex: tenant-service, reporting-service）
 
-  # 發給內部 Client 的憑證（Hash/機密請走 Secret）
-  clients:
-    reporting:
-      secret-hash: ${REPORTING_SECRET_HASH}       # 報表微服務的客戶端密鑰雜湊（環境變數注入）
+  # AuthN 自己當 M2M client 去拿 token 時常用的預設（會放進 form 參數）
+  audience: ${M2M_AUDIENCE:authp-service}        # 🔐 M2M Token audience（需與對端 TenantFilter 的 expectedAudience 一致）
+  scope: ${M2M_SCOPE:authp.read}     # 🔐 M2M scope（可用 scope 控制放行）
+
+  client:
+    id: ${AUTHN_CLIENT_ID:authn-service}
+    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form
+    secret: ${AUTHN_CLIENT_SECRET:}                   # dev/staging 才會給
+
+  clients: # InMemory RegisteredClient 用（由 OAuthClientConfig 讀）
+    authn:
+      secret-hash: ${AUTHN_SECRET_HASH}
     authp:
-      secret-hash: ${AUTHP_SECRET_HASH}           # AuthP 專用 client 的密鑰雜湊（如需）
+      secret-hash: ${AUTHP_SECRET_HASH}
+    reporting:
+      secret-hash: ${REPORTING_SECRET_HASH}
 
   # HTTP 連線參數（M2M 發 Token 或內部呼叫的逾時）
   http:
     timeout:
       connect-ms: 5000                            # 連線逾時（毫秒）
       read-ms: 5000                               # 讀取逾時（毫秒）
+
+# optional：外部 RT timeout
+external:
+  http:
+    timeout:
+      connect-ms: 10000
+      read-ms: 30000
 
 app:
   security:

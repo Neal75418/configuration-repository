@@ -57,42 +57,33 @@ key:
   private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
-# =========================
-# AuthP（授權/權限微服務）— prod
-# =========================
-authp:
-  internal-base-url: http://authp-service   # 服務註冊名或內部 DNS（@LoadBalanced 解析）
-  user-uri-prefix: /users                   # 使用者 API 前綴（若版本化可覆寫如 /v1/users）
-  internal-token: ""                        # ❌ 正式環境禁用固定 token
-
-# =========================
-# AuthN（本服務）M2M 設定 — prod
-# 用於向內部微服務（含 AuthP / tenant / reporting）索取/附掛機器憑證
-# =========================
 authn:
-  # 👇 用哪種客戶端憑證機制拿 M2M token
   client:
-    auth-method: ${M2M_AUTH_METHOD:secret}  # secret | private_key_jwt
-    id: ${M2M_CLIENT_ID}                    # 必填：發 token 端註冊的 client_id
-    secret: ${M2M_CLIENT_SECRET:}           # 當 auth-method=secret 時必填
-    private-jwk: ${M2M_PRIVATE_JWK:}        # 當 auth-method=private_key_jwt 時提供（JWK JSON）
-    public-jwk: ${M2M_PUBLIC_JWK:}          # 可選：便於對端註冊/校驗（若用 JWK Set 可忽略）
+    auth-method: ${M2M_AUTH_METHOD:private_key_jwt}  # 建議正式切 PKJ
+    id: ${M2M_CLIENT_ID}
+    secret: ${M2M_CLIENT_SECRET:}    # 若用 PKJ 可不填
+    private-jwk: ${M2M_PRIVATE_JWK:}
+    public-jwk: ${M2M_PUBLIC_JWK:}
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}
 
-  # 👇 去拿 token 的端點 & 權限範圍
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth/token}  # 發 token 端
-  audience: ${M2M_AUDIENCE:authp-service}   # ✅ 與對端 TenantFilter 的 expectedAudience 對上
-  scope: ${M2M_SCOPE:system:tenant:override}# ✅ 以 scope 控制放行與最小權限
+    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth/token}
 
-  # 👇 簽發下游 Access Token 的目標受眾（要打誰就設誰）
+  audience: ${M2M_AUDIENCE:authp-service}
+  scope: ${M2M_SCOPE:authp.read}
+
   access-token:
-    audience: tenant-service                 # 例：tenant-service / reporting-service（用 profile 覆寫）
+    audience: tenant-service
 
-  # 👇 HTTP 逾時（依你基礎設施調整）
   http:
     timeout:
-      connect-ms: 4000                       # 連線逾時（毫秒）
-      read-ms: 6000                          # 讀取逾時（毫秒）
+      connect-ms: 4000
+      read-ms: 6000
+
+authp:
+  internal-base-url: http://authp-service
+  user-uri-prefix: /users
+  internal-token: ""  # 禁用
 
 bizform: # BizForm 外部系統 API 配置
   api:

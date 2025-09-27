@@ -57,24 +57,34 @@ key:
   private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
-# =========================
-# AuthP（授權/權限微服務）— dev
-# =========================
-authp:
-  internal-base-url: http://authp-service   # 內部服務註冊名（供 @LoadBalanced RestTemplate 解析）
-  user-uri-prefix: /users                   # 使用者 API 前綴（若版本化可改成 /v1/users 等）
-  internal-token: ${AUTHP_INTERNAL_TOKEN:dev-internal-token}
-  # ↑ 開發用固定 internal token（白名單放行）；切記勿在 prod 使用
-
-# =========================
-# AuthN（本服務）— dev 用 Client 設定
-# =========================
 authn:
+  token:
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth/token}
+
   client:
-    auth-method: secret                     # dev 環境簡化：使用 fixed secret，無需 JWK/簽章
-    id: dev-m2m-client                      # 開發用 client_id（純站位）
-    secret: dev-secret                      # 開發用 client_secret（純站位、不會實際打）
-  # ⚠️ 提醒：MachineTokenProvider 在 dev 可禁用；真正的 M2M/簽章請在 SIT/UAT/PROD 開啟
+    id: authn-service
+    secret: dev-secret
+    auth-method: secret
+    client-auth: header
+
+  access-token:
+    audience: authp-service
+
+  audience: authp-service
+  scope: authp.read
+
+  clients:
+    authn:
+      secret-hash: "{noop}dev-secret-authn"
+    authp:
+      secret-hash: "{noop}dev-secret-authp}"
+    reporting:
+      secret-hash: "{noop}dev-secret-reporting"
+
+authp:
+  internal-base-url: http://authp-service
+  user-uri-prefix: /users
+  internal-token: ${AUTHP_INTERNAL_TOKEN:dev-internal-token}   # 只限 dev
 
 bizform: # BizForm 外部系統 API 配置
   api:

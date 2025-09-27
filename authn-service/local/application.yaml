@@ -61,24 +61,42 @@ key:
   private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
   public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
 
-# =========================
-# AuthP（授權/權限微服務）— dev
-# =========================
-authp:
-  internal-base-url: http://authp-service   # 內部服務註冊名（供 @LoadBalanced RestTemplate 解析）
-  user-uri-prefix: /users                   # 使用者 API 前綴（若版本化可改成 /v1/users 等）
-  internal-token: ${AUTHP_INTERNAL_TOKEN:dev-internal-token}
-  # ↑ 開發用固定 internal token（白名單放行）；切記勿在 prod 使用
-
-# =========================
-# AuthN（本服務）— dev 用 Client 設定
-# =========================
 authn:
+  token:
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth/token}
+
+  # AuthN 發出去的 Access Token 之預設受眾（可被 profile 覆寫）
+  access-token:
+    audience: tenant-service
+
+  # AuthN 作為 M2M client 去拿 token 時預設帶的 audience/scope（可被 profile 覆寫）
+  audience: ${M2M_AUDIENCE:authp-service}
+  scope: ${M2M_SCOPE:authp.read}
+
   client:
-    auth-method: secret                     # dev 環境簡化：使用 fixed secret，無需 JWK/簽章
-    id: dev-m2m-client                      # 開發用 client_id（純站位）
-    secret: dev-secret                      # 開發用 client_secret（純站位、不會實際打）
-  # ⚠️ 提醒：MachineTokenProvider 在 dev 可禁用；真正的 M2M/簽章請在 SIT/UAT/PROD 開啟
+    id: ${AUTHN_CLIENT_ID:authn-service}
+    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header | body
+    secret: ${AUTHN_CLIENT_SECRET:}                   # 非 prod 可給
+
+  clients:  # InMemory RegisteredClient 用
+    authn:
+      secret-hash: ${AUTHN_SECRET_HASH}
+    authp:
+      secret-hash: ${AUTHP_SECRET_HASH}
+    reporting:
+      secret-hash: ${REPORTING_SECRET_HASH}
+
+  http:
+    timeout:
+      connect-ms: 5000
+      read-ms: 5000
+
+external:
+  http:
+    timeout:
+      connect-ms: 10000
+      read-ms: 30000
 
 bizform: # BizForm 外部系統 API 配置
   api:
