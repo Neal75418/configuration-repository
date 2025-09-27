@@ -164,7 +164,7 @@ app:
       - "/authn/jwks/publicKey"   # JWT 驗簽所需的 JWK 公鑰
       - "/authn/oauth/login"      # OAuth2 授權登入起點（供前端導向）
       - "/authn/oauth/callback"   # OAuth2 授權碼回調端點
-      - "/authn/oauth/token"      # OAuth2 Token 端點（client_credentials / auth code 換 token 都走這）
+      - "/authn/oauth2/token"      # OAuth2 Token 端點（client_credentials / auth code 換 token 都走這）
       - "/oauth2/authorization/**" # Spring Security OAuth2 核心端點（自動註冊）
 
       # ---------- 📄 Swagger / OpenAPI 開發用文件 ----------
