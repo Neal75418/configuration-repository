@@ -88,6 +88,7 @@ app:
     permit-all:
       # 👉 提供使用者以系統 JWT 換取 BizForm 專用 JWT
       - /authn/oauth/token/exchange
+      - /authn/oauth/token
 
       # 👉 處理使用者登出，清除黑名單、Cookie 與快取資訊
       - /authn/oauth/logout
