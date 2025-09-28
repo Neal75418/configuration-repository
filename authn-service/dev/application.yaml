@@ -67,18 +67,12 @@ authn:
     auth-method: secret
     client-auth: header
 
-  access-token:
-    audience: authp-service
-
-  audience: authp-service
-  scope: authp.read
-
   clients:
-    authn:
+    authn-service:
       secret-hash: "{noop}dev-secret-authn"
-    authp:
+    authp-service:
       secret-hash: "{noop}dev-secret-authp}"
-    reporting:
+    reporting-service:
       secret-hash: "{noop}dev-secret-reporting"
 
 authp:

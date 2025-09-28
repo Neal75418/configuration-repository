@@ -57,21 +57,13 @@ jwt:
                        # 它是一種常用的橢圓曲線，提供良好的性能和安全性，適合生成和驗證 JWT 簽名
 
 key:
-  directory: ${KEY_DIRECTORY:keys/} # 金鑰存放目錄
-  private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
-  public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
+  directory: ${KEY_DIRECTORY:keys} # 金鑰存放目錄
+  private-file: ${KEY_PRIVATE_FILE:ec_private.der} # 私鑰文件名
+  public-file: ${KEY_PUBLIC_FILE:ec_public.der} # 公鑰文件名
 
 authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
-
-  # AuthN 發出去的 Access Token 之預設受眾（可被 profile 覆寫）
-  access-token:
-    audience: tenant-service
-
-  # AuthN 作為 M2M client 去拿 token 時預設帶的 audience/scope（可被 profile 覆寫）
-  audience: ${M2M_AUDIENCE:authp-service}
-  scope: ${M2M_SCOPE:authp.read}
 
   client:
     id: ${AUTHN_CLIENT_ID:authn-service}
@@ -87,16 +79,9 @@ authn:
     reporting-service:
       secret-hash: ${REPORTING_SECRET_HASH}
 
-  http:
-    timeout:
-      connect-ms: 5000
-      read-ms: 5000
-
-external:
-  http:
-    timeout:
-      connect-ms: 10000
-      read-ms: 30000
+authp:
+  internal-base-url: http://authp-service
+  user-uri-prefix: /users
 
 bizform: # BizForm 外部系統 API 配置
   api:

@@ -53,11 +53,14 @@ jwt:
     # 它是一種常用的橢圓曲線，提供良好的性能和安全性，適合生成和驗證 JWT 簽名
 
 key:
-  directory: ${KEY_DIRECTORY:keys/} # 金鑰存放目錄
-  private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
-  public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
+  directory: ${KEY_DIRECTORY:keys} # 金鑰存放目錄
+  private-file: ${KEY_PRIVATE_FILE:ec_private.der} # 私鑰文件名
+  public-file: ${KEY_PUBLIC_FILE:ec_public.der} # 公鑰文件名
 
 authn:
+  token:
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
+
   client:
     auth-method: ${M2M_AUTH_METHOD:private_key_jwt}  # 建議正式切 PKJ
     id: ${M2M_CLIENT_ID}
@@ -66,19 +69,13 @@ authn:
     public-jwk: ${M2M_PUBLIC_JWK:}
     client-auth: ${AUTHN_CLIENT_AUTH_IN:header}
 
-  token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
-
-  audience: ${M2M_AUDIENCE:authp-service}
-  scope: ${M2M_SCOPE:authp.read}
-
-  access-token:
-    audience: tenant-service
-
-  http:
-    timeout:
-      connect-ms: 4000
-      read-ms: 6000
+  clients: # InMemory RegisteredClient 用
+    authn-service:
+      secret-hash: ${AUTHN_SECRET_HASH}
+    authp-service:
+      secret-hash: ${AUTHP_SECRET_HASH}
+    reporting-service:
+      secret-hash: ${REPORTING_SECRET_HASH}
 
 authp:
   internal-base-url: http://authp-service
