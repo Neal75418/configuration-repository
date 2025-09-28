@@ -14,11 +14,56 @@ spring:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
+  # =========================
+  # 資料來源（供 MultiTenant provider 使用；Spring Boot 不直接管理）
+  # =========================
+  datasource:
+    host: ${MYSQL_HOST:localhost}
+    port: ${MYSQL_PORT:3306}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:}
+
+  # =========================
+  # JPA / Hibernate
+  # =========================
+  jpa:
+    properties:
+      hibernate.show_sql: false       # 線上關閉 SQL log
+      hibernate.format_sql: true
+    hibernate.ddl-auto: validate      # 僅驗 schema；建議由 Flyway/Liquibase 管理
+    open-in-view: false               # 關閉 OIV 避免懶載入踩雷
+
+authn:
+  token:
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}  # 發 token 端
+  client:
+    id: authp-service                 # 在 AuthN 註冊的 client_id
+    auth-method: secret               # 可改 private_key_jwt；見下方註解區
+    secret: ${AUTHP_CLIENT_SECRET}   # 不給預設；由環境變數/Secret 注入
+  audience: tenant-service            # 這顆 token 要打的下游服務（ex: tenant-service）
+  scope: tenant.read tenant.write     # 最小必要權限
+  http:
+    timeout:
+      connect-ms: 5000
+      read-ms: 5000
+
+# ==== Gateway / 內部呼叫（給 MultiTenantConnectionProvider 取 DBInfo 用） ====
+gateway:
+  base-url: http://api-gateway:8080
+tenant:
+  dbinfo-path: /tenant/api/tenants/%s  # 以 tenantId 格式化組路徑
+
+# （強烈建議）備援 internal token（只在 M2M 失敗時用）
 internal:
   token:
-    expected-audience: authp-service # 👈 本微服務名稱，用於 internal token audience 驗證
+    value: ${INTERNAL_TOKEN:}                  # 有就填；沒有也可不填
+    expected-audience: authp-service           # 你通用 yml 的預設
 
 app:
+  mt:
+    jdbc:
+      sslMode: REQUIRED                 # dev 可覆蓋為 DISABLED
+      extra: ""                         # dev 可覆蓋 allowPublicKeyRetrieval=true
   security:
     public-paths:
       # ---------- 🔍 健康 / 監控 ----------
