@@ -111,7 +111,7 @@ spring:
           max-wait: 2000ms    # 最大等待時間
 
 jwt:
-  issuer: ${JWT_ISSUER_URI:http://localhost:8080/authn} # JWT 簽發者的 URI
+  issuer: ${JWT_ISSUER_URI:http://api-gateway/authn} # JWT 簽發者的 URI
   jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
   signature-algorithm: ES256 # 使用 EC（橢圓曲線）簽名算法
   time-skew:
