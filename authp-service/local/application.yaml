@@ -2,7 +2,7 @@ JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
 
 authn:
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
+    url: ${AUTHN_TOKEN_URL:http://localhost:8080/authn/oauth2/token}
   client:
     secret: ${AUTHP_CLIENT_SECRET:dev-secret-only-for-local}
 
