@@ -42,7 +42,7 @@ authn:
     secret: ${AUTHP_CLIENT_SECRET}                    # 不給預設；由環境變數/Secret 注入
     client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form
   audience: tenant-service                            # 這顆 token 要打的下游服務（ex: tenant-service）
-  scope: tenant.read tenant.write                     # 最小必要權限
+  scope: tenant.read                                  # 最小必要權限
 
 # ==== Gateway / 內部呼叫（給 MultiTenantConnectionProvider 取 DBInfo 用） ====
 gateway:
