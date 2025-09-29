@@ -37,15 +37,12 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}  # 發 token 端
   client:
-    id: authp-service                 # 在 AuthN 註冊的 client_id
-    auth-method: secret               # 可改 private_key_jwt；見下方註解區
-    secret: ${AUTHP_CLIENT_SECRET}   # 不給預設；由環境變數/Secret 注入
-  audience: tenant-service            # 這顆 token 要打的下游服務（ex: tenant-service）
-  scope: tenant.read tenant.write     # 最小必要權限
-  http:
-    timeout:
-      connect-ms: 5000
-      read-ms: 5000
+    id: authp-service                                 # 在 AuthN 註冊的 client_id
+    auth-method: secret                               # 可改 private_key_jwt；見下方註解區
+    secret: ${AUTHP_CLIENT_SECRET}                    # 不給預設；由環境變數/Secret 注入
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form
+  audience: tenant-service                            # 這顆 token 要打的下游服務（ex: tenant-service）
+  scope: tenant.read tenant.write                     # 最小必要權限
 
 # ==== Gateway / 內部呼叫（給 MultiTenantConnectionProvider 取 DBInfo 用） ====
 gateway:
