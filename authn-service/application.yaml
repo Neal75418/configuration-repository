@@ -28,12 +28,15 @@ authn:
       tenant-read:
         audience: tenant-service
         scope: tenant.read
+        targetService: tenant-service   # ★ 新增，與 Gateway 期望名稱一致
       tenant-write:
         audience: tenant-service
         scope: tenant.read tenant.write
+        targetService: tenant-service
       authp-read:
         audience: authp-service
         scope: authp.read
+        targetService: authp-service
 
     target: tenant-read
     scope-override:
