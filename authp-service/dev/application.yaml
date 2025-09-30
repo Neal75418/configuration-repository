@@ -1,19 +1,18 @@
 JWT_JWK_SET_URI: http://api-gateway:8080/authn/jwks/publicKey
 
-# ------- AuthN (給 M2M 取 token 用；dev 可放預設 secret) -------
 authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
   client:
     secret: ${AUTHP_CLIENT_SECRET:dev-secret-only-for-local}
 
-# ------- 多租戶（dev 放寬：沒有 Header 也能跑） -------
+# ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
-  default-tenant: LOCAL_TENANT  # 沒帶 X-Tenant-Id 時，一律用這個租戶
+  default-tenant: LOCAL_TENANT  # 啟動/非請求階段用這個固定值
 
 app:
   mt:
-    allow-bootstrap-tenant: true # 有做 bootstrap tenant 的話，dev 也保持 true 即可
+    allow-bootstrap-tenant: true            # 允許啟動期使用 bootstrap tenant
     jdbc:
       sslMode: DISABLED                     # 本地 MySQL 多半無 SSL
       extra: allowPublicKeyRetrieval=true   # 允許公開金鑰抓取（僅 dev）

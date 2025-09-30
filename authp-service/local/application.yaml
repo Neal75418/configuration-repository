@@ -1,10 +1,8 @@
 JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
 
 authn:
-  token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
   client:
-    secret: ${AUTHP_CLIENT_SECRET:dev-secret-only-for-local}
+    secret: ${AUTHP_CLIENT_SECRET:}
 
 # ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
@@ -12,7 +10,7 @@ multitenancy:
 
 app:
   mt:
-    allow-bootstrap-tenant: true      # 允許啟動期使用 bootstrap tenant
+    allow-bootstrap-tenant: true            # 允許啟動期使用 bootstrap tenant
     jdbc:
       sslMode: DISABLED                     # 本地 MySQL 多半無 SSL
       extra: allowPublicKeyRetrieval=true   # 允許公開金鑰抓取（僅 local）
@@ -30,12 +28,7 @@ spring:
         jwt:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
 
-  datasource: # 數據源配置
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
-    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
-    password: ${MYSQL_PASSWORD:Gss12345678} # 數據庫密碼，建議通過環境變數配置
-    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
-
+  # 本機想看 SQL 可覆寫為 true（通用檔預設為 false）
   jpa: # JPA 和 Hibernate 配置
     properties:
       hibernate:

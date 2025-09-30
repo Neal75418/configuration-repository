@@ -1,15 +1,14 @@
 JWT_JWK_SET_URI: http://api-gateway:8080/authn/jwks/publicKey
 
-# ==== AuthN：給 M2M 取 service token 用 ====
 authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
   client:
-    secret: ${AUTHP_CLIENT_SECRET}     # ← 走密碼或 private_key_jwt 擇一，你現在用 secret
+    secret: ${AUTHP_CLIENT_SECRET}
 
-# ==== 多租戶嚴格模式 ====
+# ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
-  bootstrap-tenant: "__BOOTSTRAP__"   # 僅啟動/非請求期用，避免啟動時缺租戶
+  bootstrap-tenant: "__BOOTSTRAP__"   # 啟動/非請求階段用這個固定值
 
 spring:
   cloud:

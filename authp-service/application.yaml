@@ -14,18 +14,13 @@ spring:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
-  # =========================
-  # 資料來源（供 MultiTenant provider 使用；Spring Boot 不直接管理）
-  # =========================
+  # 供 MultiTenant provider 取連線用（Boot 不直接管理 DataSource）
   datasource:
     host: ${MYSQL_HOST:localhost}
     port: ${MYSQL_PORT:3306}
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:}
 
-  # =========================
-  # JPA / Hibernate
-  # =========================
   jpa:
     properties:
       hibernate.show_sql: false       # 線上關閉 SQL log
@@ -39,14 +34,25 @@ authn:
 
   client:
     id: ${AUTHN_CLIENT_ID:authp-service}              # 在 AuthN 註冊的 client_id
-    secret: ${AUTHP_CLIENT_SECRET}                    # 不給預設；由環境變數/Secret 注入
+    secret: ${AUTHP_CLIENT_SECRET}                    # 用環境變數或 Secret 注入
     auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt（你用 secret）
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form
-
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header(Basic) | body(form)
   audience: ${AUTHN_AUDIENCE:tenant-service}          # 這顆 token 要打的下游服務（ex: tenant-service）
   scope: ${AUTHN_SCOPE:tenant.read}                   # 最小必要權限
 
-# ==== Gateway / 內部呼叫（給 MultiTenantConnectionProvider 取 DBInfo 用） ====
+authp:
+  http:
+    timeout:
+      connect-ms: 5000
+      read-ms: 5000
+
+external:
+  http:
+    timeout:
+      connect-ms: 10000
+      read-ms: 30000
+
+# MultiTenant provider 取 DBInfo 用
 gateway:
   base-url: http://api-gateway
 tenant:
@@ -55,8 +61,8 @@ tenant:
 # （強烈建議）備援 internal token（只在 M2M 失敗時用）
 internal:
   token:
-    value: ${INTERNAL_TOKEN:}                  # 有就填；沒有也可不填
-    expected-audience: authp-service           # 你通用 yml 的預設
+    sslMode: REQUIRED                 # 本地在 local dev 檔覆寫為 DISABLED
+    extra: ""                         # 本地在 local dev 檔覆寫 allowPublicKeyRetrieval=true
 
 app:
   mt:
