@@ -1,9 +1,10 @@
 spring:
   cloud:
-    consul: # Consul 服務註冊與發現配置
+    consul:
       discovery:
         health-check-path: /actuator/health
-        ip-address: ${SERVICE_IP:127.0.0.1} # 動態 IP 地址
+        ip-address: ${SERVICE_IP:127.0.0.1}
+
   security: # OAuth2 客戶端配置
     oauth2:
       client:
@@ -50,12 +51,7 @@ auth: # 自定義認證相關配置
     client-id: ${OAUTH_CLIENT_ID:oauth}
     client-secret: ${OAUTH_CLIENT_SECRET:secret}
 
-jwt:
-  key:
-    id: ec-key-1       # 金鑰的唯一標識符 (Key ID, kid)，通常用於區分多個金鑰
-    curve: P-256       # 橢圓曲線 (Elliptic Curve, EC) 的類型，這裡使用的是 P-256 曲線（也稱為 secp256r1），
-                       # 它是一種常用的橢圓曲線，提供良好的性能和安全性，適合生成和驗證 JWT 簽名
-
+# KeyPairServiceImpl 使用的檔案儲存設定（DER）
 key:
   directory: ${KEY_DIRECTORY:keys} # 金鑰存放目錄
   private-file: ${KEY_PRIVATE_FILE:ec_private.der} # 私鑰文件名
@@ -65,23 +61,15 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
-  client:
-    id: ${AUTHN_CLIENT_ID:authn-service}
-    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header | body
-    secret: ${AUTHN_CLIENT_SECRET:}                   # 非 prod 可給
-
-  clients:  # InMemory RegisteredClient 用
-    authn-service:
-      secret-hash: ${AUTHN_SECRET_HASH}
-    authp-service:
-      secret-hash: ${AUTHP_SECRET_HASH}
-    reporting-service:
-      secret-hash: ${REPORTING_SECRET_HASH}
-
 authp:
   internal-base-url: http://authp-service
   user-uri-prefix: /users
+  # 僅開發/測試用，M2M 失敗時 fallback
+  internal-token: ${AUTHP_INTERNAL_TOKEN:}
+
+tenant:
+  internal-base-url: http://tenant-service
+  api-prefix: /directory
 
 bizform: # BizForm 外部系統 API 配置
   api:

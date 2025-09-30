@@ -9,7 +9,6 @@ spring:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}-${server.port}
-
   cache:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
@@ -20,15 +19,17 @@ static:
       period: 3600
 
 authn:
+  # M2M token 發行端點（經 Gateway）
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}  # M2M token 發行端點（可經 Gateway）
+    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
+  # M2M 目標（Tenant/ AuthP）
   m2m:
     targets:
       tenant-read:
         audience: tenant-service
         scope: tenant.read
-        targetService: tenant-service   # ★ 新增，與 Gateway 期望名稱一致
+        targetService: tenant-service
       tenant-write:
         audience: tenant-service
         scope: tenant.read tenant.write
@@ -38,16 +39,14 @@ authn:
         scope: authp.read
         targetService: authp-service
 
-    target: tenant-read
-    scope-override:
-
   client:
     id: ${AUTHN_CLIENT_ID:authn-service}
     auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt
     client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form
-    secret: ${AUTHN_CLIENT_SECRET:}                   # dev/staging 才會給
+    secret: ${AUTHN_CLIENT_SECRET:}                   # 非 prod 可給
 
-  clients: # InMemory RegisteredClient 用（由 OAuthClientConfig 讀）
+  # InMemory RegisteredClient（由 OAuthClientConfig 讀）
+  clients:
     authn-service:
       secret-hash: ${AUTHN_SECRET_HASH}
     authp-service:
@@ -55,7 +54,7 @@ authn:
     reporting-service:
       secret-hash: ${REPORTING_SECRET_HASH}
 
-  # HTTP 連線參數（M2M 發 Token 或內部呼叫的逾時）
+  # 內部 HTTP 逾時）
   http:
     timeout:
       connect-ms: 5000                            # 連線逾時（毫秒）
@@ -68,9 +67,14 @@ external:
       connect-ms: 10000
       read-ms: 30000
 
+# 內部服務位址
 authp:
-  internal-base-url: http://authp-service   # 服務註冊名或內部 DNS（建議 @LoadBalanced 解析）
-  user-uri-prefix: /users                   # 使用者 API 前綴（如 /users/{id}/roles）
+  internal-base-url: http://authp-service
+  user-uri-prefix: /users
+
+tenant:
+  internal-base-url: http://tenant-service
+  api-prefix: /directory
 
 app:
   security:

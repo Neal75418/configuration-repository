@@ -1,9 +1,10 @@
 spring:
   cloud:
-    consul: # Consul 服務註冊與發現配置
+    consul:
       discovery:
         healthCheckUrl: http://authn-service:${server.port}/actuator/health
-        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 動態 IP 地址
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+
   security: # OAuth2 客戶端配置
     oauth2:
       client:
@@ -46,12 +47,7 @@ auth: # 自定義認證相關配置
     access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:900000}   # Access Token 的過期時間（15 分鐘，支持覆蓋）
     refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:2592000000} # Refresh Token 的過期時間（30 天，支持覆蓋）
 
-jwt:
-  key:
-    id: ec-key-1       # 金鑰的唯一標識符 (Key ID, kid)，通常用於區分多個金鑰
-    curve: P-256       # 橢圓曲線 (Elliptic Curve, EC) 的類型，這裡使用的是 P-256 曲線（也稱為 secp256r1），
-    # 它是一種常用的橢圓曲線，提供良好的性能和安全性，適合生成和驗證 JWT 簽名
-
+# KeyPairServiceImpl 使用的檔案儲存設定（DER）
 key:
   directory: ${KEY_DIRECTORY:keys} # 金鑰存放目錄
   private-file: ${KEY_PRIVATE_FILE:ec_private.der} # 私鑰文件名
@@ -61,26 +57,14 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
-  client:
-    auth-method: ${M2M_AUTH_METHOD:private_key_jwt}  # 建議正式切 PKJ
-    id: ${M2M_CLIENT_ID}
-    secret: ${M2M_CLIENT_SECRET:}    # 若用 PKJ 可不填
-    private-jwk: ${M2M_PRIVATE_JWK:}
-    public-jwk: ${M2M_PUBLIC_JWK:}
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}
-
-  clients: # InMemory RegisteredClient 用
-    authn-service:
-      secret-hash: ${AUTHN_SECRET_HASH}
-    authp-service:
-      secret-hash: ${AUTHP_SECRET_HASH}
-    reporting-service:
-      secret-hash: ${REPORTING_SECRET_HASH}
-
 authp:
   internal-base-url: http://authp-service
   user-uri-prefix: /users
   internal-token: ""  # 禁用
+
+tenant:
+  internal-base-url: http://tenant-service
+  api-prefix: /directory
 
 bizform: # BizForm 外部系統 API 配置
   api:

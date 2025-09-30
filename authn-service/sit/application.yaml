@@ -1,9 +1,10 @@
 spring:
   cloud:
-    consul: # Consul 服務註冊與發現配置
+    consul:
       discovery:
         healthCheckUrl: http://authn-service:${server.port}/actuator/health
-        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 動態 IP 地址
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+
   security: # OAuth2 客戶端配置
     oauth2:
       client:
@@ -61,26 +62,14 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
-  client:
-    auth-method: ${M2M_AUTH_METHOD:secret}
-    id: ${M2M_CLIENT_ID}
-    secret: ${M2M_CLIENT_SECRET:}
-    private-jwk: ${M2M_PRIVATE_JWK:}
-    public-jwk: ${M2M_PUBLIC_JWK:}
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}
-
-  clients: # InMemory RegisteredClient 用
-    authn-service:
-      secret-hash: ${AUTHN_SECRET_HASH}
-    authp-service:
-      secret-hash: ${AUTHP_SECRET_HASH}
-    reporting-service:
-      secret-hash: ${REPORTING_SECRET_HASH}
-
 authp:
   internal-base-url: http://authp-service
   user-uri-prefix: /users
-  internal-token: ${AUTHP_INTERNAL_TOKEN:}    # 建議留空
+  internal-token: ""  # 禁用
+
+tenant:
+  internal-base-url: http://tenant-service
+  api-prefix: /directory
 
 bizform: # BizForm 外部系統 API 配置
   api:
