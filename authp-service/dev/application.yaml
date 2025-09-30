@@ -4,7 +4,7 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
   client:
-    secret: ${AUTHP_CLIENT_SECRET:dev-secret-only-for-local}
+    secret: ${AUTHP_CLIENT_SECRET:}
 
 # ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
