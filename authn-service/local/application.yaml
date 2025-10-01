@@ -39,7 +39,7 @@ auth: # 自定義認證相關配置
   redirect:
     final-uri: ${FINAL_URI:http://localhost:7001} # 認證成功後重定向的 URI
   issuer: ${AUTH_ISSUER:http://api-gateway/authn} # JWT 簽發者的 URI
-  aud: ${AUTH_AUDIENCES:} # JWT 的受眾驗證
+  aud: ${AUTH_AUDIENCES:api-gateway} # JWT 的受眾驗證
   token:
     max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數（建議值：1-5）
     buffer-time-seconds: 3600 # 緩衝時間（秒），此處為1小時
