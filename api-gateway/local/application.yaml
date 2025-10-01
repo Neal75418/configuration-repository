@@ -117,7 +117,7 @@ jwt:
   time-skew:
     seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
   valid:
-    audiences: ${JWT_VALID_AUDIENCES:api-gateway} # JWT 的受眾驗證
+    audiences: ${JWT_VALID_AUDIENCES:authn-service,authz-service,authp-service,blacklist-service,tenant-service,todo-service,VitalBizFormService,GenogramService,MailService,TerritoryService,reporting-service,PettyCashService,api-gateway} # JWT 的受眾驗證
 
 # 🌉 API Gateway – Provisioning 專用設定（InternalTokenFilter）
 provisioning:
