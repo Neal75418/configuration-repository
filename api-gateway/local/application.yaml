@@ -112,7 +112,7 @@ spring:
 
 jwt:
   issuer: ${JWT_ISSUER_URI:http://api-gateway/authn} # JWT 簽發者的 URI
-  jwk-set-uri: ${JWT_JWK_SET_URI:http://${spring.cloud.client.ip-address}:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway/authn/jwks/publicKey} # JWK 公鑰的 URI
   signature-algorithm: ES256 # 使用 EC（橢圓曲線）簽名算法
   user-audience: api-gateway
   service-audiences: tenant-service,authp-service
