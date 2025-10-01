@@ -28,6 +28,12 @@ spring:
         jwt:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
 
+  datasource:
+    host: ${MYSQL_HOST:localhost}
+    port: ${MYSQL_PORT:3306}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:Gss12345678}
+
   # 本機想看 SQL 可覆寫為 true（通用檔預設為 false）
   jpa: # JPA 和 Hibernate 配置
     properties:
