@@ -15,7 +15,7 @@ app:
     allow-bootstrap-tenant: true            # 允許啟動期使用 bootstrap tenant
     jdbc:
       sslMode: DISABLED                     # 本地 MySQL 多半無 SSL
-      extra: allowPublicKeyRetrieval=true   # 允許公開金鑰抓取（僅 dev）
+      extra: ""
 
 spring:
   cloud:
