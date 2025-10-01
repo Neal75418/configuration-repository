@@ -7,8 +7,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          # 讓框架自己抓 .well-known/openid-configuration -> jwks_uri
-          issuer-uri: ${JWT_ISSUER_URI:http://api-gateway/authn}
+          jwk-set-uri: http://authn-service/authn/jwks/publicKey
   cloud:
     consul:
       discovery:
