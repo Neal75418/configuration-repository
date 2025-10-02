@@ -84,3 +84,7 @@ app:
       - "/swagger-ui.html"        # Swagger UI
       - "/swagger-ui/**"          # Swagger 靜態資源
       - "/v3/authp-docs"          # AuthP 自訂 docs 入口
+
+invite-user-setting:
+  case-bridge-url: https://cb-svc-web.vitalcb.com
+  vital-login-url: https://member.vikosmos.com/cas/login?service=https://www.vikosmos.com/tw/&locale=zh
