@@ -7,8 +7,11 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://authn-service/authn/jwks/publicKey
+          jwk-set-uri: http://authn-service:8081/jwks/publicKey
   cloud:
+    loadbalancer:
+      cache:
+        enabled: true # 啟用負載均衡器的緩存功能
     consul:
       discovery:
         prefer-ip-address: true
