@@ -179,6 +179,7 @@ app:
       - "/swagger-ui/**"          # Swagger UI 前端靜態資源（JS / CSS）
       - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
       - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
+      - "/tenant/v3/tenant-docs"
 
 test:
   depot-id: cspsd_test
