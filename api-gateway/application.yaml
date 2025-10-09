@@ -42,6 +42,8 @@ springdoc:
         url: /bizform/swagger/v1/swagger.json
       - name: GSS.Vital.MailService
         url: /mail/swagger/v1/swagger.json
+      - name: GSS.Vital.ReportingService
+        url: /reporting/swagger/v1/swagger.json
       - name: GSS.Vital.PettyCashService
         url: /petty-cash/swagger/v1/swagger.json
 
