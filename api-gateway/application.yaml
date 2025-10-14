@@ -30,14 +30,10 @@ springdoc:
         url: /authn/v3/authn-docs
       - name: GSS.Vital.AuthPService
         url: /authp/v3/authp-docs
-#      - name: authz
-#        url: /authz/v3/api-docs
       - name: GSS.Vital.BlacklistService
         url: /blacklist/v3/blacklist-docs
       - name: GSS.Vital.TenantService
         url: /tenant/v3/tenant-docs
-#      - name: todo
-#        url: /todo/v3/api-docs
       - name: GSS.Vital.BizFormAPIService
         url: /bizform/swagger/v1/swagger.json
       - name: GSS.Vital.MailService
