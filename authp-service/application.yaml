@@ -43,26 +43,26 @@ authn:
 authp:
   http:
     timeout:
-      connect-ms: 5000
-      read-ms: 5000
+      connect-ms: 5000   # 連線建立逾時（毫秒）
+      read-ms: 5000      # 讀取回應逾時（毫秒）
 
 external:
   http:
     timeout:
-      connect-ms: 10000
-      read-ms: 30000
+      connect-ms: 10000  # 對外部服務連線逾時
+      read-ms: 30000     # 對外部服務讀取逾時
 
-# MultiTenant provider 取 DBInfo 用
+# MultiTenant provider 透過 Gateway 取得 DBInfo
 gateway:
-  base-url: http://api-gateway
+  machine-token:
+    target: tenant-read  # 申請 M2M token 的 target_service（避免簽發端 fallback）
+  base-url: http://api-gateway:8080  # Gateway 基底位址
 tenant:
-  dbinfo-path: /tenant/api/tenants/%s  # 以 tenantId 格式化組路徑
+  dbinfo-path: /tenant/api/tenants/%s  # DBInfo 路徑，使用 tenantId 格式化
 
-# （強烈建議）備援 internal token（只在 M2M 失敗時用）
 internal:
   token:
-    sslMode: REQUIRED                 # 本地在 local dev 檔覆寫為 DISABLED
-    extra: ""                         # 本地在 local dev 檔覆寫 allowPublicKeyRetrieval=true
+    expected-audience: authp-service           # TenantFilter 用於判斷「內部 token」
 
 app:
   mt:
