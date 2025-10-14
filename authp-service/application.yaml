@@ -34,7 +34,7 @@ authn:
 
   client:
     id: ${AUTHN_CLIENT_ID:authp-service}              # 在 AuthN 註冊的 client_id
-    secret: ${AUTHN_CLIENT_SECRET:}                   # 用環境變數或 Secret 注入
+    secret: ${AUTHP_CLIENT_SECRET}                   # 用環境變數或 Secret 注入
     auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt（你用 secret）
     client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header(Basic) | body(form)
   audience: ${AUTHN_AUDIENCE:tenant-service}          # 這顆 token 要打的下游服務（ex: tenant-service）
