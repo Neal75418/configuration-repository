@@ -28,7 +28,7 @@ authn:
     targets:
       tenant-read:
         audience: tenant-service
-        scope: tenant.read
+        scope: tenant.read tenant.bizform.read
         targetService: tenant-service
       tenant-write:
         audience: tenant-service
