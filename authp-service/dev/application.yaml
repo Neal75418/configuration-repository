@@ -4,11 +4,11 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
   client:
-    secret: ${AUTHP_CLIENT_SECRET:}
+    secret: ${AUTHN_CLIENT_SECRET:}
 
 # ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
-  default-tenant: LOCAL_TENANT  # 啟動/非請求階段用這個固定值
+  bootstrap-tenant: "__BOOTSTRAP__"   # 啟動/非請求階段用這個固定值
 
 app:
   mt:

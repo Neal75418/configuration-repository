@@ -2,7 +2,7 @@ JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
 
 authn:
   client:
-    secret: ${AUTHP_CLIENT_SECRET:}
+    secret: ${AUTHN_CLIENT_SECRET:}
 
 # ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
