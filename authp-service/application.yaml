@@ -61,6 +61,7 @@ gateway:
 tenant:
   dbinfo-path: /tenant/api/tenants/%s  # DBInfo 路徑，使用 tenantId 格式化
   internal-base-url: http://tenant-service
+  api-prefix: /directory
 
 internal:
   token:
