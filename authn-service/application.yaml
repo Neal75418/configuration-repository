@@ -13,11 +13,6 @@ spring:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
-static:
-  resources:
-    cache:
-      period: 3600
-
 authn:
   # M2M token 發行端點（經 Gateway）
   token:
