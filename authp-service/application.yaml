@@ -57,8 +57,10 @@ gateway:
   machine-token:
     target: tenant-read  # 申請 M2M token 的 target_service（避免簽發端 fallback）
   base-url: http://api-gateway:8080  # Gateway 基底位址
+
 tenant:
   dbinfo-path: /tenant/api/tenants/%s  # DBInfo 路徑，使用 tenantId 格式化
+  internal-base-url: http://tenant-service
 
 internal:
   token:
