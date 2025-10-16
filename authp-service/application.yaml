@@ -33,12 +33,12 @@ authn:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}  # 發 token 端
 
   client:
-    id: ${AUTHN_CLIENT_ID:authp-service}              # 在 AuthN 註冊的 client_id
-    secret: ${AUTHP_CLIENT_SECRET:dummy}              # 用環境變數或 Secret 注入
-    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt（你用 secret）
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header(Basic) | body(form)
-  audience: ${AUTHN_AUDIENCE:tenant-service}          # 這顆 token 要打的下游服務（ex: tenant-service）
-  scope: ${AUTHN_SCOPE:tenant.read}                   # 最小必要權限
+    id: ${AUTHN_CLIENT_ID:authp-service}                    # 在 AuthN 註冊的 client_id
+    secret: ${AUTHP_CLIENT_SECRET:dummy}                    # 用環境變數或 Secret 注入
+    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}         # secret | private_key_jwt（你用 secret）
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}             # header(Basic) | body(form)
+  audience: ${AUTHN_AUDIENCE:tenant-service}                # 這顆 token 要打的下游服務（ex: tenant-service）
+  scope: ${AUTHN_SCOPE:tenant.read tenant.bizform.read}     # 最小必要權限
 
 authp:
   http:
