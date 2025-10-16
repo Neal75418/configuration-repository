@@ -1,0 +1,87 @@
+JWT_JWK_SET_URI: http://localhost:8080/authn/jwks/publicKey
+
+authn:
+  client:
+    secret: ${AUTHP_CLIENT_SECRET:}
+
+# ------- 啟動期用的 bootstrap 租戶 -------
+multitenancy:
+  bootstrap-tenant: "__BOOTSTRAP__"   # 啟動/非請求階段用這個固定值
+
+app:
+  mt:
+    allow-bootstrap-tenant: true            # 允許啟動期使用 bootstrap tenant
+    jdbc:
+      sslMode: DISABLED                     # 本地 MySQL 多半無 SSL
+      extra: ""
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        health-check-path: /actuator/health
+        ip-address: ${SERVICE_IP:127.0.0.1}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
+
+  datasource:
+    host: ${MYSQL_HOST:localhost}
+    port: ${MYSQL_PORT:3306}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:Gss12345678}
+
+  # 本機想看 SQL 可覆寫為 true（通用檔預設為 false）
+  jpa: # JPA 和 Hibernate 配置
+    properties:
+      hibernate:
+        show_sql: true # 顯示 SQL 語句（開發環境開啟）
+        format_sql: true # 格式化 SQL 語句（開發環境開啟）
+    hibernate:
+      ddl-auto: validate # 生產環境建議使用 none
+    open-in-view: false # 禁用 Open Session In View，以提升性能
+
+  data:
+    redis: # Redis 配置
+      host: ${REDIS_HOST:localhost} # Redis 主機地址
+      port: ${REDIS_PORT:6379} # Redis 埠號
+      password: ${REDIS_PASSWORD:GssAuthRedis111} # Redis 密碼（如果有則填寫）
+      timeout: 5s  # 設定連線超時為 5 秒
+      lettuce:
+        pool:
+          max-active: 50      # 最大連接數
+          max-idle: 15        # 最大空閒連接數
+          min-idle: 5         # 最小空閒連接數
+          max-wait: 2000ms    # 連接等待時間
+
+# ⚙️ CaseBridge | Tenant Provisioning 設定
+provisioning:
+  intake:
+    # Controller 的「Intake 寬鬆模式」主開關
+    # - 開啟：空/壞 JSON 也回 200，並回顯/記錄原始請求（僅 SIT/UAT 使用）
+    # - 關閉：照正常嚴格驗證，無效請求回 400
+    # @Value("${provisioning.intake.enabled:false}")
+    enabled: true
+
+    probe:
+      # Ingress 探針（Filter）開關
+      # - 開啟：在 Security 前就攔下請求做審計記錄，連 401/403 也能看到原文
+      # - 關閉：不做前置記錄
+      # @Value("${provisioning.intake.probe.enabled:false}")
+      enabled: true
+
+      # 探針可記錄的 Request Body 最大位元組數（超過即截斷，避免被大包炸死）
+      # @Value("${provisioning.intake.probe.maxBody:8192}")
+      maxBody: 8192  # 8 KiB
+
+test:
+  depot-id: cspsd_test
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    path: /v3/authp-docs  # 根據每個微服務設計自己的前綴
