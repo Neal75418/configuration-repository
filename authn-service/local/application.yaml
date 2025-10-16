@@ -61,16 +61,6 @@ authn:
   token:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
-authp:
-  internal-base-url: http://authp-service
-  user-uri-prefix: /users
-  # 僅開發/測試用，M2M 失敗時 fallback
-  internal-token: ${AUTHP_INTERNAL_TOKEN:}
-
-tenant:
-  internal-base-url: http://tenant-service
-  api-prefix: /directory
-
 bizform: # BizForm 外部系統 API 配置
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
