@@ -13,11 +13,11 @@ spring:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
 authn:
-  # M2M token 發行端點（經 Gateway）
   token:
+    # M2M token 發行端點（經 Gateway，🤖）
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
 
-  # M2M 目標（Tenant/ AuthP）
+  # M2M 目標（Tenant/ AuthP）（🤖）
   m2m:
     targets:
       tenant-read:
@@ -33,13 +33,13 @@ authn:
         scope: authp.read
         targetService: authp-service
 
-  client:
+  client: # M2M 客戶端認證方式（🤖）
     id: ${AUTHN_CLIENT_ID:authn-service}
-    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form
-    secret: ${AUTHN_CLIENT_SECRET:}                   # 非 prod 可給
+    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}   # secret | private_key_jwt（🤖）
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}       # header=Basic | body=form（🤖）
+    secret: ${AUTHN_CLIENT_SECRET:}                   # 非 prod 可給（🤖）
 
-  # InMemory RegisteredClient（由 OAuthClientConfig 讀）
+  # InMemory RegisteredClient（由 OAuthClientConfig 讀）（🤖 各機器客戶端）
   clients:
     authn-service:
       secret-hash: ${AUTHN_SECRET_HASH}
@@ -48,20 +48,20 @@ authn:
     reporting-service:
       secret-hash: ${REPORTING_SECRET_HASH}
 
-  # 內部 HTTP 逾時）
+  # 內部 HTTP 逾時（🤖 常用於內部交換）
   http:
     timeout:
       connect-ms: 5000                            # 連線逾時（毫秒）
       read-ms: 5000                               # 讀取逾時（毫秒）
 
-# optional：外部 RT timeout
+# optional：外部 RT timeout（外部系統，👤/🤖 依呼叫場景）
 external:
   http:
     timeout:
       connect-ms: 10000
       read-ms: 30000
 
-# 內部服務位址
+# 內部服務位址（👤/🤖 都可能呼叫）
 authp:
   internal-base-url: http://authp-service
   user-uri-prefix: /users
@@ -82,7 +82,7 @@ app:
       - "/actuator/health"      # 健康檢查
       - "/actuator/prometheus"  # Prometheus 指標
 
-      # ---------- 🔑 OIDC / JWT 相關 ----------
+      # ---------- 🔑 OIDC / JWT 相關（👤 使用者登入 & 公鑰/發現文件） ----------
       - "/authn/.well-known/**" # OIDC Discovery (AuthN 路徑)
       - "/authn/jwks/publicKey" # JWK public key (AuthN 路徑)
       - "/.well-known/**"       # OIDC Discovery root fallback
@@ -104,8 +104,8 @@ app:
       - "/oauth2/token"              # 給直打 AuthN 的呼叫（StripPrefix 之後）
       - "/oauth/token/exchange"     # 系統 JWT 換 BizForm 專用 JWT
       - "/oauth/token/exchange-callback"  # 給 API Gateway 換 token 用
-      - "/oauth/logout"             # 使用者登出
-      - "/oauth/refresh-token"      # 刷新 access token
-      - "/oauth/me"                 # 取得使用者資訊
-      - "/callback-token"           # 簽發 iframe callback token
-      - "/internal-token"           # 簽發微服務 internal token
+      - "/oauth/logout"             # 👤 登出
+      - "/oauth/refresh-token"      # 👤 以 refresh 換 access
+      - "/oauth/me"                 # 👤 查詢自己
+      - "/callback-token"           # 👤 iframe/回調場景
+      - "/internal-token"           # 🤖 微服務 internal token（僅測試/內部）

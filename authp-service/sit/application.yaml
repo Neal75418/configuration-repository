@@ -1,14 +1,19 @@
 JWT_JWK_SET_URI: http://api-gateway:8080/authn/jwks/publicKey
 
 authn:
-  token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
   client:
     secret: ${AUTHP_CLIENT_SECRET:}
 
 # ------- 啟動期用的 bootstrap 租戶 -------
 multitenancy:
   bootstrap-tenant: "__BOOTSTRAP__"   # 啟動/非請求階段用這個固定值
+
+app:
+  mt:
+    allow-bootstrap-tenant: true            # 允許啟動期使用 bootstrap tenant
+    jdbc:
+      sslMode: REQUIRED
+      extra: "connectTimeout=5000&socketTimeout=15000"
 
 spring:
   cloud:
@@ -24,10 +29,10 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
 
   datasource: # 數據源配置
-    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
-    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
+    host: ${MYSQL_HOST:}
+    port: ${MYSQL_PORT:}
+    username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
-    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
 
   jpa: # JPA 和 Hibernate 配置
     properties:
@@ -40,8 +45,8 @@ spring:
 
   data:
     redis: # Redis 配置
-      host: ${REDIS_HOST:auth_redis} # Redis 主機地址
-      port: ${REDIS_PORT:6379} # Redis 埠號
+      host: ${REDIS_HOST:} # Redis 主機地址
+      port: ${REDIS_PORT:} # Redis 埠號
       password: ${REDIS_PASSWORD:} # Redis 密碼（如果有則填寫）
       timeout: 5s  # 設定連線超時為 5 秒
       lettuce:
@@ -70,9 +75,6 @@ provisioning:
       # 探針可記錄的 Request Body 最大位元組數（超過即截斷，避免被大包炸死）
       # @Value("${provisioning.intake.probe.maxBody:8192}")
       maxBody: 8192  # 8 KiB
-
-test:
-  depot-id: cspsd_sit
 
 springdoc:
   swagger-ui:

@@ -1,9 +1,4 @@
 spring:
-  web:
-    resources:
-      # 🚫 關閉預設 /static、/public 等靜態路徑
-      add-mappings: false
-
   cloud:
     consul:
       discovery:
@@ -94,8 +89,8 @@ spring:
 
   data:
     redis:
-      host: ${REDIS_HOST:auth_redis} # Redis 主機地址，支持外部環境變數配置
-      port: ${REDIS_PORT:6379}      # Redis 默認端口
+      host: ${REDIS_HOST:} # Redis 主機地址，支持外部環境變數配置
+      port: ${REDIS_PORT:}      # Redis 默認端口
       password: ${REDIS_PASSWORD:}  # Redis 密碼，留空表示無密碼
       timeout: 5s  # 設定連線超時為 5 秒
       lettuce:
@@ -171,7 +166,7 @@ app:
       - "/authn/jwks/publicKey"   # JWT 驗簽所需的 JWK 公鑰
       - "/authn/oauth/login"      # OAuth2 授權登入起點（供前端導向）
       - "/authn/oauth/callback"   # OAuth2 授權碼回調端點
-      - "/authn/oauth2/token"      # OAuth2 Token 端點（client_credentials / auth code 換 token 都走這）
+      - "/authn/oauth2/token"     # OAuth2 Token 端點（client_credentials / auth code 換 token 都走這）
       - "/oauth2/authorization/**" # Spring Security OAuth2 核心端點（自動註冊）
 
       # ---------- 📄 Swagger / OpenAPI 開發用文件 ----------

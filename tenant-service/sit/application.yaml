@@ -44,6 +44,6 @@ logging:
 
 springdoc:
   swagger-ui:
-    enabled: true       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
   api-docs:
     path: /v3/tenant-docs  # 根據每個微服務設計自己的前綴

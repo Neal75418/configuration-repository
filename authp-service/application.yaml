@@ -15,17 +15,19 @@ spring:
 
   # 供 MultiTenant provider 取連線用（Boot 不直接管理 DataSource）
   datasource:
-    host: ${MYSQL_HOST:localhost}
-    port: ${MYSQL_PORT:3306}
-    username: ${MYSQL_USERNAME:root}
+    host: ${MYSQL_HOST:}
+    port: ${MYSQL_PORT:}
+    username: ${MYSQL_USERNAME:}
     password: ${MYSQL_PASSWORD:}
 
-  jpa:
+  jpa: # JPA 和 Hibernate 配置
     properties:
-      hibernate.show_sql: false       # 線上關閉 SQL log
-      hibernate.format_sql: true
-    hibernate.ddl-auto: validate      # 僅驗 schema；建議由 Flyway/Liquibase 管理
-    open-in-view: false               # 關閉 OIV 避免懶載入踩雷
+      hibernate:
+        show_sql: false # 顯示 SQL 語句（開發環境開啟）
+        format_sql: false # 格式化 SQL 語句（開發環境開啟）
+    hibernate:
+      ddl-auto: none # 生產環境建議使用 none
+    open-in-view: false # 禁用 Open Session In View，以提升性能
 
 authn:
   token:
@@ -69,8 +71,8 @@ internal:
 app:
   mt:
     jdbc:
-      sslMode: REQUIRED                 # dev 可覆蓋為 DISABLED
-      extra: ""                         # dev 可覆蓋 allowPublicKeyRetrieval=true
+      sslMode: REQUIRED                 # 在 local dev 檔覆寫為 DISABLED
+      extra: ""
   security:
     public-paths:
       # ---------- 🔍 健康 / 監控 ----------
@@ -78,9 +80,9 @@ app:
       - "/actuator/prometheus"    # Prometheus 指標
 
       # ---------- 👤 用戶前置查詢 ----------
-      - "/users/*/default-tenant"              # 取預設租戶（登入前呼叫）
-      - "/users/*/details"                     # 取用戶詳情（建立 JWT 時用）
-      - "/permissions/internal/permissions/*"  # 查詢使用者權限（建立快取用，登入流程會呼叫
+#      - "/users/*/default-tenant"              # 取預設租戶（登入前呼叫）
+#      - "/users/*/details"                     # 取用戶詳情（建立 JWT 時用）
+#      - "/permissions/internal/permissions/*"  # 查詢使用者權限（建立快取用，登入流程會呼叫
 
       # ---------- 📄 Swagger / OpenAPI ----------
       - "/swagger-ui.html"        # Swagger UI

@@ -1,9 +1,4 @@
 spring:
-  web:
-    resources:
-      # 🚫 關閉預設 /static、/public 等靜態路徑
-      add-mappings: false
-
   cloud:
     consul:
       discovery:
@@ -94,8 +89,8 @@ spring:
 
   data:
     redis:
-      host: ${REDIS_HOST:auth_redis} # Redis 主機地址，支持外部環境變數配置
-      port: ${REDIS_PORT:6379}      # Redis 默認端口
+      host: ${REDIS_HOST:} # Redis 主機地址，支持外部環境變數配置
+      port: ${REDIS_PORT:}      # Redis 默認端口
       password: ${REDIS_PASSWORD:}  # Redis 密碼，留空表示無密碼
       timeout: 5s  # 設定連線超時為 5 秒
       lettuce:
@@ -106,13 +101,20 @@ spring:
           max-wait: 2000ms    # 最大等待時間
 
 jwt:
-  issuer: ${JWT_ISSUER_URI:${spring.cloud.client.ip-address}:8080/authn} # JWT 簽發者的 URI
-  jwk-set-uri: ${JWT_JWK_SET_URI:http://${spring.cloud.client.ip-address}:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
+  # ✅ 與 AuthN 對齊：帶埠 + 網關 DNS + /authn
+  issuer: ${JWT_ISSUER_URI:http://api-gateway:8080/authn} # JWT 簽發者的 URI
+  # ✅ JWK 固定走 gateway 對外路徑（轉到 authn-service）
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey} # JWK 公鑰的 URI
   signature-algorithm: ES256 # 使用 EC（橢圓曲線）簽名算法
+  # 👤 使用者 token 預設 aud（建議用純服務代號，不帶 schema/port）
+  user-audience: ${JWT_USER_AUD:api-gateway}
+  # 🤖 M2M token 的 aud 由發券端按目標服務塞；這邊列出可能的合法集合
+  service-audiences: ${JWT_SERVICE_AUDS:tenant-service,authp-service}
   time-skew:
     seconds: 60 # 時間偏移，允許 JWT 驗證時容忍的時差
+  # ✅ 供 TokenService / Filter 放寬校驗的白名單（就是 route host 清單）
   valid:
-    audiences: ${JWT_VALID_AUDIENCES:${spring.cloud.client.ip-address}} # JWT 的受眾驗證
+    audiences: ${JWT_VALID_AUDIENCES:api-gateway,authn-service,authp-service,blacklist-service,tenant-service,VitalBizFormService,GenogramService,MailService,TerritoryService,reporting-service,PettyCashService} # JWT 的受眾驗證
 
 provisioning:
   intake:
@@ -169,7 +171,7 @@ app:
       - "/authn/jwks/publicKey"   # JWT 驗簽所需的 JWK 公鑰
       - "/authn/oauth/login"      # OAuth2 授權登入起點（供前端導向）
       - "/authn/oauth/callback"   # OAuth2 授權碼回調端點
-      - "/authn/oauth2/token"      # OAuth2 Token 端點（client_credentials / auth code 換 token 都走這）
+      - "/authn/oauth2/token"     # OAuth2 Token 端點（client_credentials / auth code 換 token 都走這）
       - "/oauth2/authorization/**" # Spring Security OAuth2 核心端點（自動註冊）
 
       # ---------- 📄 Swagger / OpenAPI 開發用文件 ----------
@@ -182,6 +184,3 @@ app:
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
   config: classpath:log4j2-logstash.xml
-
-test:
-  depot-id: cspsd_test
