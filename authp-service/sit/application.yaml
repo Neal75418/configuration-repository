@@ -45,8 +45,8 @@ spring:
 
   data:
     redis: # Redis 配置
-      host: ${REDIS_HOST:} # Redis 主機地址
-      port: ${REDIS_PORT:} # Redis 埠號
+      host: ${REDIS_HOST:auth_redis} # Redis 主機地址
+      port: ${REDIS_PORT:6379} # Redis 埠號
       password: ${REDIS_PASSWORD:} # Redis 密碼（如果有則填寫）
       timeout: 5s  # 設定連線超時為 5 秒
       lettuce:
