@@ -174,7 +174,6 @@ app:
       - "/swagger-ui/**"          # Swagger UI 前端靜態資源（JS / CSS）
       - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
       - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
-      - "/tenant/v3/tenant-docs"  # 租戶微服務專用的 Swagger 文件端點
 
 # 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
 logging:
