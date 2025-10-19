@@ -2,11 +2,6 @@ server:
   port: 8080
 
 spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://authn-service:8081/jwks/publicKey
   cloud:
     loadbalancer:
       cache:
