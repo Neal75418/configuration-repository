@@ -34,35 +34,34 @@ spring:
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
 
-auth: # 自定義認證相關配置
-  registration-id: oauth # OAuth2 註冊 ID
+auth: # 自定義認證相關配置（簽發共用：iss/aud/存活時間）
+  registration-id: oauth # OAuth2 註冊 ID（👤）
   redirect:
-    final-uri: ${FINAL_URI:http://localhost:7001} # 認證成功後重定向的 URI
-  issuer: ${AUTH_ISSUER:http://localhost:8080/authn} # JWT 簽發者的 URI
-  aud: ${AUTH_AUDIENCES:http://localhost:8080} # JWT 的受眾驗證
+    final-uri: ${FINAL_URI:http://localhost:7001} # 認證成功後重定向（👤）
+
+  # ✅ 同時支援人類 & 機器：統一用帶埠的 gateway DNS
+  #   （你的 tenant-service 現在也接受這兩個 issuer，雙保險）
+  issuer: ${AUTH_ISSUER:http://api-gateway:8080/authn} # JWT 簽發者（👤/🤖 皆會寫入 iss）
+  aud: ${AUTH_AUDIENCES:api-gateway} # 預設受眾（常用於👤 使用者 token）
   token:
     max-retries: ${TOKEN_REFRESH_MAX_RETRIES:3} # 最大重試次數（建議值：1-5）
     buffer-time-seconds: 3600 # 緩衝時間（秒），此處為1小時
     cache-duration-days: 7 # 緩存有效期配置（默認為 7 天）
-    access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:3600000}   # Access Token 的過期時間（60 分鐘，支持覆蓋）
-    refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:2592000000} # Refresh Token 的過期時間（30 天，支持覆蓋）
+    access-token-expiration-ms: ${ACCESS_TOKEN_EXPIRATION:3600000}   # Access Token 的過期時間（60 分鐘，支持覆蓋）（👤 為主；🤖 也可沿用）
+    refresh-token-expiration-ms: ${TOKEN_REFRESH_EXPIRATION:2592000000} # Refresh Token 的過期時間（30 天，支持覆蓋）（👤）
 
-jwt:
-  key:
-    id: ec-key-1       # 金鑰的唯一標識符 (Key ID, kid)，通常用於區分多個金鑰
-    curve: P-256       # 橢圓曲線 (Elliptic Curve, EC) 的類型，這裡使用的是 P-256 曲線（也稱為 secp256r1），
-                       # 它是一種常用的橢圓曲線，提供良好的性能和安全性，適合生成和驗證 JWT 簽名
-
+# KeyPairServiceImpl 使用的檔案儲存設定（DER）（簽章金鑰，👤/🤖 共用）
 key:
-  directory: ${KEY_DIRECTORY:keys/} # 金鑰存放目錄
-  private-file: ${KEY_PRIVATE_FILE:ec_private.key} # 私鑰文件名
-  public-file: ${KEY_PUBLIC_FILE:ec_public.key} # 公鑰文件名
+  directory: ${KEY_DIRECTORY:keys} # 金鑰存放目錄
+  private-file: ${KEY_PRIVATE_FILE:ec_private.der} # 私鑰文件名
+  public-file: ${KEY_PUBLIC_FILE:ec_public.der} # 公鑰文件名
 
+# 🤖 M2M 取 token：一定要帶上 :8080，否則簽發端/iss 不一致
 authn:
   token:
-    url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}
+    url: ${AUTHN_TOKEN_URL:http://api-gateway:8080/authn/oauth2/token} # 🤖 M2M token 發行端點（client_credentials）
 
-bizform: # BizForm 外部系統 API 配置
+bizform: # BizForm 外部系統 API 配置（外部交換，通常👤 起手）
   api:
     base-url: ${BIZFORM_API_BASE_URL:https://bizform.vikosmos.com} # BizForm API 基礎 URL
     login-endpoint: /Backend/api/account/login # 登錄端點
@@ -75,13 +74,6 @@ crm: # CRM 外部系統 API 配置
 app:
   cookie:
     domain: vitalext.com
-
-# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
-logging:
-  config: classpath:log4j2-logstash.xml
-
-test:
-  depot-id: cspsd_test
 
 springdoc:
   swagger-ui:

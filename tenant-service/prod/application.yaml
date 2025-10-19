@@ -1,0 +1,49 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        healthCheckUrl: http://tenant-service:${server.port}/actuator/health
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # ✅ 對齊 gateway / authn 的單一事實來源（本地 docker 也通）
+          issuer-uri: ${JWT_ISSUER_URI:http://api-gateway:8080/authn}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
+
+  datasource: # 數據源配置
+    url: jdbc:mysql://${MYSQL_HOST:}:${MYSQL_PORT:}/vcb_master # MySQL 地址
+    username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
+    password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
+    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
+
+  jpa: # JPA 和 Hibernate 配置
+    properties:
+      hibernate:
+        show_sql: false # 顯示 SQL 語句（開發環境開啟）
+        format_sql: false # 格式化 SQL 語句（開發環境開啟）
+    hibernate:
+      ddl-auto: none # 生產環境建議使用 none
+    open-in-view: false # 禁用 Open Session In View，以提升性能
+
+app:
+  security:
+    jwt:
+      # ✅ issuer 單一、精準
+      issuer: http://api-gateway:8080/authn                       # ✅ 必須與 token 的 iss 完全一致
+      # ✅ 新增：多 issuer 容忍（任一命中即可）
+      accepted-issuers: http://api-gateway:8080/authn,http://api-gateway/authn
+      # ✅ audience 只保留 route host（你的服務名）
+      accepted-audiences: api-gateway,http://api-gateway:8080,tenant-service  # ✅ 必須包含在 token 的 aud 陣列中
+
+# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
+logging:
+  config: classpath:log4j2-logstash.xml
+
+springdoc:
+  swagger-ui:
+    enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
+  api-docs:
+    path: /v3/tenant-docs  # 根據每個微服務設計自己的前綴

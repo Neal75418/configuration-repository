@@ -31,19 +31,16 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
 
   datasource: # 數據源配置
-    url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/vitalcasebridge # MySQL 地址
-    username: ${MYSQL_USERNAME:root} # 數據庫用戶名，動態化設置
+    host: ${MYSQL_HOST:}
+    port: ${MYSQL_PORT:}
+    username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
-    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
 
   jpa: # JPA 和 Hibernate 配置
     properties:
       hibernate:
         show_sql: true # 顯示 SQL 語句（開發環境開啟）
         format_sql: true # 格式化 SQL 語句（開發環境開啟）
-    hibernate:
-      ddl-auto: validate # 生產環境建議使用 none
-    open-in-view: false # 禁用 Open Session In View，以提升性能
 
   data:
     redis: # Redis 配置
@@ -77,13 +74,6 @@ provisioning:
       # 探針可記錄的 Request Body 最大位元組數（超過即截斷，避免被大包炸死）
       # @Value("${provisioning.intake.probe.maxBody:8192}")
       maxBody: 8192  # 8 KiB
-
-# 指定使用 log4j2-logstash.xml 作為 logging 設定檔，啟用 Logstash 輸出
-logging:
-  config: classpath:log4j2-logstash.xml
-
-test:
-  depot-id: cspsd_test
 
 springdoc:
   swagger-ui:

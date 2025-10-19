@@ -1,0 +1,30 @@
+server:
+  port: 8085
+
+spring:
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: true # 啟用負載均衡器的緩存功能
+    consul:
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}-${server.port}
+
+app:
+  security:
+    public-paths:
+      # 健康/監控（給 k8s 與 Prometheus）
+      - "/actuator/health"
+      - "/actuator/prometheus"
+      # 可選：如果你有對外看的版本資訊
+      - "/actuator/info"
+
+      # Swagger / OpenAPI —— 通常只在非 prod 開；若要在 prod 開，建議 behind VPN 或 GW 白名單
+      - "/swagger-ui.html"
+      - "/swagger-ui/**"
+      - "/v3/api-docs"
+      - "/v3/api-docs/**"
+      - "/v3/api-docs.yaml"
+      - "/v3/tenant-docs"
