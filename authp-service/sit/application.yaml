@@ -29,9 +29,9 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
 
   datasource: # 數據源配置
-    host: ${MYSQL_HOST:cb-mysql-tzuchi-uat.mysql.database.azure.com}
-    port: ${MYSQL_PORT:3306}
-    username: ${MYSQL_USERNAME:cbadmin} # 數據庫用戶名，動態化設置
+    host: ${MYSQL_HOST:}
+    port: ${MYSQL_PORT:}
+    username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
 
   jpa: # JPA 和 Hibernate 配置
