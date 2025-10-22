@@ -63,8 +63,7 @@ external:
 
 # 內部服務位址（👤/🤖 都可能呼叫）
 authp:
-  internal-base-url: http://authp-service
-  user-uri-prefix: /users
+  internal-base-url: http://authp-servic
 
 tenant:
   internal-base-url: http://tenant-service
