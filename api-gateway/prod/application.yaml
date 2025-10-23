@@ -19,12 +19,6 @@ spring:
               filters:
                 - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
 
-            # 授權檢查服務路由
-            - id: authz-service
-              uri: lb://authz-service # 負載均衡到 `authz-service`
-              predicates:
-                - Path=/authz/** # 匹配 /authz/ 開頭的請求
-
             # 權限處理服務路由
             - id: authp-service
               uri: lb://authp-service # 負載均衡到 `authp-service`
@@ -43,12 +37,6 @@ spring:
               predicates:
                 - Path=/tenant/** # 匹配 /tenant/ 開頭的請求
 
-            # 待辦事項服務路由
-            - id: todo-service
-              uri: lb://todo-service
-              predicates:
-                - Path=/todo/**
-
             # BizForm 服務路由
             - id: VitalBizFormService
               uri: lb://VitalBizFormService # 負載均衡到 `bizform-service`
@@ -63,7 +51,7 @@ spring:
               predicates:
                 - Path=/genogram/** # 匹配 /genogram/ 開頭的請求
 
-            # mail 服務路由
+            # Mail 服務路由
             - id: MailService
               uri: lb://MailService # 負載均衡到 `mail-service`
               predicates:
@@ -86,6 +74,12 @@ spring:
               uri: lb://PettyCashService # 負載均衡到 `petty-cash-service`
               predicates:
                 - Path=/petty-cash/** # 匹配 /petty-cash/ 開頭的請求
+
+            # 行政區同步服務路由
+            - id: GeoSyncService
+              uri: lb://GeoSyncService # 負載均衡到 `geo-sync-service`
+              predicates:
+                - Path=/geo-sync/** # 匹配 /geo-sync/ 開頭的請求
 
   data:
     redis:

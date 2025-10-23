@@ -38,6 +38,8 @@ springdoc:
         url: /reporting/swagger/v1/swagger.json
       - name: GSS.Vital.PettyCashService
         url: /petty-cash/swagger/v1/swagger.json
+      - name: GSS.Vital.GeoSyncService
+        url: /geo-sync/swagger/v1/swagger.json
 
 auth:
   service:
@@ -83,49 +85,47 @@ app:
     #              ➜ 適用於登入後可直接存取，但不需再進入 Spring Security 的路徑。
     # ------------------------------------------------------------
     permit-all:
-      # 👉 提供使用者以系統 JWT 換取 BizForm 專用 JWT
+      # # 👉 使用者以「系統使用者 JWT」交換取得 BizForm 專用 JWT（user-delegation）
       - /authn/oauth/token/exchange
+
+      # 👉 服務對服務（M2M）用「機器憑證」換取 內部服務存取 Token
       - /authn/oauth2/token
 
       # 👉 處理使用者登出，清除黑名單、Cookie 與快取資訊
       - /authn/oauth/logout
 
-      # 👉 提供 iframe 專用的 callback token，供外部畫面回打系統 API 使用
-      #     ⚠️ 須驗證系統 JWT，確認權限與租戶合法性
+      # 👉 提供 iframe 專用的 callback token，供外部畫面回打系統 API 使用 ⚠️ 須驗證系統 JWT，確認權限與租戶合法性
       - /authn/callback-token
 
-      # 👉 權限授權服務，包含角色、資源權限驗證等查詢操作
-      - /authz/**
-
-      # 👉 權限與租戶設定服務（建立、更新、刪除等）
+      # 👉 管理權限與租戶設定（建立、更新、刪除等）
       - /authp/**
 
-      # 👉 JWT 黑名單管理，支援黑名單查詢與快取同步
+      # 👉 管理 JWT 黑名單與快取同步
       - /blacklist/**
 
-      # 👉 租戶管理，租戶新增 查詢 更新 刪除 購物車訂單資料 資料庫連線管理 報表與統計
+      # 👉 管理租戶資訊、訂單與資料庫連線設定
       - /tenant/**
 
-      # 👉 Todo 管理 API（範例服務）
-      - /todo/**
-
-      # 👉 BizForm 提報、同步等專用 API，需驗系統 JWT 與角色、地區權限
+      # 👉 提報與同步 BizForm 表單資料，需驗系統 JWT 與權限
       - /bizform/**
 
-      # 👉 家系圖服務，包含成員關係管理與查詢
+      # 👉 管理與查詢家系圖成員關係
       - /genogram/**
 
-      # 👉 mail服務，發信功能
+      # 👉 發送系統通知與郵件
       - /mail/**
 
-      # 👉 territory服務，行政區功能
+      # 👉 管理與查詢責任區及行政區資料
       - /territory/**
 
-      # 👉 報表服務，報表生產與管理
+      # 👉 產製與查詢報表資料
       - /reporting/**
 
-      # 👉 零用金服務，零用金管理
+      # 👉 管理與核銷零用金資料
       - /petty-cash/**
+
+      # 👉 同步指定國家的行政區資料至租戶資料庫（tenant onboarding 專用）
+      - /geo-sync/**
 
 cors:
   allowed-origins:
