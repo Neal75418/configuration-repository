@@ -76,8 +76,8 @@ spring:
                 - Path=/petty-cash/** # 匹配 /petty-cash/ 開頭的請求
 
             # 行政區同步服務路由
-            - id: GeoSyncService
-              uri: lb://GeoSyncService # 負載均衡到 `geo-sync-service`
+            - id: geo-sync-service
+              uri: lb://geo-sync-service # 負載均衡到 `geo-sync-service`
               predicates:
                 - Path=/geo-sync/** # 匹配 /geo-sync/ 開頭的請求
 
