@@ -3,14 +3,13 @@ server:
 
 spring:
   cloud:
-    loadbalancer:
-      cache:
-        enabled: true # 啟用負載均衡器的緩存功能
     consul:
       discovery:
-        prefer-ip-address: true
-        service-name: ${spring.application.name}
-        instance-id: ${spring.application.name}-${server.port}
+        prefer-ip-address: true # 🌐 優先使用 IP 註冊與健康檢查
+        health-check-path: /actuator/health # ❤️ 健康檢查端點路徑
+        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}} # 🧭 服務 IP，優先用環境變數覆寫
+        service-name: ${spring.application.name}  # 🏷️ 服務名稱（註冊到 Consul）
+        instance-id: ${spring.application.name}-${server.port}  # 🔢 實例 ID，避免埠號衝突
 
   cache:
     caffeine:

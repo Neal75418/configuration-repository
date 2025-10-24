@@ -1,9 +1,10 @@
 spring:
   cloud:
-    consul:
-      discovery:
-        health-check-path: /actuator/health
-        ip-address: ${SERVICE_IP:127.0.0.1} # IP 地址，優先使用外部傳入的環境變數
+    loadbalancer:
+      cache:
+        ttl: 2s
+        caffeine.spec: expireAfterWrite=2s,maximumSize=5000
+      retry.enabled: false
 
     gateway:
       server:
