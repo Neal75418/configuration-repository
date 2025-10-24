@@ -1,9 +1,10 @@
 spring:
   cloud:
-    consul:
-      discovery:
-        healthCheckUrl: http://tenant-service:${server.port}/actuator/health
-        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+    loadbalancer:
+      cache:
+        ttl: 15s
+        caffeine:
+          spec: expireAfterWrite=15s,maximumSize=10000
 
   security:
     oauth2:
