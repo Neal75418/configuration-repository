@@ -1,4 +1,10 @@
 spring:
+  loadbalancer:
+    cache:
+      ttl: 15s                      # 🕒 LB 實例快取有效時間（預設 35 秒）
+      caffeine:
+        spec: expireAfterWrite=15s,maximumSize=10000  # ⚡ Caffeine 本地快取設定（容量與過期）
+
   data:
     redis:
       host: ${REDIS_HOST:auth_redis} # 動態化 Redis 主機，支持多環境配置
