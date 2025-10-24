@@ -1,9 +1,12 @@
 spring:
   cloud:
-    consul:
-      discovery:
-        healthCheckUrl: http://authn-service:${server.port}/actuator/health
-        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+    loadbalancer:
+      cache:
+        ttl: 5s
+        caffeine:
+          spec: expireAfterWrite=5s,maximumSize=15000
+      retry:
+        enabled: false
 
   security: # OAuth2 客戶端配置
     oauth2:

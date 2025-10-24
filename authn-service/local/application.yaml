@@ -1,9 +1,12 @@
 spring:
   cloud:
-    consul:
-      discovery:
-        health-check-path: /actuator/health
-        ip-address: ${SERVICE_IP:127.0.0.1}
+    loadbalancer:
+      cache:
+        ttl: 2s
+        caffeine:
+          spec: expireAfterWrite=2s,maximumSize=5000
+      retry:
+        enabled: false
 
   security: # OAuth2 客戶端配置（👤 使用者透過外部 SSO 登入）
     oauth2:
