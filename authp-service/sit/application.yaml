@@ -17,10 +17,11 @@ app:
 
 spring:
   cloud:
-    consul:
-      discovery:
-        healthCheckUrl: http://authp-service:${server.port}/actuator/health
-        ip-address: ${SERVICE_IP:${spring.cloud.client.ip-address}}
+    loadbalancer:
+      cache:
+        ttl: 20s                      # 🕒 LB 實例快取有效時間（預設 35 秒）
+        caffeine:
+          spec: expireAfterWrite=20s,maximumSize=15000  # ⚡ Caffeine 本地快取設定（容量與過期）
 
   security:
     oauth2:
