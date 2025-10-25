@@ -81,11 +81,6 @@ app:
       - "/actuator/health"        # 健康檢查 (readiness / liveness)
       - "/actuator/prometheus"    # Prometheus 指標
 
-      # ---------- 👤 用戶前置查詢 ----------
-#      - "/users/*/default-tenant"              # 取預設租戶（登入前呼叫）
-#      - "/users/*/details"                     # 取用戶詳情（建立 JWT 時用）
-#      - "/permissions/internal/permissions/*"  # 查詢使用者權限（建立快取用，登入流程會呼叫
-
       # ---------- 📄 Swagger / OpenAPI ----------
       - "/swagger-ui.html"        # Swagger UI
       - "/swagger-ui/**"          # Swagger 靜態資源
