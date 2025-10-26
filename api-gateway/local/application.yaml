@@ -11,14 +11,15 @@ spring:
         webflux:
           default-filters:
             - StripPrefix=1 # 移除路徑中的第一層前綴
+            - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
           routes:
             # 授權伺服器路由
             - id: authn-service
               uri: lb://authn-service # 通過負載均衡器指向 `authn-service`
               predicates:
                 - Path=/authn/** # 匹配以 /authn/ 開頭的請求路徑
-              filters:
-                - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
+#              filters:
+#                - RedirectUriValidationFilter # 自定義過濾器，用於檢查 `redirect_uri` 是否合法
 
             # 權限處理服務路由
             - id: authp-service
