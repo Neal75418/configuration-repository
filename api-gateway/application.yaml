@@ -40,6 +40,10 @@ springdoc:
       - name: GSS.Vital.GeoSyncService
         url: /geo-sync/swagger/v1/swagger.json
 
+gateway:
+  security:
+    refresh-token-path: /authn/oauth/refresh-token
+
 auth:
   service:
     base-url: ${AUTH_SERVICE_BASE_URL:lb://authn-service} # 動態配置授權服務 URL
