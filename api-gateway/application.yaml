@@ -75,7 +75,8 @@ app:
       - "/authn/oauth" # OAuth 驗證的跳轉路徑
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
-      - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # STAGING / PROD - 上線環境後端處理 OAuth 授權碼的回調端點
+      - "https://cb-svc-api.vitalcb.com/authn/oauth/callback"  # SIT - SIT環境後端處理 OAuth 授權碼的回調端點
+      - "https://cb-svc-api.vitalext.com/authn/oauth/callback" # UAT - UAT環境後端處理 OAuth 授權碼的回調端點
 
     # ------------------------------------------------------------
     # permit-all : 進入 Gateway 時「免 Spring-Security 認證」，
