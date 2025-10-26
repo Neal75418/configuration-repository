@@ -18,6 +18,9 @@ spring:
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
 
+jwt:
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
+
 springdoc:
   swagger-ui:
     enabled: false       # 關閉 Swagger UI 頁面（/swagger-ui.html），避免在生產環境暴露 API 文件
