@@ -72,8 +72,8 @@ app:
     query-path: /bizform/api/Documents/Query # BizForm 查詢 API 路徑
   security:
     redirect-validation-paths:
-      - "/authn/oauth/authorize" # 只有這個端點需要帶 redirect_uri
-      - "/oauth/authorize"       # 若 StripPrefix 之後還會命中這個，也列上
+      - "/authn/oauth/authorize" # 檢查 OAuth 授權「發起端點」；路徑尚未 StripPrefix（原始 /authn/...）
+      - "/oauth/authorize"       # 檢查 OAuth 授權「發起端點」；StripPrefix=1 之後實際進入過濾器的路徑
     allowed-redirect-uris:
       - "http://localhost:8080/authn/oauth/callback"           # DEV - 本地開發時 OAuth 授權回調端點（後端處理授權碼）
       - "https://cb-svc-api.vitalcb.com/authn/oauth/callback"  # SIT - SIT環境後端處理 OAuth 授權碼的回調端點
