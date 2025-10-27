@@ -64,6 +64,10 @@ external:
       connect-ms: 10000
       read-ms: 30000
 
+auth:
+  bootstrap:
+    secret: "S0m3$up3rS3cur3Str1ng"
+
 # 內部服務位址（👤/🤖 都可能呼叫）
 authp:
   internal-base-url: http://authp-service
