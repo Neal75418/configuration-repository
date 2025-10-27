@@ -109,6 +109,8 @@ app:
       - "/authn/oauth2/token"        # 給經過 Gateway 的呼叫
       - "/oauth2/token"              # 給直打 AuthN 的呼叫（StripPrefix 之後）
       - "/oauth/token/exchange"     # 系統 JWT 換 BizForm 專用 JWT
+      - "/oauth/token/exchange-bootstrap" # 佈建階段匿名呼叫
+      - "/authn/oauth/token/exchange-bootstrap" # 佈建階段匿名呼叫
       - "/oauth/token/exchange-callback"  # 給 API Gateway 換 token 用
       - "/oauth/logout"             # 👤 登出
       - "/oauth/refresh-token"      # 👤 以 refresh 換 access
