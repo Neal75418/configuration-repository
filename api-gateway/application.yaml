@@ -93,11 +93,6 @@ app:
       # # 👉 使用者以「系統使用者 JWT」交換取得 BizForm 專用 JWT（user-delegation）
       - /authn/oauth/token/exchange
 
-      # 👉 佈建階段：允許匿名呼叫以換取「無 depotId」的 BizForm Token
-      #    僅能用於建立站台，不能訪問任何 BizForm 資料。
-      #    ⚠️ 實際安全仍需配合 X-Bootstrap-Secret header 驗證。
-      - /authn/oauth/token/exchange-bootstrap
-
       # 👉 服務對服務（M2M）用「機器憑證」換取 內部服務存取 Token
       - /authn/oauth2/token
 
