@@ -69,13 +69,13 @@ authp:
   internal-base-url: http://authp-service
 
 tenant:
-  internal-base-url: http://tenant-service
-  api-prefix: /directory
-  api-paths:
-    users-tenants: /users/{userId}/tenants
-    tenant-by-id: /tenants/{tenantId}
-    tenant-user: /tenants/{tenantId}/users/{userId}
-    tenant-bizform: /tenants/{tenantId}/bizform
+  internal-base-url: http://tenant-service    # 🌐 內部 Tenant 服務基底 URL
+  api-prefix: /directory                      # 🛣️ API 前綴路徑
+  api-paths:                                  # 🔗 各功能端點設定
+    users-tenants: /users/{userId}/tenants    # 👥 查使用者可切換的租戶清單
+    tenant-by-id: /tenants/{tenantId}         # 🏷️ 依租戶 ID 查租戶詳情
+    tenant-user: /tenants/{tenantId}/users/{userId}   # 🔍 檢查使用者是否屬於租戶
+    tenant-bizform: /tenants/{tenantId}/bizform       # 🧩 查租戶的 BizForm depotid
 
 app:
   security:
