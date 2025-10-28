@@ -71,6 +71,11 @@ authp:
 tenant:
   internal-base-url: http://tenant-service
   api-prefix: /directory
+  api-paths:
+    users-tenants: /users/{userId}/tenants
+    tenant-by-id: /tenants/{tenantId}
+    tenant-user: /tenants/{tenantId}/users/{userId}
+    tenant-bizform: /tenants/{tenantId}/bizform
 
 app:
   security:
