@@ -16,7 +16,10 @@ spring:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
 jwt:
-  jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}  # 🔐 JWT 公鑰集 (JWK Set) 位置
+  jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}  # 🔐 公鑰集 JWK Set URI（驗簽用）
+  issuer: ${JWT_ISSUER:http://api-gateway:8080/authn}                           # 🏷️ JWT 簽發者（iss），需與 Token 內完全一致
+  clock-skew-seconds: 60                                                        # ⏱️ 容許的時鐘誤差（秒）
+  accepted-audiences: ${JWT_ACCEPTED_AUDIENCES:api-gateway}                     # 🎯 可接受的受眾（aud）
 
 app:
   security:
