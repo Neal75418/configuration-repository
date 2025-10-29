@@ -24,7 +24,6 @@ jwt:
 app:
   security:
     public-paths:
-      - "/blacklist/**"
       - "/actuator/health"
       - "/actuator/prometheus"
 
