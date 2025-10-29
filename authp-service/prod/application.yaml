@@ -57,6 +57,17 @@ spring:
           min-idle: 5         # 最小空閒連接數
           max-wait: 2000ms    # 連接等待時間
 
+vital:
+  api:
+    url: https://member.gsscloud.com/   # 🔐 Vital 帳號中心 API Base URL（結尾保留 /）
+
+invite-user-setting:
+  case-bridge-url: https://cb-svc-web.vitalext.com  # 🧭 啟用/重設後成功回跳到 CaseBridge
+  vital-login-url: https://member.gsscloud.com/cas/login?service=https://www.vikosmos.com/tw/&locale=zh  # 🔑 CAS 登入入口；service=回跳網址、locale=介面語系
+  invitation-subject: 邀請用戶        # ✉️ 邀請信主旨（可覆寫）
+  activation-subject: 開通用戶        # 🚀 啟用信主旨（可覆寫）
+  team-name: CaseBridge               # 👥 郵件中的團隊顯示名
+
 # ⚙️ CaseBridge | Tenant Provisioning 設定
 provisioning:
   intake:
