@@ -36,12 +36,13 @@ authn:
     url: ${AUTHN_TOKEN_URL:http://api-gateway/authn/oauth2/token}  # 發 token 端
 
   client:
-    id: ${AUTHN_CLIENT_ID:authp-service}                    # 在 AuthN 註冊的 client_id
-    secret: ${AUTHP_CLIENT_SECRET:dummy}                    # 用環境變數或 Secret 注入
-    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}         # secret | private_key_jwt（你用 secret）
-    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}             # header(Basic) | body(form)
-  audience: ${AUTHN_AUDIENCE:tenant-service}                # 這顆 token 要打的下游服務（ex: tenant-service）
-  scope: ${AUTHN_SCOPE:tenant.read tenant.bizform.read}     # 最小必要權限
+    id: ${AUTHN_CLIENT_ID:authp-service}                                 # 在 AuthN 註冊的 client_id
+    secret: ${AUTHP_CLIENT_SECRET:dummy}                                 # 用環境變數或 Secret 注入
+    auth-method: ${AUTHN_CLIENT_AUTH_METHOD:secret}                      # secret | private_key_jwt（你用 secret）
+    client-auth: ${AUTHN_CLIENT_AUTH_IN:header}                          # header(Basic) | body(form)
+  audience: ${AUTHN_AUDIENCE:tenant-service}
+  # ⬅️ 新增：把寫入 scope 一起給，避免拿 read-only token 打 PUT 被 403
+  scope: ${AUTHN_SCOPE:tenant.read tenant.bizform.read tenant.write}     # 最小必要權限
 
 authp:
   http:
@@ -57,8 +58,11 @@ external:
 
 # MultiTenant provider 透過 Gateway 取得 DBInfo
 gateway:
-  machine-token:
-    target: tenant-read  # 申請 M2M token 的 target_service（避免簽發端 fallback）
+  # ⬅️ 新增：讀寫各自 target
+  target-read: ${GATEWAY_MTOKEN_TARGET_READ:tenant-read}  # 申請 M2M token 的 target_service（避免簽發端 fallback）
+  target-write: ${GATEWAY_MTOKEN_TARGET_WRITE:tenant-write}
+  # ⬅️ 保留舊 key 做 fallback，相容舊版 MachineTokenProvider 讀法
+  target: ${GATEWAY_MTOKEN_TARGET:tenant-read}
   base-url: http://api-gateway:8080  # Gateway 基底位址
 
 tenant:
