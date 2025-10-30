@@ -58,11 +58,7 @@ external:
 
 # MultiTenant provider 透過 Gateway 取得 DBInfo
 gateway:
-  # ⬅️ 新增：讀寫各自 target
-  target-read: ${GATEWAY_MTOKEN_TARGET_READ:tenant-read}  # 申請 M2M token 的 target_service（避免簽發端 fallback）
-  target-write: ${GATEWAY_MTOKEN_TARGET_WRITE:tenant-write}
-  # ⬅️ 保留舊 key 做 fallback，相容舊版 MachineTokenProvider 讀法
-  target: ${GATEWAY_MTOKEN_TARGET:tenant-read}
+  target: tenant-read  # 申請 M2M token 的 target_service（避免簽發端 fallback）
   base-url: http://api-gateway:8080  # Gateway 基底位址
 
 tenant:
