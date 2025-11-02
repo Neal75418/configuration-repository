@@ -21,7 +21,7 @@ springdoc:
     disable-swagger-default-url: true   # 🛑 別打預設 /v3/api-docs，避免 404
     urlsPrimaryName: GSS.Vital.AuthPService  # 🎯 預設開啟這份規格
     tags-sorter: alpha                  # 🔤 Tag 依字母排序
-    operations-sorter: method           # 🧭 API 依 HTTP 方法排序（GET→POST→PUT→DELETE）
+    operations-sorter: method           # 🧭 API 依 HTTP 方法排序
     doc-expansion: none                 # 🧹 初始不展開，畫面清爽
     display-request-duration: true      # ⏱️ 顯示請求耗時
     filter: true                        # 🔎 UI 內建搜尋
