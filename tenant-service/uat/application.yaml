@@ -29,6 +29,14 @@ spring:
       ddl-auto: validate # 生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
 
+# ⚙️ Landlord API 組態
+landlord:
+  # 🔑 Bearer Token（從環境變數 LANDLORD_BEARER_TOKEN 讀取，預設空）
+  bearer-token: ${LANDLORD_BEARER_TOKEN:}
+  api:
+    # 🌐 API URL（可由環境變數 LANDLORD_API_URL 覆寫）
+    url: ${LANDLORD_API_URL:https://landlord1-ajdrekbneqaug9hp.japaneast-01.azurewebsites.net}
+
 app:
   security:
     jwt:
