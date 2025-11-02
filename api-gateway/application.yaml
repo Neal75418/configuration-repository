@@ -18,6 +18,14 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    disable-swagger-default-url: true   # 不去打 /v3/api-docs，避免 404
+    urlsPrimaryName: GSS.Vital.AuthNService  # 預設打開哪一份
+    tags-sorter: alpha                  # Tag 區塊字母排序（或用 method）
+    operations-sorter: method           # 同一 Tag 內以 HTTP 方法排序（GET→POST→PUT→DELETE）
+    doc-expansion: none                 # 初始不展開，乾淨
+    display-request-duration: true      # 右上角顯示請求耗時
+    filter: true                        # UI 內建搜尋
+    try-it-out-enabled: true            # 預設開放 Try it out
     urls:
       - name: GSS.Vital.AuthNService
         url: /authn/v3/authn-docs
