@@ -170,4 +170,4 @@ app:
       - "/v3/api-docs/**"         # OpenAPI 格式的後端文件 JSON
       - "/webjars/**"             # Swagger 相關依賴（JS / CSS 套件）
 
-      - "/api/demo/kafka/**"
+      - "authp/api/demo/kafka/**"
