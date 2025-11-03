@@ -9,6 +9,9 @@ multitenancy:
   bootstrap-tenant: "__BOOTSTRAP__"   # 啟動/非請求階段用這個固定值
 
 app:
+  security:
+    public-paths:
+      - "/api/demo/kafka/**"
   mt:
     allow-bootstrap-tenant: true            # 允許啟動期使用 bootstrap tenant
     jdbc:
