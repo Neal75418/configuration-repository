@@ -19,6 +19,11 @@ app:
       extra: ""
 
 spring:
+  profiles:
+    group:
+      local: kafka-demo
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
   cloud:
     loadbalancer:
       cache:
