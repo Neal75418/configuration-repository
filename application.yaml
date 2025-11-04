@@ -11,9 +11,6 @@ spring:
         health-check-timeout: 15s # 健康檢查超時
 
 management:
-  health:
-    kafka:
-      enabled: false
   endpoints:
     web:
       exposure:
