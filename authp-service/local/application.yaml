@@ -19,17 +19,17 @@ app:
       extra: ""
 
 spring:
-  profiles:
-    group:
-      local: kafka-demo
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
-  cloud:
-    loadbalancer:
-      cache:
-        ttl: 10s                      # 🕒 LB 實例快取有效時間（預設 35 秒）
-        caffeine:
-          spec: expireAfterWrite=10s,maximumSize=10000  # ⚡ Caffeine 本地快取設定（容量與過期）
+#  profiles:
+#    group:
+#      local: kafka-demo
+#  kafka:
+#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
+#  cloud:
+#    loadbalancer:
+#      cache:
+#        ttl: 10s                      # 🕒 LB 實例快取有效時間（預設 35 秒）
+#        caffeine:
+#          spec: expireAfterWrite=10s,maximumSize=10000  # ⚡ Caffeine 本地快取設定（容量與過期）
 
   security:
     oauth2:
