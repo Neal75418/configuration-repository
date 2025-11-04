@@ -38,8 +38,7 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/authn/jwks/publicKey}
 
   datasource:
-    host: ${MYSQL_HOST:localhost}
-    port: ${MYSQL_PORT:3306}
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/vcb_dev_tenant_33333333333343338333333333333333?connectionTimeZone=SERVER&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&cachePrepStmts=true&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048&sslMode=DISABLED&allowPublicKeyRetrieval=true}
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:Gss12345678}
 
