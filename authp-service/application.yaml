@@ -60,8 +60,8 @@ authp:
     timeout:
       connect-ms: 5000   # 連線建立逾時（毫秒）
       read-ms: 5000      # 讀取回應逾時（毫秒）
-  kafka:
-    example-topic: ${AUTHP_KAFKA_EXAMPLE_TOPIC:authp-demo-topic}
+#  kafka:
+#    example-topic: ${AUTHP_KAFKA_EXAMPLE_TOPIC:authp-demo-topic}
 
 external:
   http:
