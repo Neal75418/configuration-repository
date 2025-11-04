@@ -26,8 +26,7 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
   cloud:
     discovery:
-      # 指到 8081 的 readiness（Consul 直接打這個 URL）
-      health-check-url: http://${spring.cloud.client.ip-address}:8081/actuator/health/readiness
+      health-check-url: http://${spring.cloud.client.ip-address}:8081/actuator/health
     loadbalancer:
       cache:
         ttl: 10s                      # 🕒 LB 實例快取有效時間（預設 35 秒）
