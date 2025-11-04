@@ -25,8 +25,6 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
   cloud:
-    discovery:
-      health-check-url: http://${spring.cloud.client.ip-address}:8081/actuator/health
     loadbalancer:
       cache:
         ttl: 10s                      # 🕒 LB 實例快取有效時間（預設 35 秒）
