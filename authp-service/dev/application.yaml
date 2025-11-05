@@ -63,7 +63,7 @@ vital:
 
 invite-user-setting:
   case-bridge-url: https://cb-svc-web.vitalcb.com  # 🧭 啟用/重設後成功回跳到 CaseBridge
-  vital-login-url: https://member.vikosmos.com/cas/login?service=https://www.vikosmos.com/tw/&locale=zh  # 🔑 CAS 登入入口；service=回跳網址、locale=介面語系
+  vital-login-url: https://member.vikosmos.com/cas/login?service=https%3A%2F%2Fwww.vikosmos.com%2Ftw%2F&locale=zh  # 🔑 CAS 登入入口；service=回跳網址、locale=介面語系
   invitation-subject: 邀請用戶        # ✉️ 邀請信主旨（可覆寫）
   activation-subject: 開通用戶        # 🚀 啟用信主旨（可覆寫）
   team-name: CaseBridge               # 👥 郵件中的團隊顯示名
