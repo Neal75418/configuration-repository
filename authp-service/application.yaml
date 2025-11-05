@@ -84,6 +84,8 @@ internal:
     expected-audience: authp-service           # TenantFilter 用於判斷「內部 token」
 
 app:
+  kafka:
+    enabled: false  # 只在你有用 @ConditionalOnProperty(name="app.kafka.enabled") 時有用
   mt:
     jdbc:
       sslMode: REQUIRED                 # 在 local dev 檔覆寫為 DISABLED
