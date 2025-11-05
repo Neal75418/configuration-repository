@@ -15,17 +15,6 @@ spring:
     caffeine:
       spec: initialCapacity=100,maximumSize=500,expireAfterWrite=10m # Cache 初始容量、最大容量與過期時間配置
 
-#  kafka:
-#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-#    consumer:
-#      group-id: ${KAFKA_CONSUMER_GROUP_ID:authp-service}
-#      auto-offset-reset: earliest
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
   # 供 MultiTenant provider 取連線用（Boot 不直接管理 DataSource）
   datasource:
     host: ${MYSQL_HOST:}
@@ -100,5 +89,3 @@ app:
       - "/swagger-ui.html"        # Swagger UI
       - "/swagger-ui/**"          # Swagger 靜態資源
       - "/v3/authp-docs"          # AuthP 自訂 docs 入口
-
-      - "/api/demo/kafka/**"
