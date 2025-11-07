@@ -107,12 +107,12 @@ app:
 
     # AuthN 用：SecurityConfig 中放行的 API
     permit-all:
-      - "/authn/oauth2/token"        # 給經過 Gateway 的呼叫
-      - "/oauth2/token"              # 給直打 AuthN 的呼叫（StripPrefix 之後）
-      - "/oauth/token/exchange"     # 系統 JWT 換 BizForm 專用 JWT
-      - "/oauth/token/exchange-callback"  # 給 API Gateway 換 token 用
-      - "/oauth/logout"             # 👤 登出
-      - "/oauth/refresh-token"      # 👤 以 refresh 換 access
-      - "/oauth/me"                 # 👤 查詢自己
-      - "/callback-token"           # 👤 iframe/回調場景
-      - "/internal-token"           # 🤖 微服務 internal token（僅測試/內部）
+      - "/authn/oauth2/token"        # 🔑 給經過 Gateway 的呼叫（外部統一入口）
+      - "/oauth2/token"              # 🔑 直打 AuthN 的呼叫（StripPrefix 之後）
+      - "/oauth/token/exchange"      # 🔄 系統 JWT 換 BizForm 專用 JWT
+      - "/oauth/token/exchange-callback"  # 📨 API Gateway 換 token 後的回呼端點
+      - "/oauth/logout"              # 👋 登出（清除 Cookie 並加入黑名單）
+      - "/oauth/refresh-token"       # ♻️ 以 Refresh Token 換發 Access Token
+      - "/oauth/me"                  # 🧑‍💻 查詢目前使用者資訊
+      - "/oauth/switch-tenant"       # 🔄 切換租戶身份並重新簽發 JWT
+      - "/callback-token"            # 🪞 iframe / 前端跨域回調場景專用（傳遞臨時 Token）
