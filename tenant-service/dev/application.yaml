@@ -25,10 +25,6 @@ spring:
       hibernate:
         show_sql: false # 顯示 SQL 語句（開發環境開啟）
         format_sql: false # 格式化 SQL 語句（開發環境開啟）
-        # ⚙️ 讓連線池不再頻繁切換 autocommit（Hibernate 7 建議）
-        connection:
-          provider_disables_autocommit: true
-
         # 🚀 批次處理最佳化（多筆 INSERT/UPDATE 更快）
         jdbc:
           batch_size: 50
