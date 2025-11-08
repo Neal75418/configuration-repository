@@ -2,8 +2,6 @@ server:
   port: 8082
 
 spring:
-  jackson:
-    time-zone: UTC
   cloud:
     consul:
       discovery:
