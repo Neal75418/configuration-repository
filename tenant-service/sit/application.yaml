@@ -15,7 +15,7 @@ spring:
           jwk-set-uri: ${JWT_JWK_SET_URI:http://api-gateway:8080/authn/jwks/publicKey}
 
   datasource: # 數據源配置
-    url: jdbc:mysql://${MYSQL_HOST:}:${MYSQL_PORT:}/vcb_sit_master # MySQL 地址
+    url: jdbc:mysql://${MYSQL_HOST:}:${MYSQL_PORT:}/vcb_sit_master?rewriteBatchedStatements=true&useServerPrepStmts=true&cachePrepStmts=true&prepStmtCacheSize=256&prepStmtCacheSqlLimit=2048 # MySQL 地址
     username: ${MYSQL_USERNAME:} # 數據庫用戶名，動態化設置
     password: ${MYSQL_PASSWORD:} # 數據庫密碼，建議通過環境變數配置
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL 驅動類
@@ -25,6 +25,15 @@ spring:
       hibernate:
         show_sql: false # 顯示 SQL 語句（開發環境開啟）
         format_sql: false # 格式化 SQL 語句（開發環境開啟）
+        # ⚙️ 讓連線池不再頻繁切換 autocommit（Hibernate 7 建議）
+        connection:
+          provider_disables_autocommit: true
+
+        # 🚀 批次處理最佳化（多筆 INSERT/UPDATE 更快）
+        jdbc:
+          batch_size: 50
+        order_inserts: true     # 🧩 按表分組 INSERT
+        order_updates: true     # 🔄 按表分組 UPDATE
     hibernate:
       ddl-auto: validate # 生產環境建議使用 none
     open-in-view: false # 禁用 Open Session In View，以提升性能
